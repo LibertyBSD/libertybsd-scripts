@@ -11,6 +11,13 @@
 #       project.
 #########################
 
+# TODO:
+# * filedel
+# * linedel
+# * strdel
+# * add case in lineadd for instances where another line was added
+# * space (x)
+
 # Turns a file and it's path into a friendly filename
 # Usage: filetize $filepath
 filetize() {
@@ -32,7 +39,7 @@ rep() {
 
 # Inserts a new line after another
 # Usage: addline $string $newline $file
-addline() {
+lineadd() {
 	sed 's^'$1'^'$1'\n'$2'^' $3 > /tmp/$(filetize "$3")
 	diff $3 /tmp/$(filetize "$3") >> $PATCH_DIR/$(filetize "$3").patch
 }
@@ -44,3 +51,4 @@ apply() {
 		patch $realname < $file
 	done
 }
+
