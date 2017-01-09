@@ -15,6 +15,10 @@
 
 PATCH_DIR=/tmp/mate/
 
+# TODO:
+# * MOTD
+# * root.mail
+
 if [ -k $1 ]
 then
 	echo "Usage: src_rebrand.sh [source directory]"
@@ -50,7 +54,7 @@ done
 for arch in $(echo $arch_list)
 do
 	rep "${arch}-openbsd" "${arch}-libertybsd" distrib/sets/lists/base/md.$arch
-	addline "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/md.$arch
+	lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/md.$arch
 	rep "You will not be able to boot OpenBSD from \${1}." "You will not be able to boot LibertyBSD from \${1}." distrib/$arch/common/install.md
 done
 
@@ -60,14 +64,16 @@ do
 	rep "UNAME_SYSTEM=\`(uname -s) 2>/dev/null\`" "UNAME_SYSTEM=\`(echo OpenBSD) 2>/dev/null\`" gnu/${dir}/config.guess
 done
 
-# WORK ON vv
-addline "$(space 14) libertybsd) osname=libertybsd\n$(space 22) osvers=\"$3\"\n$(space 22) ;;" gnu/usr.bin/perl/Configure
+# lineadd "$(space 14) libertybsd) osname=libertybsd\n$(space 22) osvers=\"$3\"\n$(space 22) ;;" gnu/usr.bin/perl/Configure
+rep "openbsd) osname=openbsd" "libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
 rep "interix|dragonfly|bitrig" "libertybsd|interix|dragonfly|bitrig" gnu/usr.bin/perl/Configure
-rep "\$eMACHINE_ARCH}-openbsd" "\${MACHINE_ARCH}-libertybsd" gnu/usr.bin/perl/Makefile.bsd-wrapper
+rep "\$MACHINE_ARCH}-openbsd" "\${MACHINE_ARCH}-libertybsd" gnu/usr.bin/perl/Makefile.bsd-wrapper
 rep "dragonfly*|bitrig*" "libertybsd*|dragonfly*|bitrig*" gnu/usr.bin/perl/Makefile.SH
 
 rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c
 
+filerep etc/motd files/motd
+filerep etc/root/root.mail files/root.mail
 
 apply
