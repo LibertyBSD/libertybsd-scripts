@@ -1,0 +1,90 @@
+From deraadt@do-not-reply.openbsd.org Sun May  1 07:59:59 MST 2016
+Return-Path: root
+Date: May  1 07:59:59 MST 2016
+From: deraadt@do-not-reply.openbsd.org (Theo de Raadt)
+To: root
+Subject: Welcome to [LibertyBSD] 6.0!
+
+This message attempts to describe the most basic initial questions that a
+system administrator of a [LibertyBSD] box might have.  You are urged to save
+this message for later reference.
+
+For more information on how to set up your [LibertyBSD] system, refer to the
+"afterboot" man page (i.e. after you exit the mail subsystem, type
+"man afterboot").  If you are not familiar with how to read man pages, type
+"man man" at a shell prompt and read the entire thing.  Pay specific
+attention to the "man -k keyword" option, which will permit you to find the
+man page you are looking for more easily; for instance, "man -k ethernet".
+The GNU "info" subsystem is also installed with further documentation
+resources: to read info pages type "info".  (The info subsystem behaves like
+the popular emacs editor.)
+
+Again, PLEASE READ THE MANUAL PAGES.  [OpenBSD] developers have spent countless
+hours improving them so that they are clear and precise.
+
+If you have installed the X11 file sets during the install process, you can
+find further information regarding configuration in the file /usr/X11R6/README.
+
+Several popular binary packages (pre-compiled applications) are available
+for [the supported architectures.]
+
+[...]
+
+Significant efforts were made to centralize all system configuration in the
+/etc directory.  You should be able to find each of the configuration files
+you seek there, lightly documented.  In particular, much of the configuration
+has been centralized in the file /etc/rc.conf.  You should not need to ever
+edit the file /etc/rc.   The files /etc/rc.securelevel and /etc/rc.local exist
+for this purpose; the first is run before the system has gone into secure
+mode; the second is run afterwards (if in doubt, add your tools to rc.local).
+
+[LibertyBSD] is free software.  You can do with it as you like, subject to very few
+conditions (described at www.OpenBSD.org/policy.html).  But free software isn't
+written without money.  Network links, hardware costs, release engineering and
+testing work all take money and significant effort on the part of [those who
+have made OpenBSD, and, by doing so, LibertyBSD] what it is. [...] 
+For information on how you can help, please see
+www.OpenBSD.org/goals.html and visit www.OpenBSD.org/donations.html to see a
+list of those who have donated money, equipment, or other resources to ensure
+OpenBSD continues.
+
+------------------
+
+This message was written by Theo de Raadt, the founder and leader of OpenBSD.
+In order to prevent his statement being misrepresented, sections modified by
+LibertyBSD contributors are inside brackets.
+
+
+From faceless@do-not-reply.libertybsd.net Sun May  1 07:59:59 MST 2016
+Return-Path: root
+Date: May  1 07:59:59 MST 2016
+From: faceless@do-not-reply.libertybsd.net (...)
+To: root
+Subject: Some Additional Notes  
+
+LibertyBSD is an unofficial downstream of OpenBSD-- non-free firmware is 
+removed, and references to non-free software have been removed.
+As such-- and I can't stress this enough-- don't go bothering OpenBSD
+developers, users, or anyone that has to do with OpenBSD about issues or 
+bugs you encounter. 
+Please don't waste their time.
+If you believe you have found a legitimate bug, make sure it can be
+reproduced in OpenBSD before reporting it to the people I told you not to 
+bother.
+If you run into any issues, give us a holler at the #libertybsd Freenode 
+channel or with the sendbug(1) utility. If it's a software freedom issue
+(I.E. you've found something non-compliant with the FSDG in LibertyBSD),
+it's probably best if you holler louder. 
+
+If you'd like more information on Free Software or what the Free Software
+Distribution Guidelines (FSDG) entail, check the man pages free-software(7)
+and fsdg(7).
+ 
+If you'd like to support the brilliant hackers and contributors of OpenBSD
+as well as the project's development, please donate to the project or 
+foundation. I urge you to donate as much as you would spend on a certain
+popular proprietary operating system.
+http://www.openbsd.org/donations.html 
+http://www.openbsdfoundation.org/donations.html
+
+
