@@ -31,5 +31,7 @@ rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xdm/Makef
 rep "--with-bw-pixmap=OpenBSD" "--with-bw-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
 rep "/config/OpenBSD_" "/config/LibertyBSD_" app/xdm/Makefile.bsd-wrapper
 
+rep "/pixmaps/OpenBSD" "/pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
+
 lineadd "CONFIG_SITE=$(CONFIG_SITE)" "build_alias=\${arch}-unknown-openbsd6.0" app/xlockmore/Makefile.bsd-wrapper
 lineadd "\${CONFIGURE_ENV} PATH=\$(XENOCARA_PATH)" "build_alias=\${arch}-unknown-openbsd6.0" share/mk/bsd.xorg.mk
