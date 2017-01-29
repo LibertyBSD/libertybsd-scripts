@@ -11,14 +11,20 @@
 
 # Usage: sys_deblob.sh $SRC_DIR
 
-if [ -k $1 ]
+. ./libdeblob.sh
+
+PATCH_DIR=/tmp/sys_deblob
+
+
+if [ -e $PATCH_DIR ]
 then
-	echo "Usage: sys_deblob.sh [source directory]"
+        self_destruct_sequence $PATCH_DIR
 else
-	SRC_DIR="$1"
+        mkdir $PATCH_DIR
 fi
 
-arch_list="alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc miniroot octeon sgi socppc sparc sparc64 vax zaurus"
+#arch_list="alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc miniroot octeon sgi socppc sparc sparc64 vax zaurus"
+arch_list="amd64 i386"
 
 for arch in $arch_list 
 do
@@ -46,7 +52,7 @@ do
 	rep "fxp\*          at pci?" "#fxp\*          at pci?" arch/${arch}/conf/RAMDISK
 
 	rep "kue\*          at uhub?" "#kue\*          at uhub?" arch/${arch}/conf/RAMDISK_CD
-	rep "rum\*          at uhub?" "#rum\*          at uhub?" arch/${arch}/conf/RAMDSIK_CD
+	rep "rum\*          at uhub?" "#rum\*          at uhub?" arch/${arch}/conf/RAMDISK_CD
 	rep "zyd\*          at uhub?" "#zyd\*          at uhub?" arch/${arch}/conf/RAMDISK_CD
 	rep "ips\*          at pci?" "ips\*          at pci?" arch/${arch}/conf/RAMDISK_CD
 	rep "siop\*         at pci?" "#siop\*         at pci?" arch/${arch}/conf/RAMDISK_CD
@@ -83,7 +89,7 @@ filedel dev/microcode/udl
 filedel dev/microcode/yds
 filedel dev/microcode/zydas
 
-linedel "SUBDIR= afb atmel" dev/microcode/Makefile
+linedel "SUBDIR=" dev/microcode/Makefile
 linedel "symbol tigon tht" dev/microcode/Makefile
 
 filedel dev/pci/adv_pci.c
@@ -136,3 +142,5 @@ linedel "file  dev/pci/if_bnx.c" dev/pci/files.pci
 linedel "# Ralink RT2500 PCI/Mini-PCI" dev/pci/files.pci
 linedel "attach        ral at pci with ral_pci" dev/pci/files.pci
 linedel "file  dev/pci/if_ral_pci.c" dev/pci/files.pci
+
+apply

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ksh
 
 #########################
 # Name: libdeblob.sh
@@ -20,20 +20,20 @@ filetize() {
 # Vice-versa, clearly.
 # Usage: defiletize $filetizedpath
 unfiletize() {
-	echo $1 | sed 's|^|/|g'
+	echo $1 | sed 's|\^|/|g'
 }
 
 # Replace a string in a file
 # Usage: rep $replacee $replacer $file
 rep() {
-	if [ -e "/tmp/$(filetize "$3")" ]
+	if [ -e "$PATCH_DIR/$(filetize "$3")" ]
 	then
-		sed --posix 's^'$1'^'$2'^g' /tmp/$(filetize "$3") > /tmp/$(filetize "$3").tmp
-		mv /tmp/$(filetize "$3").tmp /tmp/$(filetize "$3")
-		diff $3 /tmp/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		sed 's^'"$1"'^'"$2"'^g' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
+		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
+		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
-		sed --posix 's^'$1'^'$2'^g' $3 > /tmp/$(filetize "$3")
-		diff $3 /tmp/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		sed 's^'"$1"'^'"$2"'^g' $3 > $PATCH_DIR/$(filetize "$3")
+		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 
 }
@@ -41,71 +41,89 @@ rep() {
 # Delete a string in a file
 # Usage: strdel $string $file
 strdel() {
-	if [ -e "/tmp/$(filetize "$2")" ]
-	then
-		sed 's^'$1'^^' /tmp/$(filetize "$2") > /tmp/$(filetize "$2").tmp
-		mv /tmp/$(filetize "$2").tmp /tmp/$(filetize "$2")
-		diff $2 /tmp/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
-	else
-		sed 's^'$1'^^' $2 > /tmp/$(filetize "$2")
-		diff $2 /tmp/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
-	fi
+	rep "$1" "" $2
 }
 
 # Inserts a new line after another
 # Usage: lineadd $string $newline $file
 lineadd() {
-	if [ -e "/tmp/$(filetize "$3")" ]
+	if [ -e "$PATCH_DIR/$(filetize "$3")" ]
 	then
-		sed 's^'$1'^'$1'\n'$2'^' /tmp/$(filetize "$3") > /tmp/$(filetize "$3").tmp
-		mv /tmp/$(filetize "$3").tmp /tmp/$(filetize "$3")
-		diff $3 /tmp/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		sed 's^'"$1"'^'"$1"' \
+'"$2"'^' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
+		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
+		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
-		sed 's^'$1'^'$1'\n'$2'^' $3 > /tmp/$(filetize "$3")
-		diff $3 /tmp/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		sed 's^'"$1"'^'"$1"'\
+'"$2"'^' $3 > $PATCH_DIR/$(filetize "$3")
+		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 }
 
 # Removes a line.
 # Usage linedel $string $file
 linedel() {
-	if [ -e "/tmp/$(filetize "$3")" ]
+	if [ -e "$PATCH_DIR/$(filetize "$2")" ]
 	then
-		grep -v "$1" /tmp/$(filetize "$2") > /tmp/$(filetize "$2").tmp
-		mv /tmp/$(filetize "$2").tmp /tmp/$(filetize "$2")
-		diff $2 /tmp/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
+		grep -v "$1" $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").tmp
+		mv $PATCH_DIR/$(filetize "$2").tmp $PATCH_DIR/$(filetize "$2")
+		diff $2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	else
-		grep -v "$1" $2 > /tmp/$(filetize "$2").tmp
-		diff $2 /tmp/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
+		grep -v "$1" $2 > $PATCH_DIR/$(filetize "$2")
+		diff $2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	fi
 }
 
 # "Copies" a file
-# Usage: filedel $file
+# Usage: filedel $file $dest
 filecp() {
-	cp $1 /tmp/ADD_$(filetize "$2")
+	cp $1 $PATCH_DIR/ADD_$(filetize "$2")
 }
 
 # "Deletes" a file
 # Usage: filedel $file
 filedel() {
-	touch /tmp/RM_$(filetize "$1")
+	touch $PATCH_DIR/RM_$(filetize "$1")
 }
 
 # Applies patches.
 apply() {
 	for file in $PATCH_DIR/*
 	do
-		realname=$(echo $file | sed 's^.*/^^')	# Still need unfiletizing?
+		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//')
+		realname="$(unfiletize "$realname")"
 
-		if echo "$file" | grep "^RM_" > /dev/null
+		if echo "$file" | grep "RM_" > /dev/null
 		then
-			rm $realname
-		elif echo "$file" | grep "^ADD_" > /dev/null
+			realname=$(echo "$realname" | sed 's/RM_//')
+			echo "Deleting $realname in three seconds..."
+			sleep 3
+			rm -rf $realname
+		elif echo "$file" | grep "ADD_" > /dev/null
 		then
+			realname=$(echo "$realname" | sed 's/ADD_//')
+			echo "Copying $file to $realname..."
 			cp $file $realname
-		else
-			patch $realname < $file
+		elif echo "$file" | grep ".patch$" > /dev/null
+		then
+			patch "$(echo $realname | sed 's/\.patch//')" < $file
 		fi
 	done
+}
+
+self_destruct_sequence() {
+	echo "$1 will be deleted in ten seconds."
+	echo "CTRL-C now to avoid this fate!"
+	echo "10"; sleep 1
+	echo "9"; sleep 1
+	echo "8"; sleep 1
+	echo "7"; sleep 1
+	echo "6"; sleep 1
+	echo "5"; sleep 1
+	echo "4"; sleep 1
+	echo "3"; sleep 1
+	echo "2"; sleep 1
+	echo "1"; sleep 1
+	printf "0\nDestruction!"
+	rm -rf "$1"
 }

@@ -11,14 +11,19 @@
 
 # Usage: sys_deblob.sh $SRC_DIR
 
-if [ -k $1 ]
+. ./libdeblob.sh
+
+PATCH_DIR=/tmp/sys_rebrand
+
+if [ -e $PATCH_DIR ]
 then
-	echo "Usage: sys_deblob.sh [source directory]"
+	self_destruct_sequence $PATCH_DIR
 else
-	SRC_DIR="$1"
+        mkdir $PATCH_DIR
 fi
 
-arch_list="alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc miniroot octeon sgi socppc sparc sparc64 vax zaurus"
+#arch_list="alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc miniroot octeon sgi socppc sparc sparc64 vax zaurus"
+arch_list="amd64 i386"
 
 for arch in $arch_list 
 do
@@ -27,3 +32,5 @@ done
 
 rep "ost=\"OpenBSD\"" "ost=\"LibertyBSD\"" conf/newvers.sh
 rep ">> OpenBSD/\" MACHINE" ">> LibertyBSD/\" MACHINE" stand/boot/boot.c
+
+apply

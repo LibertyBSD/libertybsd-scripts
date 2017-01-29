@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 #########################
 # Name: src_deblob.sh
@@ -9,15 +9,20 @@
 #       LBSD.
 #########################
 
-# Usage: src_deblob.sh $SRCE_DIR
+# Usage: src_deblob.sh
 
-if [ -k $1 ]
+. ./libdeblob.sh
+
+PATCH_DIR=/tmp/src_deblob
+
+if [ -e $PATCH_DIR ]
 then
-	echo "Usage: src_deblob.sh [source directory]"
+        self_destruct_sequence $PATCH_DIR
 else
-	SRC_DIR="$1"
+        mkdir $PATCH_DIR
 fi
 
+arch_list="amd64 i386"
 
 for arch in $arch_list # not all archs have ramdisk_cd... fix!
 do
@@ -43,53 +48,57 @@ do
 	linedel "\${DESTDIR}/etc/firmware/zd1211b" distrib/${arch}/ramdisk_cd/list.local
 done
 
+strdel "pkg_add fw_update" usr.sbin/pkg_add/Makefile
 strdel "fw_update" usr.sbin/pkg_add/Makefile
+linedel "FwUpdate.pm" usr.sbin/pkg_add/Makefile
+linedel "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
+lineadd "pkg_add pkg_info" "    pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 
 # Remove fw man pages and fw_update from base set, etc.
 for arch in $arch_list
 do
-	linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/sbin/fw_update" "distrib/sets/list/base/md.${arch}"
+	linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/sbin/fw_update" "distrib/sets/lists/base/md.${arch}"
 
-	linedel "./usr/share/man/man1/fw_update.1" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/acx.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/adw.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/adv.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/athn.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/bnx.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/bwi.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/drm.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/fxp.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/inteldrm.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/ips.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/ipw.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/iwi.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/iwm.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/iwn.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/kue.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/malo.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/myx.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/neo.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/otus.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/pgt.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/radeondrm.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/ral.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/rsu.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/rtwn.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/rum.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/siop.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/tht.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/thtc.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/ti.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/uath.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/udl.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/ulpt.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/upgt.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/urtwn.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/uvideo.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/wpi.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/yds.4" "distrib/sets/list/base/md.${arch}"
-	linedel "./usr/share/man/man4/zyd.4" "distrib/sets/list/base/md.${arch}"
+	linedel "./usr/share/man/man1/fw_update.1" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/acx.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/adw.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/adv.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/athn.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/bnx.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/bwi.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/drm.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/fxp.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/inteldrm.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/ips.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/ipw.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/iwi.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/iwm.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/iwn.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/kue.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/malo.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/myx.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/neo.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/otus.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/pgt.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/radeondrm.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/ral.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/rsu.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/rtwn.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/rum.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/siop.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/tht.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/thtc.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/ti.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/uath.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/udl.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/ulpt.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/upgt.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/urtwn.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/uvideo.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/wpi.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/yds.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/share/man/man4/zyd.4" "distrib/sets/lists/base/md.${arch}"
 done
 # Remove non-free fw man pages from their makefile
 fw_list="acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm iwn kue malo myx neo otus pgt ral"
@@ -105,8 +114,13 @@ linedel "MLINKS+=tht.4 thtc.4" share/man/man4/Makefile
 
 # Add Free Software-related man pages
 filecp files/fsdg.7 share/man/man7/fsdg.7
-filecp file/free-software.7 share/man/man7/free-software.7
+filecp files/free-software.7 share/man/man7/free-software.7
 rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " "environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
 rep "library-specs.7 mailaddr.7" "hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" share/man/man7/Makefile
-lineadd "./usr/share/man/man7/free-software.7" "./usr/share/man/man7/packages.7" distrib/sets/list/base/mi
-lineadd "./usr/share/man/man7/fsdg.7" "./usr/share/man/man7/packages.7" distrib/sets/list/base/mi
+lineadd "./usr/share/man/man7/free-software.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/base/mi
+lineadd "./usr/share/man/man7/fsdg.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/base/mi
+lineadd "man7/eqn.7" "./usr/share/man/man7/free-software.7" distrib/sets/lists/man/mi
+lineadd "man7/free-software.7" "./usr/share/man/man7/fsdg.7" distrib/sets/lists/man/mi
+linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
+
+apply
