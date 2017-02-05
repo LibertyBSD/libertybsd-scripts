@@ -23,6 +23,14 @@ else
         mkdir $PATCH_DIR
 fi
 
+if test -z $1
+then
+        SRC_DIR=/usr/src
+else
+        SRC_DIR=$1
+fi
+
+
 arch_list="amd64 i386"
 
 # Rebranding amd64 images
@@ -63,8 +71,8 @@ do
 	rep "UNAME_SYSTEM=\`(uname -s) 2>/dev/null\`" "UNAME_SYSTEM=\`(echo OpenBSD) 2>/dev/null\`" gnu/${dir}/config.guess
 done
 
-# lineadd "$(space 14) libertybsd) osname=libertybsd\n$(space 22) osvers=\"$3\"\n$(space 22) ;;" gnu/usr.bin/perl/Configure
-rep "openbsd) osname=openbsd" "libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
+lineadd "$(space 14) libertybsd) osname=libertybsd\n$(space 22) osvers=\"$3\"\n$(space 22) ;;" gnu/usr.bin/perl/Configure
+#rep "openbsd) osname=openbsd" "libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
 rep "interix|dragonfly|bitrig" "libertybsd|interix|dragonfly|bitrig" gnu/usr.bin/perl/Configure
 rep "dragonfly*|bitrig*" "libertybsd*|dragonfly*|bitrig*" gnu/usr.bin/perl/Makefile.SH
 rep "-openbsd" "-libertybsd" gnu/usr.bin/perl/Makefile.bsd-wrapper

@@ -23,6 +23,17 @@ unfiletize() {
 	echo $1 | sed 's|\^|/|g'
 }
 
+# Prints $1 number of spaces.
+# Usage: space $number
+space() {
+	i=0
+	while [ $i != $1 ]
+	do
+		printf " "
+		i=$((i+1))
+	done
+}
+
 # Replace a string in a file
 # Usage: rep $replacee $replacer $file
 rep() {
