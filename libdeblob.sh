@@ -32,7 +32,7 @@ rep() {
 		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
 		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
-		sed 's^'"$1"'^'"$2"'^g' $3 > $PATCH_DIR/$(filetize "$3")
+		sed 's^'"$1"'^'"$2"'^g' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
 		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 
@@ -49,13 +49,11 @@ strdel() {
 lineadd() {
 	if [ -e "$PATCH_DIR/$(filetize "$3")" ]
 	then
-		sed 's^'"$1"'^'"$1"' \
-'"$2"'^' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
+		sed 's^'"$1"'^'"$1"'\n'"$2"'^' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
 		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
 		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
-		sed 's^'"$1"'^'"$1"'\
-'"$2"'^' $3 > $PATCH_DIR/$(filetize "$3")
+		sed 's^'"$1"'^'"$1"'\n'"$2"'^' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
 		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 }
@@ -69,7 +67,7 @@ linedel() {
 		mv $PATCH_DIR/$(filetize "$2").tmp $PATCH_DIR/$(filetize "$2")
 		diff $2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	else
-		grep -v "$1" $2 > $PATCH_DIR/$(filetize "$2")
+		grep -v "$1" ${SRC_DIR}/${2} > $PATCH_DIR/$(filetize "$2")
 		diff $2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	fi
 }
@@ -90,12 +88,12 @@ filedel() {
 apply() {
 	for file in $PATCH_DIR/*
 	do
-		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//')
+		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//' | sed 's/^/'"$SRC_DIR"'/')
 		realname="$(unfiletize "$realname")"
 
 		if echo "$file" | grep "RM_" > /dev/null
 		then
-			realname=$(echo "$realname" | sed 's/RM_//')
+			realname=$(echo "$realname" | sed 's/RM_//' | sed 's/^/'"$SRC_DIR"'/')
 			echo "Deleting $realname in three seconds..."
 			sleep 3
 			rm -rf $realname
@@ -106,7 +104,7 @@ apply() {
 			cp $file $realname
 		elif echo "$file" | grep ".patch$" > /dev/null
 		then
-			patch "$(echo $realname | sed 's/\.patch//')" < $file
+			patch "$(echo $realname | sed 's/\.patch//' | sec 's/^/'"$SRC_DIR"'/')" < $file
 		fi
 	done
 }
