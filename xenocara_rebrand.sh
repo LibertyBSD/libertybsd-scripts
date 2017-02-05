@@ -9,14 +9,22 @@
 #       LBSD.
 #########################
 
-# Usage: src_deblob.sh $SRCE_DIR
+$PATCH_DIR=/tmp/xenocara_rebrand
 
-if [ -k $1 ]
+if [ -e $PATCH_DIR ]
 then
-	echo "Usage: xenocara_rebrand.sh [source directory]"
+        self_destruct_sequence $PATCH_DIR
 else
-	SRC_DIR="$1"
+        mkdir $PATCH_DIR
 fi
+
+if test -z $1
+then
+        SRC_DIR=/usr/src
+else
+        SRC_DIR=$1
+fi
+
 
 rep "OpenBSD __osrelease__" "LibertyBSD __osrelease" app/fvwm/sample.fvwmrc/system.fvwmrc
 rep "\*:OpenBSD:\*:)" "\*:LibertyBSD:\*:)" app/twm/config.guess
@@ -35,3 +43,5 @@ rep "/pixmaps/OpenBSD" "/pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
 
 lineadd "CONFIG_SITE=$(CONFIG_SITE)" "build_alias=\${arch}-unknown-openbsd6.0" app/xlockmore/Makefile.bsd-wrapper
 lineadd "\${CONFIGURE_ENV} PATH=\$(XENOCARA_PATH)" "build_alias=\${arch}-unknown-openbsd6.0" share/mk/bsd.xorg.mk
+
+apply

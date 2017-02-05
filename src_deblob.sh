@@ -22,6 +22,14 @@ else
         mkdir $PATCH_DIR
 fi
 
+if test -z $1
+then
+        SRC_DIR=/usr/src
+else
+        SRC_DIR=$1
+fi
+
+
 arch_list="amd64 i386"
 
 for arch in $arch_list # not all archs have ramdisk_cd... fix!
@@ -48,11 +56,10 @@ do
 	linedel "\${DESTDIR}/etc/firmware/zd1211b" distrib/${arch}/ramdisk_cd/list.local
 done
 
-strdel "pkg_add fw_update" usr.sbin/pkg_add/Makefile
+linedel "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
+rep "pkg_add fw_update" "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 strdel "fw_update" usr.sbin/pkg_add/Makefile
 linedel "FwUpdate.pm" usr.sbin/pkg_add/Makefile
-linedel "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
-lineadd "pkg_add pkg_info" "    pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 
 # Remove fw man pages and fw_update from base set, etc.
 for arch in $arch_list
@@ -105,7 +112,8 @@ fw_list="acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm iwn kue malo 
 fw_list="$fw_list radeondrm rsu rtwn rum siop tht thtc ti uath udl ulpt upgt urtwn uvideo wpi yds zyd"
 for man_blob in $fw_list
 do
-	strdel "${man_blob}.4" share/man/man4/Makefile
+	strdel " ${man_blob}.4" share/man/man4/Makefile
+	strdel "\^${man_blob}.4" share/man/man4/Makefile
 done
 
 linedel "MLINKS+=adv.4 adw.4" share/man/man4/Makefile

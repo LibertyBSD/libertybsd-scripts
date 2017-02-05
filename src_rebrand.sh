@@ -66,9 +66,10 @@ done
 # lineadd "$(space 14) libertybsd) osname=libertybsd\n$(space 22) osvers=\"$3\"\n$(space 22) ;;" gnu/usr.bin/perl/Configure
 rep "openbsd) osname=openbsd" "libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
 rep "interix|dragonfly|bitrig" "libertybsd|interix|dragonfly|bitrig" gnu/usr.bin/perl/Configure
-rep "\$MACHINE_ARCH}-openbsd" "\${MACHINE_ARCH}-libertybsd" gnu/usr.bin/perl/Makefile.bsd-wrapper
 rep "dragonfly*|bitrig*" "libertybsd*|dragonfly*|bitrig*" gnu/usr.bin/perl/Makefile.SH
+rep "-openbsd" "-libertybsd" gnu/usr.bin/perl/Makefile.bsd-wrapper
 filecp gnu/usr.bin/perl/hints/openbsd.sh gnu/usr.bin/perl/hints/libertybsd.sh
+
 
 rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c

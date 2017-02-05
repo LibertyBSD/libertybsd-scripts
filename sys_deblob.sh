@@ -23,6 +23,14 @@ else
         mkdir $PATCH_DIR
 fi
 
+if test -z $1
+then
+        SRC_DIR=/usr/src/sys
+else
+        SRC_DIR=$1
+fi
+
+
 #arch_list="alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc miniroot octeon sgi socppc sparc sparc64 vax zaurus"
 arch_list="amd64 i386"
 
