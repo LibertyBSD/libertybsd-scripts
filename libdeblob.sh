@@ -41,10 +41,10 @@ rep() {
 	then
 		sed 's^'"$1"'^'"$2"'^g' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
 		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
-		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
 		sed 's^'"$1"'^'"$2"'^g' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
-		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 
 }
@@ -62,10 +62,10 @@ lineadd() {
 	then
 		sed 's^'"$1"'^'"$1"'\n'"$2"'^' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
 		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
-		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
 		sed 's^'"$1"'^'"$1"'\n'"$2"'^' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
-		diff $3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
+		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 }
 
@@ -76,10 +76,11 @@ linedel() {
 	then
 		grep -v "$1" $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").tmp
 		mv $PATCH_DIR/$(filetize "$2").tmp $PATCH_DIR/$(filetize "$2")
-		diff $2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
+		diff ${SRC_DIR}/$2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	else
-		grep -v "$1" ${SRC_DIR}/${2} > $PATCH_DIR/$(filetize "$2")
-		diff $2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
+		echo otherwise
+		grep -v "$1" ${SRC_DIR}/$2 > $PATCH_DIR/$(filetize "$2")
+		diff ${SRC_DIR}/$2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	fi
 }
 
@@ -99,7 +100,7 @@ filedel() {
 apply() {
 	for file in $PATCH_DIR/*
 	do
-		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//' | sed 's/^/'"$SRC_DIR"'/')
+		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//')
 		realname="$(unfiletize "$realname")"
 
 		if echo "$file" | grep "RM_" > /dev/null
@@ -107,27 +108,37 @@ apply() {
 			realname=$(echo "$realname" | sed 's/RM_//' | sed 's/^/'"$SRC_DIR"'/')
 			echo "Deleting $realname in three seconds..."
 			sleep 3
-			rm -rf $realname
+			if rm -rf ${SRC_DIR}/$realname
+			then
+				echo "$realname deleted" >> apply.log
+			else
+				echo "!!! $realname NOT deleted" >> apply.log
+			fi
 		elif echo "$file" | grep "ADD_" > /dev/null
 		then
 			realname=$(echo "$realname" | sed 's/ADD_//')
 			echo "Copying $file to $realname..."
-			cp $file $realname
+			if cp $file ${SRC_DIR}/$realname
+			then
+				echo "$realname copied from $file" >> apply.log
+			else
+				echo "!!! $realname NOT copied from $file" >> apply.log
+			fi
 		elif echo "$file" | grep ".patch$" > /dev/null
 		then
-			patch "$(echo $realname | sed 's/\.patch//' | sec 's/^/'"$SRC_DIR"'/')" < $file
+			if patch "${SRC_DIR}/$(echo $realname | sed 's/\.patch//')" < $file
+			then
+				echo "${SRC_DIR}/$(echo $realname | sed 's/\.patch//') patched from $file" >> apply.log
+			else
+				echo "!!! ${SRC_DIR}/$(echo $realname | sed 's/\.patch//') NOT patched from $file" >> apply.log
+			fi
 		fi
 	done
 }
 
 self_destruct_sequence() {
-	echo "$1 will be deleted in ten seconds."
+	echo "$1 will be deleted in five seconds."
 	echo "CTRL-C now to avoid this fate!"
-	echo "10"; sleep 1
-	echo "9"; sleep 1
-	echo "8"; sleep 1
-	echo "7"; sleep 1
-	echo "6"; sleep 1
 	echo "5"; sleep 1
 	echo "4"; sleep 1
 	echo "3"; sleep 1

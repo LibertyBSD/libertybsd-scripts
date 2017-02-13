@@ -13,7 +13,7 @@
 
 . ./libdeblob.sh
 
-PATCH_DIR=/tmp/src_deblob
+PATCH_DIR=/tmp/src_deblob/
 
 if [ -e $PATCH_DIR ]
 then
@@ -24,11 +24,13 @@ fi
 
 if test -z $1
 then
-        SRC_DIR=/usr/src
+        SRC_DIR=/usr/src/
+	mkdir $SRC_DIR
 else
         SRC_DIR=$1
 fi
 
+echo $SRC_DIR
 
 arch_list="amd64 i386"
 
