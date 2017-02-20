@@ -72,7 +72,7 @@ do
 	rep "ral\*          at cardbus?" "#ral\*          at cardbus?" arch/${arch}/conf/RAMDISK_CD
 done
 
-filedel dev/microcode/adw
+filedel "dev/microcode/adw"
 filedel dev/microcode/afb
 filedel dev/microcode/atmel
 filedel dev/microcode/bnx

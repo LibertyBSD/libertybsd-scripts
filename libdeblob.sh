@@ -14,7 +14,7 @@
 # Turns a file and it's path into a friendly filename
 # Usage: filetize $filepath
 filetize() {
-	echo $1 | sed 's|/|^|g'
+	echo $1 | sed 's|/|\^|g'
 }
 
 # Vice-versa, clearly.
@@ -93,7 +93,8 @@ filecp() {
 # "Deletes" a file
 # Usage: filedel $file
 filedel() {
-	touch $PATCH_DIR/RM_$(filetize "$1")
+	echo $PATCH_DIR $1
+	touch $PATCH_DIR/RM_$(filetize $1)
 }
 
 # Applies patches.
@@ -106,6 +107,7 @@ apply() {
 		if echo "$file" | grep "RM_" > /dev/null
 		then
 			realname=$(echo "$realname" | sed 's/RM_//' | sed 's/^/'"$SRC_DIR"'/')
+			echo $realname $SRC_DIR
 			echo "Deleting $realname in three seconds..."
 			sleep 3
 			if rm -rf ${SRC_DIR}/$realname

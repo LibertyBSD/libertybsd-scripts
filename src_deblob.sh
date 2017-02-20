@@ -70,44 +70,71 @@ do
 	linedel "./usr/sbin/fw_update" "distrib/sets/lists/base/md.${arch}"
 
 	linedel "./usr/share/man/man1/fw_update.1" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/acx.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/adw.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/adv.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/athn.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/bnx.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/bwi.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/drm.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/fxp.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/inteldrm.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/ips.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/ipw.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/iwi.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/iwm.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/iwn.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/kue.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/malo.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/myx.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/neo.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/otus.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/pgt.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/radeondrm.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/ral.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/rsu.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/rtwn.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/rum.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/siop.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/tht.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/thtc.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/ti.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/uath.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/udl.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/ulpt.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/upgt.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/urtwn.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/uvideo.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/wpi.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/yds.4" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/share/man/man4/zyd.4" "distrib/sets/lists/base/md.${arch}"
+	linedel "./etc/firmware/4c9904" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/3c990-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-at76c503-i3863-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-at77c503-i3863-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-at76c503-rfmd-acc-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-at76c503-rfmd-acc-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-at76c505-rfmd-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-at76c505-rfmd-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-intersil-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-intersil-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-rfmd-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-rfmd-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-rfmd2958-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-rfmd2958-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-rfmd2958smc-ext" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/atu-rfmd2958smc-int" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/bnx-b06" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/bnx-b09" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/bnx-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/bnx-rv2p" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/bnx-xi-rv2p" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/bnx-xi90-rv2p" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/cs4280" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/cs4280-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-d101a" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-d101b0" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-d101ma" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-d101s" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-d102" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-d102c" "distrib/sets/lists/base/md.${arch}"
+	linedel "./etc/firmware/fxp-d102e" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/fxp-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/kue" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/kue-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/myx-eth_z8e" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/myx-ethp_z8e" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/myx-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/ral-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/ral-rt2561" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/ral-rt2561s" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/ral-rt2661" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/ral-rt2860" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/rum-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/rum-rt2573" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/run-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/run-rt2870" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/run-rt3071" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/symbol-eprim" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/symbol-esec" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/symbol-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tht" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tht-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tigon-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tigon1" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tigon2" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tusb3410" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/tusb3410-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/udl_huffman" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/yds" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/yds-license" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/zd1211" "distrib/sets/lists/base/md.${arch}"
+        linedel "./etc/firmware/zd1211-license" "distrib/sets/lists/base/md.${arch}"
+	linedel "./etc/firmware/zd1211b" "distrib/sets/lists/base/md.${arch}"
+
 done
 # Remove non-free fw man pages from their makefile
 fw_list="acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm iwn kue malo myx neo otus pgt ral"
@@ -116,21 +143,23 @@ for man_blob in $fw_list
 do
 	strdel " ${man_blob}.4" share/man/man4/Makefile
 	strdel "\^${man_blob}.4" share/man/man4/Makefile
+	linedel "${man_blob}.4" distrib/sets/lists/man/mi
 done
 
 linedel "MLINKS+=adv.4 adw.4" share/man/man4/Makefile
 linedel "MLINKS+=drm.4 inteldrm.4 drm.4 radeondrm.4" share/man/man4/Makefile
 linedel "MLINKS+=tht.4 thtc.4" share/man/man4/Makefile
 
+linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" distrib/sets/lists/base/mi
+linedel "./usr/sbin/fw_update" distrib/sets/lists/base/mi
+
 # Add Free Software-related man pages
 filecp files/fsdg.7 share/man/man7/fsdg.7
 filecp files/free-software.7 share/man/man7/free-software.7
 rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " "environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
 rep "library-specs.7 mailaddr.7" "hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" share/man/man7/Makefile
-lineadd "./usr/share/man/man7/free-software.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/base/mi
-lineadd "./usr/share/man/man7/fsdg.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/base/mi
-lineadd "man7/eqn.7" "./usr/share/man/man7/free-software.7" distrib/sets/lists/man/mi
-lineadd "man7/free-software.7" "./usr/share/man/man7/fsdg.7" distrib/sets/lists/man/mi
+lineadd "./usr/share/man/man7/free-software.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/man/mi
+lineadd "./usr/share/man/man7/fsdg.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/man/mi
 linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
 
 apply
