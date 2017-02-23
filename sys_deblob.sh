@@ -19,6 +19,7 @@ PATCH_DIR=/tmp/sys_deblob
 if [ -e $PATCH_DIR ]
 then
         self_destruct_sequence $PATCH_DIR
+	mkdir $PATCH_DIR
 else
         mkdir $PATCH_DIR
 fi
@@ -108,47 +109,25 @@ filedel dev/pci/esavar.h
 
 linedel "# AdvanSys 1200A, 1200B, and ULTRA SCSI controllers" dev/pci/files.pci
 linedel "# device declaration in sys/conf/files" dev/pci/files.pci
-linedel "attach        adv at pci with adv_pci" dev/pci/files.pci
-linedel "file  dev/pci/adv_pci.c" dev/pci/files.pci
-linedel "file  dev/ic/advlib.c" dev/pci/files.pci
-linedel "dev/microcode/adw/advmcode.c" dev/pci/files.pci
+linedel "adv_pci" dev/pci/files.pci
+linedel "adw_pci" dev/pci/files.pci
 linedel "# AdvanSys ULTRA WIDE SCSI controllers" dev/pci/files.pci
 linedel "# device declaration in sys/conf/files" dev/pci/files.pci
-linedel "attach        adw at pci with adw_pci" dev/pci/files.pci
-linedel "file  dev/pci/adw_pci.c" dev/pci/files.pci
-linedel "file  dev/ic/adwlib.c" dev/pci/files.pci
-linedel "file  dev/microcode/adw/adwmcode.c" dev/pci/files.pci
 linedel "# ESS Maestro3" dev/pci/files.pci
-linedel "device        esa: audio, ac97" dev/pci/files.pci
-linedel "attach        esa at pci" dev/pci/files.pci
-linedel "file  dev/pci/esa.c" dev/pci/files.pci
+linedel "esa" dev/pci/files.pci
 linedel "# Yamaha YMF Audio" dev/pci/files.pci
-linedel "device        yds {}: audio, ac97, firmload" dev/pci/files.pci
-linedel "attach        yds at pci" dev/pci/files.pci
-linedel "file  dev/pci/yds.c" dev/pci/files.pci
+linedel "yds" dev/pci/files.pci
 linedel "# NeoMagic 256AV and 256ZX" dev/pci/files.pci
-linedel "device        neo: audio, ac97, firmload" dev/pci/files.pci
-linedel "attach        neo at pci" dev/pci/files.pci
-linedel "file  dev/pci/neo.c" dev/pci/files.pci
+linedel "neo" dev/pci/files.pci
 linedel "# Intel EtherExpress PRO 10/100B" dev/pci/files.pci
-linedel "attach        fxp at pci with fxp_pci" dev/pci/files.pci
-linedel "file  dev/pci/if_fxp_pci.c" dev/pci/files.pci
+linedel "fxp_pci" dev/pci/files.pci
 linedel "# Tehuti Networks 10Gb Ethernet" dev/pci/files.pci
-linedel "device        thtc {}" dev/pci/files.pci
-linedel "attach        thtc at pci" dev/pci/files.pci
-linedel "device        tht: ether, ifnet, ifmedia, firmload" dev/pci/files.pci
-linedel "attach        tht at thtc" dev/pci/files.pci
-linedel "file  dev/pci/if_tht.c" dev/pci/files.pci
+linedel "thtc" dev/pci/files.pci
 linedel "# Myricom Myri-10G Ethernet" dev/pci/files.pci
-linedel "device        myx: ether, ifnet, ifmedia" dev/pci/files.pci
-linedel "attach        myx at pci" dev/pci/files.pci
-linedel "file  dev/pci/if_myx.c" dev/pci/files.pci
+linedel "myx" dev/pci/files.pci
 linedel "# Broadcom BCM570[68] gigabit ethernet" dev/pci/files.pci
-linedel "device        bnx: ether, ifnet, mii, ifmedia, mii_phy, firmload" dev/pci/files.pci
-linedel "attach        bnx at pci" dev/pci/files.pci
-linedel "file  dev/pci/if_bnx.c" dev/pci/files.pci
+linedel "bnx" dev/pci/files.pci
 linedel "# Ralink RT2500 PCI/Mini-PCI" dev/pci/files.pci
-linedel "attach        ral at pci with ral_pci" dev/pci/files.pci
-linedel "file  dev/pci/if_ral_pci.c" dev/pci/files.pci
+linedel "ral_pci" dev/pci/files.pci
 
 apply

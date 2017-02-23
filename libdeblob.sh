@@ -81,6 +81,7 @@ linedel() {
 		echo otherwise
 		grep -v "$1" ${SRC_DIR}/$2 > $PATCH_DIR/$(filetize "$2")
 		diff ${SRC_DIR}/$2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
+		echo otherhell
 	fi
 }
 
@@ -101,20 +102,23 @@ filedel() {
 apply() {
 	for file in $PATCH_DIR/*
 	do
-		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//')
+		realname=$(echo $file | sed 's^.*/^^' | sed 's/ADD_//' | sed 's/RM_//')
 		realname="$(unfiletize "$realname")"
 
 		if echo "$file" | grep "RM_" > /dev/null
 		then
-			realname=$(echo "$realname" | sed 's/RM_//' | sed 's/^/'"$SRC_DIR"'/')
-			echo $realname $SRC_DIR
+			realname=$(echo "$realname" | sed 's/RM_//')
 			echo "Deleting $realname in three seconds..."
-			sleep 3
+			echo "3"; sleep 1
+			echo "2"; sleep 1
+			echo "1"; sleep 1
 			if rm -rf ${SRC_DIR}/$realname
 			then
 				echo "$realname deleted" >> apply.log
+				echo "$realname deleted"
 			else
 				echo "!!! $realname NOT deleted" >> apply.log
+				echo "!!! $realname NOT deleted"
 			fi
 		elif echo "$file" | grep "ADD_" > /dev/null
 		then
