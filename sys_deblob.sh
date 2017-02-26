@@ -37,40 +37,33 @@ arch_list="amd64 i386"
 
 for arch in $arch_list 
 do
-	rep "kue\*  at uhub?" "#kue\*  at uhub?" arch/${arch}/conf/GENERIC
-	rep "rum\*  at uhub?" "#rum\*  at uhub?" arch/${arch}/conf/GENERIC
-	rep "zyd\*  at uhub?" "#rum\*  at uhub?" arch/${arch}/conf/GENERIC
-	rep "uvideo\*       at uhub?" "#uvideo\*       at uhub?" arch/${arch}/conf/GENERIC
-	rep "video\*        at uvideo?" "#video*        at uvideo?" arch/${arch}/conf/GENERIC
-	rep "udl\*  at uhub?" "#udl\*  at uhub?" arch/${arch}/conf/GENERIC
-	rep "wsdisplay\* at udl?" "#wsdisplay\* at udl?" arch/${arch}/conf/GENERIC
-	rep "ips\*  at pci?" "#ips\*  at pci?" arch/${arch}/conf/GENERIC
-	rep "siop\* at pci?" "#siop\* at pci?" arch/${arch}/conf/GENERIC
-	rep "adw\*  at pci?" "#adw\*  at pci?" arch/${arch}/conf/GENERIC
-	rep "fxp\*  at pci?" "#fxp\*  at pci?" arch/${arch}/conf/GENERIC
-	rep "fxp\*  at cardbus?" "#fxp\*  at cardbus?" arch/${arch}/conf/GENERIC
-	rep "myx\*  at pci?" "#myx\*  at pci?" arch/${arch}/conf/GENERIC
-	rep "bnx\*  at pci?" "#bnx\*  at pci?" arch/${arch}/conf/GENERIC
-	rep "thtc\* at pci?" "#thtc\* at pci?" arch/${arch}/conf/GENERIC
-	rep "tht\*  at thtc?" "#tht\*  at thtc?" arch/${arch}/conf/GENERIC
-	rep "ral\*  at pci?" "#ral\*  at pci?" arch/${arch}/conf/GENERIC
-	rep "ral\*  at cardbus?" "#ral\*  at cardbus?" arch/${arch}/conf/GENERIC
-	rep "yds\*  at pci?" "#yds*  at pci?" arch/${arch}/conf/GENERIC
-	rep "audio\*        at yds?" "#audio\*        at yds?" arch/${arch}/conf/GENERIC
+	linedel "kue\*" arch/${arch}/conf/GENERIC
+	linedel "rum\*" arch/${arch}/conf/GENERIC
+	linedel "zyd\*" arch/${arch}/conf/GENERIC
+	linedel "uvideo\?" arch/${arch}/conf/GENERIC
+	linedel "udl\*" arch/${arch}/conf/GENERIC
+	linedel "udl?" arch/${arch}/conf/GENERIC
+	linedel "ips\*" arch/${arch}/conf/GENERIC
+	linedel "siop\*" arch/${arch}/conf/GENERIC
+	linedel "adw" arch/${arch}/conf/GENERIC
+	linedel "fxp" arch/${arch}/conf/GENERIC
+	linedel "myx" arch/${arch}/conf/GENERIC
+	linedel "bnx" arch/${arch}/conf/GENERIC
+	linedel "thtc" arch/${arch}/conf/GENERIC
+	linedel "ral\*" arch/${arch}/conf/GENERIC
+	linedel "yds" arch/${arch}/conf/GENERIC
 	
-	rep "fxp\*          at pci?" "#fxp\*          at pci?" arch/${arch}/conf/RAMDISK
+	linedel "fxp\*" arch/${arch}/conf/RAMDISK
 
-	rep "kue\*          at uhub?" "#kue\*          at uhub?" arch/${arch}/conf/RAMDISK_CD
-	rep "rum\*          at uhub?" "#rum\*          at uhub?" arch/${arch}/conf/RAMDISK_CD
-	rep "zyd\*          at uhub?" "#zyd\*          at uhub?" arch/${arch}/conf/RAMDISK_CD
-	rep "ips\*          at pci?" "ips\*          at pci?" arch/${arch}/conf/RAMDISK_CD
-	rep "siop\*         at pci?" "#siop\*         at pci?" arch/${arch}/conf/RAMDISK_CD
-	rep "adw\*          at pci?" "#adw\*          at pci?" arch/${arch}/conf/RAMDISK_CD
-	rep "fxp\*          at pci?" "#fxp\*          at pci?" arch/${arch}/conf/RAMDISK_CD
-	rep "fxp\*          at cardbus?" "#fxp\*          at cardbus?" arch/${arch}/conf/RAMDISK_CD
-	rep "bnx\*          at pci?" "#bnx\*          at pci?" arch/${arch}/conf/RAMDISK_CD
-	rep "ral\*          at pci?" "#ral\*          at pci" arch/${arch}/conf/RAMDISK_CD
-	rep "ral\*          at cardbus?" "#ral\*          at cardbus?" arch/${arch}/conf/RAMDISK_CD
+	linedel "kue\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "rum\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "zyd\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "ips\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "siop\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "adw\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "fxp\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "bnx\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "ral\*" arch/${arch}/conf/RAMDISK_CD
 done
 
 filedel "dev/microcode/adw"

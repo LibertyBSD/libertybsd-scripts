@@ -79,7 +79,7 @@ linedel() {
 		diff ${SRC_DIR}/$2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 	else
 		echo otherwise
-		grep -v "$1" ${SRC_DIR}/$2 > $PATCH_DIR/$(filetize "$2")
+		grep -v "$1" "${SRC_DIR}/$2" > $PATCH_DIR/$(filetize "$2")
 		diff ${SRC_DIR}/$2 $PATCH_DIR/$(filetize "$2") > $PATCH_DIR/$(filetize "$2").patch
 		echo otherhell
 	fi
