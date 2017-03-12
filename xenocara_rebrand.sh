@@ -9,7 +9,7 @@
 #       LBSD.
 #########################
 
-$PATCH_DIR=/tmp/xenocara_rebrand
+PATCH_DIR=/tmp/xenocara_rebrand
 
 if [ -e $PATCH_DIR ]
 then
@@ -20,10 +20,12 @@ fi
 
 if test -z $1
 then
-        SRC_DIR=/usr/src
+        SRC_DIR=/usr/xenocara
 else
         SRC_DIR=$1
 fi
+
+. ./libdeblob.sh
 
 
 rep "OpenBSD __osrelease__" "LibertyBSD __osrelease" app/fvwm/sample.fvwmrc/system.fvwmrc
@@ -41,7 +43,7 @@ rep "/config/OpenBSD_" "/config/LibertyBSD_" app/xdm/Makefile.bsd-wrapper
 
 rep "/pixmaps/OpenBSD" "/pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
 
-lineadd "CONFIG_SITE=$(CONFIG_SITE)" "build_alias=\${arch}-unknown-openbsd6.0" app/xlockmore/Makefile.bsd-wrapper
-lineadd "\${CONFIGURE_ENV} PATH=\$(XENOCARA_PATH)" "build_alias=\${arch}-unknown-openbsd6.0" share/mk/bsd.xorg.mk
+lineadd "CONFIG_SITE=$(CONFIG_SITE)" "build_alias=\${arch}-unknown-openbsd6.1" app/xlockmore/Makefile.bsd-wrapper
+lineadd "\${CONFIGURE_ENV} PATH=\$(XENOCARA_PATH)" "build_alias=\${arch}-unknown-openbsd6.1" share/mk/bsd.xorg.mk
 
 apply
