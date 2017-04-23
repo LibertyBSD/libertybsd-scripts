@@ -60,11 +60,13 @@ strdel() {
 lineadd() {
 	if [ -e "$PATCH_DIR/$(filetize "$3")" ]
 	then
-		sed 's^'"$1"'^'"$1"'\n'"$2"'^' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
+		sed 's^'"$1"'^'"$1"' \
+'"$2"'^' $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").tmp
 		mv $PATCH_DIR/$(filetize "$3").tmp $PATCH_DIR/$(filetize "$3")
 		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	else
-		sed 's^'"$1"'^'"$1"'\n'"$2"'^' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
+		sed 's^'"$1"'^'"$1"' \
+'"$2"'^' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
 		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
 }
@@ -143,10 +145,8 @@ apply() {
 }
 
 self_destruct_sequence() {
-	echo "$1 will be deleted in five seconds."
+	echo "$1 will be deleted in three seconds."
 	echo "CTRL-C now to avoid this fate!"
-	echo "5"; sleep 1
-	echo "4"; sleep 1
 	echo "3"; sleep 1
 	echo "2"; sleep 1
 	echo "1"; sleep 1
