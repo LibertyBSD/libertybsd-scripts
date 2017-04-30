@@ -90,7 +90,7 @@ linedel() {
 # "Copies" a file
 # Usage: filedel $file $dest
 filecp() {
-	cp $1 $PATCH_DIR/ADD_$(filetize "$2")
+	cp "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 }
 
 # "Deletes" a file
