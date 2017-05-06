@@ -87,10 +87,26 @@ linedel() {
 	fi
 }
 
+# "Copies" a dir
+# Usage: dircp $file $dest
+dircp() {
+	if echo $1 | grep "^files/"
+	then
+		cp -r "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
+	else
+		cp -r "${SRC_DIR}/$1" "$PATCH_DIR/ADD_$(filetize "$2")"
+	fi
+}
+
 # "Copies" a file
 # Usage: filedel $file $dest
 filecp() {
-	cp "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
+	if echo $1 | grep "^files/"
+	then
+		cp "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
+	else
+		cp "${SRC_DIR}/$1" "$PATCH_DIR/ADD_$(filetize "$2")"
+	fi
 }
 
 # "Deletes" a file
