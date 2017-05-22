@@ -33,8 +33,6 @@ fi
 
 arch_list="amd64 i386"
 
-# Rebranding amd64 images
-
 rep "export OBSD=\"OpenBSD/\$ARCH \$VNAME\"" "export OBSD=\"LibertyBSD/\$ARCH \$VNAME\"" distrib/miniroot/dot.profile
 
 #iso_list="alpha amd64 hppa i386 sgi sparc sparc64 vax"
@@ -70,6 +68,12 @@ for dir in $dir_list
 do
 	rep "UNAME_SYSTEM=\`(uname -s) 2>/dev/null\`" "UNAME_SYSTEM=\`(echo OpenBSD) 2>/dev/null\`" gnu/${dir}/config.guess
 done
+
+dircp files/uname-obsd usr.bin/uname-obsd
+cp files/uname-obsd.1 ${PATCH_DIR}/$(filetize usr.bin/uname-obsd/uname-obsd.1)
+mv "${PATCH_DIR}/$(filetize usr.bin/uname-obsd)/uname.c" "${PATCH_DIR}/ADD_$(filetize usr.bin/uname-obsd)/uname-obsd.c"
+sed 's/u.sysname/"OpenBSD"/' ${PATCH_DIR}/ADD_$(filetize usr.bin/uname-obsd)/uname-obsd.c
+sed 's/uname/uname-obsd/' ${PATCH_DIR}/ADD_$(filetize usr.bin/uname-obsd)/Makefile
 
 lineadd "openbsd) osname=openbsd" "$(space 15) libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
 lineadd "openbsd) osname=openbsd" "$(space 23) ;;" gnu/usr.bin/perl/Configure
