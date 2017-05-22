@@ -92,8 +92,10 @@ linedel() {
 dircp() {
 	if echo $1 | grep "^files/"
 	then
+		echo "FILES"
 		cp -r "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	else
+		echo "NO FILES"
 		cp -r "${SRC_DIR}/$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	fi
 }
@@ -103,8 +105,10 @@ dircp() {
 filecp() {
 	if echo $1 | grep "^files/"
 	then
+		echo "FILES"
 		cp "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	else
+		echo "FILES"
 		cp "${SRC_DIR}/$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	fi
 }
@@ -126,10 +130,7 @@ apply() {
 		if echo "$file" | grep "RM_" > /dev/null
 		then
 			realname=$(echo "$realname" | sed 's/RM_//')
-			echo "Deleting $realname in three seconds..."
-			echo "3"; sleep 1
-			echo "2"; sleep 1
-			echo "1"; sleep 1
+			echo "Deleting $realname..."
 			if rm -rf ${SRC_DIR}/$realname
 			then
 				echo "$realname deleted" >> apply.log
@@ -142,7 +143,7 @@ apply() {
 		then
 			realname=$(echo "$realname" | sed 's/ADD_//')
 			echo "Copying $file to $realname..."
-			if cp $file ${SRC_DIR}/$realname
+			if cp -r $file ${SRC_DIR}/$realname
 			then
 				echo "$realname copied from $file" >> apply.log
 			else
