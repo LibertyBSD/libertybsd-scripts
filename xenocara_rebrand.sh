@@ -41,10 +41,21 @@ rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xdm/Makef
 rep "--with-bw-pixmap=OpenBSD" "--with-bw-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
 rep "/config/OpenBSD_" "/config/LibertyBSD_" app/xdm/Makefile.bsd-wrapper
 
-rep "/pixmaps/OpenBSD" "/pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
+rep "BITMAPDIR/\*\*//OpenBSD" "BITMAPDIR/**//LibertyBSD" app/xenodm/config/Xresources.cpp
+rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xenodm/Makefile.bsd-wrapper
+rep "--with-bw-pixmap=OpenBSD" "--with-bw-pixmap=LibertyBSD" app/xenodm/Makefile.bsd-wrapper
+rep "/config/OpenBSD_" "/config/LibertyBSD_" app/xenodm/Makefile.bsd-wrapper
+rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Makefile.am
+rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Makefile.in
 
-lineadd "CONFIG_SITE=\$(CONFIG_SITE) \\" "build_alias=amd64-unknown-openbsd6.1 \\" app/xlockmore/Makefile.bsd-wrapper
-lineadd "\${CONFIGURE_ENV} PATH=\$(XENOCARA_PATH) \\" "build_alias=amd64-unknown-openbsd6.1 \\" share/mk/bsd.xorg.mk
+rep "pixmaps/OpenBSD" "pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
+
+lineadd "*:OpenBSD:*:*)" "*:LibertyBSD:*:*)" font/util/config.guess
+lineadd "*:OpenBSD:*:*)" "        exit ;;" font/util/config.guess
+lineadd "*:OpenBSD:*:*)" "        echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" font/util/config.guess
+lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" font/util/config.guess
+rep "sh " "build_alias=amd64-unknown-openbsd6.1  sh " app/xlockmore/Makefile.bsd-wrapper
+rep "exec sh " "build_alias=amd64-unknown-openbsd6.1  exec sh " share/mk/bsd.xorg.mk
 
 apply
 
