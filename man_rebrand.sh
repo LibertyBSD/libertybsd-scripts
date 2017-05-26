@@ -59,31 +59,6 @@ linedel "There are also mailing lists in place" share/man/man1/help.1
 #rep "OpenBSD
 
 
-lbsd_replace() {
-	bnumbers="0 1 2 3 4 5" # X.x
-	snumbers="0 1 2 3 4 5 6 7 8 9" #x.X
-	for bnumber in $bnumbers
-	do
-		for snumber in $snumbers
-		do
-			version="$bnumber.$snumber"
-			if [ "$version" == "5.6" ] || [ "$version" == "5.8" ] || [ "$version" == "5.9" ] || [ "$version" == "6.1" ]
-			then
-				echo "Nenion fari." > /dev/null
-			else
-				echo "LibertyBSD $version"
-				echo "$1"
-				if grep "LibertyBSD $version" $1
-				then
-					rep "LibertyBSD $version " ".Ox $version" "$2"
-					rep "LibertyBSD $version" ".Ox $version" "$2"
-				fi
-			fi
-		done
-	done
-}
-
-
 ox_replace() {
 	for file in ${SRC_DIR}/$1/*
 	do
