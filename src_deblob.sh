@@ -70,7 +70,6 @@ do
 	linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" "distrib/sets/lists/base/md.${arch}"
 	linedel "./usr/sbin/fw_update" "distrib/sets/lists/base/md.${arch}"
 
-	linedel "./usr/share/man/man1/fw_update.1" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/4c9904" "distrib/sets/lists/base/md.${arch}"
         linedel "./etc/firmware/3c990-license" "distrib/sets/lists/base/md.${arch}"
         linedel "./etc/firmware/atu-at76c503-i3863-ext" "distrib/sets/lists/base/md.${arch}"

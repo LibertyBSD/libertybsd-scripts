@@ -47,3 +47,6 @@ lineadd "CONFIG_SITE=\$(CONFIG_SITE) \\" "build_alias=amd64-unknown-openbsd6.1 \
 lineadd "\${CONFIGURE_ENV} PATH=\$(XENOCARA_PATH) \\" "build_alias=amd64-unknown-openbsd6.1 \\" share/mk/bsd.xorg.mk
 
 apply
+
+# TODO: Add the config.guess for font/utils, fix the above xlockmore and bsd.xorg.mk
+# 	Check out the pixmaps. Interesting enough.

@@ -59,7 +59,6 @@ done
 for arch in $(echo $arch_list)
 do
 	rep "${arch}-openbsd" "${arch}-libertybsd" distrib/sets/lists/base/md.$arch
-	lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/md.$arch
 	rep "You will not be able to boot OpenBSD from \${1}." "You will not be able to boot LibertyBSD from \${1}." distrib/$arch/common/install.md
 done
 
@@ -70,10 +69,8 @@ do
 done
 
 dircp files/uname-obsd usr.bin/uname-obsd
-cp files/uname-obsd.1 ${PATCH_DIR}/$(filetize usr.bin/uname-obsd/uname-obsd.1)
-mv "${PATCH_DIR}/$(filetize usr.bin/uname-obsd)/uname.c" "${PATCH_DIR}/ADD_$(filetize usr.bin/uname-obsd)/uname-obsd.c"
-sed 's/u.sysname/"OpenBSD"/' ${PATCH_DIR}/ADD_$(filetize usr.bin/uname-obsd)/uname-obsd.c
-sed 's/uname/uname-obsd/' ${PATCH_DIR}/ADD_$(filetize usr.bin/uname-obsd)/Makefile
+lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/mi
+rep "uname" "uname uname-obsd" usr.bin/Makefile
 
 lineadd "openbsd) osname=openbsd" "$(space 15) libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
 lineadd "openbsd) osname=openbsd" "$(space 23) ;;" gnu/usr.bin/perl/Configure
