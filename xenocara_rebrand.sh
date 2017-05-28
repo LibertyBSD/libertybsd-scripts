@@ -40,6 +40,11 @@ filecp files/LibertyBSD_1bpp.xpm app/xdm/config/LibertyBSD_1bpp.xpm
 filecp files/LibertyBSD_4bpp.xpm app/xdm/config/LibertyBSD_4bpp.xpm
 filecp files/LibertyBSD_8bpp.xpm app/xdm/config/LibertyBSD_8bpp.xpm
 
+filecp files/LibertyBSD_15bpp.xpm app/xenodm/config/LibertyBSD_15bpp.xpm
+filecp files/LibertyBSD_1bpp.xpm app/xenodm/config/LibertyBSD_1bpp.xpm
+filecp files/LibertyBSD_4bpp.xpm app/xenodm/config/LibertyBSD_4bpp.xpm
+filecp files/LibertyBSD_8bpp.xpm app/xenodm/config/LibertyBSD_8bpp.xpm
+
 rep "BITMAPDIR/\*\*//OpenBSD" "BITMAPDIR/**//LibertyBSD" app/xdm/config/Xresources.cpp
 rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
 rep "--with-bw-pixmap=OpenBSD" "--with-bw-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
