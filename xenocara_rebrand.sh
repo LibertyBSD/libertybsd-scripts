@@ -28,8 +28,12 @@ fi
 . ./libdeblob.sh
 
 
-rep "OpenBSD __osrelease__" "LibertyBSD __osrelease" app/fvwm/sample.fvwmrc/system.fvwmrc
-rep "\*:OpenBSD:\*:)" "\*:LibertyBSD:\*:)" app/twm/config.guess
+rep "OpenBSD __osrelease__" "LibertyBSD __osrelease__" app/fvwm/sample.fvwmrc/system.fvwmrc
+rep "Geometry 80x60" "Geometry 90x65" app/fvwm/sample.fvwmrc/system.fvwmrc
+lineadd "\*:OpenBSD:\*:)" "\*:LibertyBSD:\*:)" app/twm/config.guess
+lineadd "\*:OpenBSD:\*:)" "exit;;" app/twm/config.guess
+lineadd "\*:OpenBSD:\*:)" "echo \${UNAME_MACHINE_ARCH}-unknown-oepnbsd\${UNAME_RELEASE}" app/twm/config.guess
+lineadd "\*:OpenBSD:\*:)" "UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" app/twm/config.guess
 
 filecp files/LibertyBSD_15bpp.xpm app/xdm/config/LibertyBSD_15bpp.xpm
 filecp files/LibertyBSD_1bpp.xpm app/xdm/config/LibertyBSD_1bpp.xpm
@@ -54,10 +58,7 @@ lineadd "*:OpenBSD:*:*)" "*:LibertyBSD:*:*)" font/util/config.guess
 lineadd "*:OpenBSD:*:*)" "        exit ;;" font/util/config.guess
 lineadd "*:OpenBSD:*:*)" "        echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" font/util/config.guess
 lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" font/util/config.guess
-rep "sh " "build_alias=amd64-unknown-openbsd6.1  sh " app/xlockmore/Makefile.bsd-wrapper
-rep "exec sh " "build_alias=amd64-unknown-openbsd6.1  exec sh " share/mk/bsd.xorg.mk
+rep "sh " "build_alias=\${UNAME_MACHINE_ARCH}-unknown-openbsd6.1  sh " app/xlockmore/Makefile.bsd-wrapper
+rep "exec sh " "build_alias=\${UNAME_MACHINE_ARCH}-unknown-openbsd6.1  exec sh " share/mk/bsd.xorg.mk
 
 apply
-
-# TODO: Add the config.guess for font/utils, fix the above xlockmore and bsd.xorg.mk
-# 	Check out the pixmaps. Interesting enough.
