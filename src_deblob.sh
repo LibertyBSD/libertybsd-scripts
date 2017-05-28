@@ -64,7 +64,6 @@ strdel "fw_update.1" usr.sbin/pkg_add/Makefile
 strdel "fw_update" usr.sbin/pkg_add/Makefile
 linedel "FwUpdate.pm" usr.sbin/pkg_add/Makefile
 
-# Remove fw man pages and fw_update from base set, etc.
 for arch in $arch_list
 do
 	linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" "distrib/sets/lists/base/md.${arch}"
@@ -139,14 +138,5 @@ done
 
 linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" distrib/sets/lists/base/mi
 linedel "./usr/sbin/fw_update" distrib/sets/lists/base/mi
-
-# Add Free Software-related man pages
-filecp files/fsdg.7 share/man/man7/fsdg.7
-filecp files/free-software.7 share/man/man7/free-software.7
-rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " "environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
-rep "library-specs.7 mailaddr.7" "hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" share/man/man7/Makefile
-lineadd "./usr/share/man/man7/free-software.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/man/mi
-lineadd "./usr/share/man/man7/fsdg.7" "./usr/share/man/man7/packages.7" distrib/sets/lists/man/mi
-linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
 
 apply
