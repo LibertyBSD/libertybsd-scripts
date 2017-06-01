@@ -70,6 +70,7 @@ done
 
 dircp files/uname-obsd usr.bin/uname-obsd
 lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/mi
+rep "uname " "uname" distrib/sets/lists/base/mi
 rep "uname" "uname uname-obsd" usr.bin/Makefile
 
 lineadd "openbsd) osname=openbsd" "$(space 15) libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure

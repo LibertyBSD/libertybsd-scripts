@@ -99,5 +99,7 @@ rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " "environ.7 free-softwar
 rep "library-specs.7 mailaddr.7" "hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" share/man/man7/Makefile
 lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/fsdg.7" distrib/sets/lists/man/mi
 lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/free-software.7" distrib/sets/lists/man/mi
+rep "eqn.7 " "eqn.7" distrib/sets/lists/man/mi
+rep "free-software.7 " "free-software.7" distrib/sets/lists/man/mi
 
 apply
