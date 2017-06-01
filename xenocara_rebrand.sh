@@ -32,18 +32,18 @@ rep "OpenBSD __osrelease__" "LibertyBSD __osrelease__" app/fvwm/sample.fvwmrc/sy
 rep "Geometry 80x60" "Geometry 90x65" app/fvwm/sample.fvwmrc/system.fvwmrc
 lineadd "\*:OpenBSD:\*:)" "\*:LibertyBSD:\*:)" app/twm/config.guess
 lineadd "\*:OpenBSD:\*:)" "exit;;" app/twm/config.guess
-lineadd "\*:OpenBSD:\*:)" "echo \${UNAME_MACHINE_ARCH}-unknown-oepnbsd\${UNAME_RELEASE}" app/twm/config.guess
+lineadd "\*:OpenBSD:\*:)" "echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" app/twm/config.guess
 lineadd "\*:OpenBSD:\*:)" "UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" app/twm/config.guess
 
-filecp files/LibertyBSD_15bpp.xpm app/xdm/config/LibertyBSD_15bpp.xpm
-filecp files/LibertyBSD_1bpp.xpm app/xdm/config/LibertyBSD_1bpp.xpm
-filecp files/LibertyBSD_4bpp.xpm app/xdm/config/LibertyBSD_4bpp.xpm
-filecp files/LibertyBSD_8bpp.xpm app/xdm/config/LibertyBSD_8bpp.xpm
+filecp files/pixmaps/LibertyBSD_15bpp.xpm app/xdm/config/LibertyBSD_15bpp.xpm
+filecp files/pixmaps/LibertyBSD_1bpp.xpm app/xdm/config/LibertyBSD_1bpp.xpm
+filecp files/pixmaps/LibertyBSD_4bpp.xpm app/xdm/config/LibertyBSD_4bpp.xpm
+filecp files/pixmaps/LibertyBSD_8bpp.xpm app/xdm/config/LibertyBSD_8bpp.xpm
 
-filecp files/LibertyBSD_15bpp.xpm app/xenodm/config/LibertyBSD_15bpp.xpm
-filecp files/LibertyBSD_1bpp.xpm app/xenodm/config/LibertyBSD_1bpp.xpm
-filecp files/LibertyBSD_4bpp.xpm app/xenodm/config/LibertyBSD_4bpp.xpm
-filecp files/LibertyBSD_8bpp.xpm app/xenodm/config/LibertyBSD_8bpp.xpm
+filecp files/pixmaps/LibertyBSD_15bpp.xpm app/xenodm/config/LibertyBSD_15bpp.xpm
+filecp files/pixmaps/LibertyBSD_1bpp.xpm app/xenodm/config/LibertyBSD_1bpp.xpm
+filecp files/pixmaps/LibertyBSD_4bpp.xpm app/xenodm/config/LibertyBSD_4bpp.xpm
+filecp files/pixmaps/LibertyBSD_8bpp.xpm app/xenodm/config/LibertyBSD_8bpp.xpm
 
 rep "BITMAPDIR/\*\*//OpenBSD" "BITMAPDIR/**//LibertyBSD" app/xdm/config/Xresources.cpp
 rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
