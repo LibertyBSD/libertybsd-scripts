@@ -86,6 +86,22 @@ filecp gnu/usr.bin/perl/hints/openbsd.sh gnu/usr.bin/perl/hints/libertybsd.sh
 rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c
 
+# Adding LBSD keys
+filecp files/keys/libertybsd-59.pub etc/signify/libertybsd-59.pub
+filecp files/keys/libertybsd-61-base.pub etc/signify/libertybsd-61-base.pub
+filecp files/keys/libertybsd-61-pkg.pub etc/signify/libertybsd-61-pkg.pub
+filecp files/keys/libertybsd-61-syspatch.pub etc/signify/libertybsd-61-syspatch.pub
+filecp files/keys/libertybsd-62-base.pub etc/signify/libertybsd-62-base.pub
+filecp files/keys/libertybsd-62-pkg.pub etc/signify/libertybsd-62-pkg.pub
+filecp files/keys/libertybsd-62-syspatch.pub etc/signify/libertybsd-62-syspatch.pub
+
+rep "openbsd-" "libertybsd-" distrib/sets/lists/base/mi
+rep "-59-base.pub" "-59.pub" distrib/sets/lists/base/mi
+linedel "./etc/signify/openbsd-59-pkg.pub" distrib/sets/lists/base/mi
+linedel "./etc/signify/openbsd-60-base.pub" distrib/sets/lists/base/mi
+linedel "./etc/signify/openbsd-60-fw.pub" distrib/sets/lists/base/mi
+linedel "./etc/signify/openbsd-60-pkg.pub" distrib/sets/lists/base/mi
+
 filecp files/motd etc/motd
 filecp files/root.mail etc/root/root.mail 
 filecp files/install.sub distrib/miniroot/install.sub
