@@ -62,24 +62,26 @@ linedel "There are also mailing lists in place" share/man/man1/help.1
 ox_replace() {
 	for file in ${SRC_DIR}/$1/*
 	do
-		echo $file
-		rfile=$(echo $file | sed 's^'"$SRC_DIR"'^^' | sed 's^/^^')
-		echo $rfile
-		if grep ".Ox \." $file
+		if echo $file | grep "\.[123456789]$"
 		then
-			rep ".Ox \." "LibertyBSD\." "$rfile"
-		fi
-		if grep ".Ox \," $file
-		then
-			rep ".Ox \," "LibertyBSD\," "$rfile"
-		fi
-		if grep ".Ox \:" $file
-		then
-			rep ".Ox \:" "LibertyBSD\:" "$rfile"
-		fi
-		if grep ".Ox$" $file
-		then
-			rep ".Ox$" "LibertyBSD" "$rfile"
+			rfile=$(echo $file | sed 's^'"$SRC_DIR"'^^' | sed 's^/^^')
+			echo $rfile
+			if grep ".Ox \." $file
+			then
+				rep ".Ox \." "LibertyBSD\." "$rfile"
+			fi
+			if grep ".Ox \," $file
+			then
+				rep ".Ox \," "LibertyBSD\," "$rfile"
+			fi
+			if grep ".Ox \:" $file
+			then
+				rep ".Ox \:" "LibertyBSD\:" "$rfile"
+			fi
+			if grep ".Ox$" $file
+			then
+				rep ".Ox$" "LibertyBSD" "$rfile"
+			fi
 		fi
 	done
 }
@@ -88,6 +90,19 @@ mandirectories="man0 man1 man3 man4 man5 man6 man7 man8 man9"
 for mandir in $mandirectories
 do
 	ox_replace "share/man/$mandir"
+done
+
+bindirectories="bin sbin usr.bin usr.sbin"
+for bindir in $bindirectories
+do
+	for dir in ${SRC_DIR}/$bindir/*
+	do
+		if [ -d $dir ]
+		then
+			fixdir="$(echo "$dir" | sed 's^'"${SRC_DIR}"'/^^')"
+			ox_replace "$fixdir"
+		fi
+	done
 done
 
 filecp files/man/release.8 share/man/man8/release.8
