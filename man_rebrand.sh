@@ -90,11 +90,11 @@ do
 	ox_replace "share/man/$mandir"
 done
 
-linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
+filecp files/man/release.8 share/man/man8/release.8
 
 # Add Free Software-related man pages
-filecp files/fsdg.7 share/man/man7/fsdg.7
-filecp files/free-software.7 share/man/man7/free-software.7
+filecp files/man/fsdg.7 share/man/man7/fsdg.7
+filecp files/man/free-software.7 share/man/man7/free-software.7
 rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " "environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
 rep "library-specs.7 mailaddr.7" "hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" share/man/man7/Makefile
 lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/fsdg.7" distrib/sets/lists/man/mi
