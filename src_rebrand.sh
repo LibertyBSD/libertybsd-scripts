@@ -106,4 +106,7 @@ filecp files/motd etc/motd
 filecp files/root.mail etc/root/root.mail 
 filecp files/install.sub distrib/miniroot/install.sub
 
+rep "openbsd-" "libertybsd-" usr.sbin/syspatch/syspatch.sh
+rep "OpenBSD" "LibertyBSD" usr.sbin/syspatch/syspatch.sh
+
 apply
