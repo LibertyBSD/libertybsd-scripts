@@ -34,7 +34,7 @@ rep "\${MACHINE-ARCH}-openbsd" "\${MACHINE-ARCH}-libertybsd" infrastructure/mk/p
 
 # The ones that require build_alias
 archiverslist="archivers/libzip archivers/gcab archivers/gcpio archivers/gshar+gunshar archivers/gtar archivers/libarchive archivers/libmspack archivers/libtar archivers/lzo"
-archiverslist=$archiverslsit archivers/lzop archivers/par2cmdline"
+archiverslist="$archiverslsit archivers/lzop archivers/par2cmdline"
 audiolist="audio/freealut"
 dabataseslist="databases/db/v3 databases/db/v4 databases/openldap"
 devellist="devel/autoconf/2.13 devel/autoconf/2.52 devel/autoconf/2.54 devel/autoconf/2.56 devel/autoconf/2.57 devel/autoconf/2.58 devel/autoconf/2.59 devel/autoconf/2.60"
@@ -50,11 +50,10 @@ maillist="mail/mutt mail/alpine"
 netlist="net/openvpn"
 securitylist="security/cyrus-sasl2 security/libmcrypt"
 sysutilslist="sysutils/e2fsprogs"
-texproclist="textproc/groff"
+textproclist="textproc/groff"
 wwwlist="www/lynx www/apache-httpd"
-libsigsegv
 
-portlist="$wwwlist"
+portlist="$archiverslist $audiolist $databaseslist $devellist $editorslist $gameslist $geolist $langlist $maillist $netlist $securitylist $sysutilslist $textproclist $wwwlist"
 
 for port in $portlist
 do
@@ -72,15 +71,17 @@ for port in $portlist
 do
 	if grep "pre-configre:" $SRC_DIR/$port/Makefile
 	then
-		lineadd "pre-configure:" "        cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" $port/Makefile
+		lineadd "pre-configure:" "        cp -r \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" $port/Makefile
 	else
 		rep ".include <bsd.port.mk>" "pre-configure:" $port/Makefile
 		lineadd "pre-configure:" "        cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" $port/Makefile
 		lineadd "        cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" ".include <bsd.port.mk>" $port/Makefile
 	fi
-	filecp files/ports/files/Platform $port/files/Platform
+	dircp files/ports/files/Platform $port/files/Platform
 done
 
 # Installing files
-filecp files/ports/files/cmake/Platform devel/cmake/files/Platform
+dircp files/ports/files/cmake/Platform devel/cmake/files/Platform
 lineadd "pre-configure:" "        cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" devel/cmake/Makefile
+
+apply
