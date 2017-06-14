@@ -30,7 +30,6 @@ else
         SRC_DIR=$1
 fi
 
-rep "\${MACHINE-ARCH}-openbsd" "\${MACHINE-ARCH}-libertybsd" infrastructure/mk/perl.port.mk
 
 # List of ports that require an OBSD build_alias env var
 archiverslist="archivers/libzip archivers/gcab archivers/gcpio archivers/gshar+gunshar archivers/gtar archivers/libarchive archivers/libmspack archivers/libtar archivers/lzo archivers/xz"
@@ -42,9 +41,10 @@ devellist="devel/autoconf/2.13 devel/autoconf/2.52 devel/autoconf/2.54 devel/aut
 devellist="$devellist devel/autoconf/2.61 devel/autoconf/2.62 devel/autoconf/2.63 devel/autoconf/2.64 devel/autoconf/2.65 devel/autoconf/2.66 devel/autoconf/2.67 devel/autoconf/2.68"
 devellist="$devllist devel/autoconf/2.69 devel/automake/1.4 devel/automake/1.8 devel/automake/1.9 devel/automake/1.10 devel/automake/1.11 devel/automake/1.12 devel/automake/1.13"
 devellist="$devellist devel/automake/1.14 devel/automake/1.15 devel/libtool devel/libidn devel/gmake devel/llvm devel/sdl2-image devel/sdl2 devel/apr devel/apr-util devel/t1lib"
-devellist="$devellist devel/bison devel/gettext devel/gettext-tools devel/libsigsegv devel/ffcall"
+devellist="$devellist devel/bison devel/gettext devel/gettext-tools devel/libsigsegv devel/ffcall devel/gobject-introspection"
 editorslist="editors/nano"
 gameslist="games/xscorch"
+graphicslist="graphics/cairo"
 geolist="geo/spatialindex"
 langlist="lang/ghc lang/clisp"
 maillist="mail/mutt mail/alpine"
@@ -69,9 +69,11 @@ done
 # Port-specific changes
 rep ".include <bsd.port.mk>" "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" lang/ghc/Makefile
 lineadd  "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" ".include <bsd.port.mk>" lang/ghc/Makefile
-lineadd "pre-configure:" "        cp -r \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" devel/cmake/Makefile
-dircp files/ports/files/Platform devel/cmake/files/Platform
+lineadd "pre-configure:" "        @cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" devel/cmake/Makefile
+dircp files/ports/files/cmake/Platform devel/cmake/files/Platform
 
+# *.mk edits
+rep "\${MACHINE-ARCH}-openbsd" "\${MACHINE-ARCH}-libertybsd" infrastructure/mk/perl.port.mk
 
 # Misc. infrastructure edits
 lineadd "*:OpenBSD:*:*)" "*:LibertyBSD:*:*)" infrastructure/db/config.guess
@@ -81,4 +83,6 @@ lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/^.*BSD\.//'
 
 # Problem childs:
 # * lang/python/2.7	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
+# * lang/tcl
+# * x11/tk
 apply
