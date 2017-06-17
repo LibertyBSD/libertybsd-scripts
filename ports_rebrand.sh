@@ -41,7 +41,7 @@ devellist="devel/autoconf/2.13 devel/autoconf/2.52 devel/autoconf/2.54 devel/aut
 devellist="$devellist devel/autoconf/2.61 devel/autoconf/2.62 devel/autoconf/2.63 devel/autoconf/2.64 devel/autoconf/2.65 devel/autoconf/2.66 devel/autoconf/2.67 devel/autoconf/2.68"
 devellist="$devllist devel/autoconf/2.69 devel/automake/1.4 devel/automake/1.8 devel/automake/1.9 devel/automake/1.10 devel/automake/1.11 devel/automake/1.12 devel/automake/1.13"
 devellist="$devellist devel/automake/1.14 devel/automake/1.15 devel/libtool devel/libidn devel/gmake devel/llvm devel/sdl2-image devel/sdl2 devel/apr devel/apr-util devel/t1lib"
-devellist="$devellist devel/bison devel/gettext devel/gettext-tools devel/libsigsegv devel/ffcall devel/gobject-introspection"
+devellist="$devellist devel/bison devel/gettext devel/gettext-tools devel/libsigsegv devel/ffcall devel/gobject-introspection devel/yasm"
 editorslist="editors/nano"
 gameslist="games/xscorch"
 graphicslist="graphics/cairo"
@@ -63,6 +63,19 @@ for port in $portlist
 do
 	rep ".include <bsd.port.mk>" "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd6.1\"" $port/Makefile
 	lineadd  "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd6.1\"" ".include <bsd.port.mk>" $port/Makefile
+done
+
+
+# List of ports that require an OpenBSD CMAKE_SYSTEM_NAME
+devellist="devel/cmocka"
+
+portlist="$devellist"
+
+# Add the -DCMAKE_SYSTEM_NAME argument to listed ports
+for port in $portlist
+do
+	rep ".include <bsd.port.mk>" "CONFIGURE_ARGS +=        -DCMAKE_SYSTEM_NAME=OpenBSD" $port/Makefile
+	lineadd  "CONFIGURE_ARGS +=        -DCMAKE_SYSTEM_NAME=OpenBSD" ".include <bsd.port.mk>" $port/Makefile
 done
 
 
