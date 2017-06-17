@@ -101,9 +101,12 @@ lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/^.*BSD\.//'
 
 
 # Port-specific changes for rebranding
-rep "OpenBSD" "LibertyBSD" emulators/qemu/pkg/README # @jimmybot for these
-rep "ftp.openbsd.org/pub/OpenBSD/snapshots/i386/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/i386/cd61.iso" emulators/qemu/pkg/README
+rep "ftp.openbsd.org/pub/OpenBSD/snapshots/i386/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/i386/cd61.iso" emulators/qemu/pkg/README 
 rep "ftp.openbsd.org/pub/OpenBSD/snapshots/amd64/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/amd64/cd61.iso" emulators/qemu/pkg/README
 linedel "\$ ftp ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/sparc/cd52.iso" emulators/qemu/pkg/README
+rep "install52.fs" "install61.fs" emulators/qemu/pkg/README
+rep "install52.iso" "install61.iso" emulators/qemu/pkg/README
+rep "OpenBSD" "LibertyBSD" emulators/qemu/pkg/README
+# @jimmybot for this ^^
 
 apply
