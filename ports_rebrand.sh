@@ -79,7 +79,7 @@ do
 done
 
 
-# Port-specific changes
+# Port-specific changes for build
 rep ".include <bsd.port.mk>" "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" lang/ghc/Makefile
 lineadd  "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" ".include <bsd.port.mk>" lang/ghc/Makefile
 lineadd "pre-configure:" "        @cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" devel/cmake/Makefile
@@ -98,4 +98,12 @@ lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/^.*BSD\.//'
 # * lang/python/2.7	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
 # * lang/tcl
 # * x11/tk
+
+
+# Port-specific changes for rebranding
+rep "OpenBSD" "LibertyBSD" emulators/qemu/pkg/README # @jimmybot for these
+rep "ftp.openbsd.org/pub/OpenBSD/snapshots/i386/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/i386/cd61.iso" emulators/qemu/pkg/README
+rep "ftp.openbsd.org/pub/OpenBSD/snapshots/amd64/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/amd64/cd61.iso" emulators/qemu/pkg/README
+linedel "\$ ftp ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/sparc/cd52.iso" emulators/qemu/pkg/README
+
 apply
