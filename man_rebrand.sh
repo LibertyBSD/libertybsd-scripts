@@ -34,29 +34,13 @@ fi
 
 
 # man1
-rep "administrators with" "administrators with LibertyBSD" share/man/man1/help.1
-linedel "^Other$" "man1/help.1" share/man/man1/help.1
+linedel "^Other$" share/man/man1/help.1
 linedel "references include the FAQ" share/man/man1/help.1
 linedel "https://openbsd.org/faq" share/man/man1/help.1
 linedel "which is mostly intended for administrators" share/man/man1/help.1
 linedel "a working knowledge of" share/man/man1/help.1
 linedel "\.Ux \." "man1/help.1" share/man/man1/help.1
 linedel "There are also mailing lists in place" share/man/man1/help.1
-#rep "\.Ox ," "LibertyBSD," share/man/man1/help.1
-#rep "available;" "available; LibertyBSD" share/man/man1/help.1
-#linedel "\.Ox" share/man/man1/help.1
-
-#rep "\.Ox" "LibertyBSD" share/man/man1/gcc-local.1
-#rep "\.Ox" "LibertyBSD" share/man/man1/clang-local.1
-
-
-# man3
-#rep "\.Ox" "LibertyBSD" share/man/man3/makedev.3
-#rep "\.Ox" "LibertyBSD" share/man/man3/sysexits.3
-
-
-# man5
-#rep "OpenBSD
 
 
 ox_replace() {
@@ -81,6 +65,16 @@ ox_replace() {
 			if grep ".Ox$" $file
 			then
 				rep ".Ox$" "LibertyBSD" "$rfile"
+			fi
+			if grep "ftp.openbsd.org"
+			then
+				rep "ftp.openbsd.org" "ftp.libertybsd.net" "$rfile"
+			fi
+			if grep "http://openbsd.org"
+				rep "http://libertybsd.net" "$rfile"
+			fi
+			if grep "https://openbsd.org"
+				rep "https://libertybsd.net" "$rfile"
 			fi
 		fi
 	done
