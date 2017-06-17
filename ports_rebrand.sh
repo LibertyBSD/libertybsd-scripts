@@ -99,6 +99,21 @@ lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/^.*BSD\.//'
 # * lang/tcl
 # * x11/tk
 
+# Go through ports with additional patches for LBSD
+for category in files/ports/files/patches/*
+do
+	category_name="$(echo $category | sed 's^.*/^^')"
+	for port in $category
+	do
+		port_name="$(echo $port | sed 's^.*/^^')"
+		for patch in $port
+		do
+			patch_name="$(echo $patch | sed 's^.*/^^')"
+			filecp "files/ports/file/patches/$category_name/$port_name/$patch_name" "$category_name/$port_name/patches/$patch_name"
+		done
+	done
+done
+
 
 # Port-specific changes for rebranding
 rep "ftp.openbsd.org/pub/OpenBSD/snapshots/i386/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/i386/cd61.iso" emulators/qemu/pkg/README 
