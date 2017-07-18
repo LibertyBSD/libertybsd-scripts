@@ -71,10 +71,11 @@ done
 
 
 # List of ports that require an OpenBSD CMAKE_SYSTEM_NAME
-audiolist="audio/chromaprint"
+audiolist="audio/chromaprint audio/liblastfm"
 devellist="devel/cmocka devel/doxygen"
+netlist="net/libmygpo-qt"
 
-portlist="$devellist"
+portlist="$audiolist $devellist $netlist"
 
 # Add the -DCMAKE_SYSTEM_NAME argument to listed ports
 for port in $portlist
@@ -88,6 +89,7 @@ done
 rep ".include <bsd.port.mk>" "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" lang/ghc/Makefile
 lineadd  "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" ".include <bsd.port.mk>" lang/ghc/Makefile
 lineadd "pre-configure:" "        @cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" devel/cmake/Makefile
+lineadd "\${WRKSRC}/config" "        @cp \${FILESDIR}/Makefile.openbsd ${WRKSRC}/config/Makefile.libertybsd" graphics/glew/Makefile
 dircp files/ports/files/cmake/Platform devel/cmake/files/Platform
 lineadd "pre-configure:" "        @cp \${FILESDIR}/platforms/LibertyBSD.cmake \${WRKSRC}/cmake/platforms/LibertyBSD.cmake" devel/llvm/Makefile
 dircp files/ports/files/llvm/ devel/llvm/files/
