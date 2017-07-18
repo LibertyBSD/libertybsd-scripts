@@ -16,6 +16,7 @@ agm
 agrep
 aimsniff
 aircontrol
+alac_decoder
 altermime
 amap
 amavisd-new,-main
@@ -424,3 +425,8 @@ zmtx-zmrx
 zoo
 ElectricFence
 TclXML
+
+# vv Because of math/blas
+py-numpy
+lapack
+py-biopython
