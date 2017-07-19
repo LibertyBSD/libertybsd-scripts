@@ -34,7 +34,6 @@ axe
 backuppc
 bass
 beats
-blas
 bounix
 btoa
 burpsuite
@@ -425,8 +424,3 @@ zmtx-zmrx
 zoo
 ElectricFence
 TclXML
-
-# vv Because of math/blas
-py-numpy
-lapack
-py-biopython
