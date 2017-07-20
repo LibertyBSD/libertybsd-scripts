@@ -1,0 +1,45 @@
+# * lang/python 	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
+# * lang/tcl
+# * x11/tk
+# * devel/llvm
+# * security/gnutls
+# * lang/ruby   	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
+# * gobject-introspection
+# * lang/mono   	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
+# * mozjs17	Need to figure out how to create a build_alias... the env var and config arg used in other ports doesn't work.
+# * multimedia/libvpx	"Toolchain unable to link executables"
+# * p5-Curses
+# * libproxy	ld issue
+# * x11/gtk\+3
+# * graphics/openjp2	ninja; ld issue
+# * devel/jdk/1.7
+# * audio/libsoxr	ninja; ...
+# * databases/mariadb
+# * multimedia/libv4l
+# * multimedia/x26[45] --host=${ARCH}-unknown-openbsd6.1
+# * graphics/ffmpeg	Unable to test cc.
+# * x11/qt4
+# * x11/qt5/qtbase
+# * x11/qt5/qtdeclarative
+# * x11/qt5/qttools
+# * gstreamer/plugins-base
+# * p5-Module-Build
+# * libmusicbrainz
+# * libmusicbrainz5
+# * bioperl
+# * lang/g77
+# * qtmultimedia
+# * qtdeclarative
+# * qtsvg
+# * audio/cantata
+# * audio/cmus
+# * www/webkitgtk4
+# * audio/gogglesmm
+# * audo/libsoxr
+# * hs-*
+
+# The recurring theme I'm noticing here is the 'cannot run C compiled programs' issue. If that's solved, everything else should be smooth
+# sailing....
+# Unfortunately some of the more important packages encounter this issue.
+
+# Note to self: gc*
