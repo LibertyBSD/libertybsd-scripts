@@ -18,17 +18,17 @@ PATCH_DIR=/tmp/man_deblob
 
 if [ -e $PATCH_DIR ]
 then
-        self_destruct_sequence $PATCH_DIR
+	self_destruct_sequence $PATCH_DIR
 	mkdir $PATCH_DIR
 else
-        mkdir $PATCH_DIR
+	mkdir $PATCH_DIR
 fi
 
 if test -z $1
 then
-        SRC_DIR=/usr/src
+	SRC_DIR=/usr/src
 else
-        SRC_DIR=$1
+	SRC_DIR=$1
 fi
 
 # man4
@@ -36,9 +36,9 @@ fw_list="acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm iwn kue malo 
 fw_list="$fw_list radeondrm rsu rtwn rum siop tht thtc ti uath udl ulpt upgt urtwn uvideo wpi yds zyd"
 for man_blob in $fw_list
 do
-        strdel " ${man_blob}.4" share/man/man4/Makefile
-        strdel "\^${man_blob}.4" share/man/man4/Makefile
-        linedel "${man_blob}.4" distrib/sets/lists/man/mi
+	strdel " ${man_blob}.4" share/man/man4/Makefile
+	strdel "\^${man_blob}.4" share/man/man4/Makefile
+	linedel "${man_blob}.4" distrib/sets/lists/man/mi
 done
 
 strdel "acx.4" share/man/man4/Makefile
