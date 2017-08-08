@@ -18,7 +18,7 @@ filetize() {
 }
 
 # Vice-versa, clearly.
-# Usage: defiletize $filetizedpath
+# Usage: unfiletize $filetizedpath
 unfiletize() {
 	echo $1 | sed 's|\^|/|g'
 }
@@ -46,7 +46,6 @@ rep() {
 		sed 's^'"$1"'^'"$2"'^g' ${SRC_DIR}/${3} > $PATCH_DIR/$(filetize "$3")
 		diff ${SRC_DIR}/$3 $PATCH_DIR/$(filetize "$3") > $PATCH_DIR/$(filetize "$3").patch
 	fi
-
 }
 
 # Delete a string in a file
@@ -101,7 +100,7 @@ dircp() {
 }
 
 # "Copies" a file
-# Usage: filedel $file $dest
+# Usage: filecp $file $dest
 filecp() {
 	if echo $1 | grep "^files/"
 	then
