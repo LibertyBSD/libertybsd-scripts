@@ -19,7 +19,7 @@ dabataseslist="db/v3 db/v4 openldap sqlite3 gdbm yasm iodbc mariadb"
 
 devellist="autoconf/2.13 autoconf/2.52 autoconf/2.54 autoconf/2.56 autoconf/2.57 autoconf/2.58 autoconf/2.59 autoconf/2.60"
 devellist="$devellist autoconf/2.61 autoconf/2.62 autoconf/2.63 autoconf/2.64 autoconf/2.65 autoconf/2.66 autoconf/2.67"
-devellist="$devllist autoconf/2.68 autoconf/2.69 automake/1.4 automake/1.8 automake/1.9 automake/1.10 automake/1.11 automake/1.12"
+devellist="$devellist autoconf/2.68 autoconf/2.69 automake/1.4 automake/1.8 automake/1.9 automake/1.10 automake/1.11 automake/1.12"
 devellist="$devellist automake/1.13 automake/1.14 automake/1.15 libtool libidn gmake llvm sdl2-image sdl2 apr apr-util t1lib"
 devellist="$devellist bison gettext gettext-tools libsigsegv ffcall gobject-introspection yasm sdl cppunit json-glib libsoup"
 devellist="$devellist libsigc++-2 glib2mm atk2mm libnotify npth check pangomm scons"
