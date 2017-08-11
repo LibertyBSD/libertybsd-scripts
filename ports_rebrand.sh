@@ -98,5 +98,6 @@ rep "on OpenBSD" "on LibertyBSD" sysutils/sysmon/pkg/README ; rep "openbsd.org" 
 rep "=\"OpenBSD " "=\"LibertyBSD " multimedia/gstreamer-0.10/Makefile.inc
 rep "openbsd.org" "libertybsd.net" multimedia/gstreamer-0.10/Makefile.inc
 # @jimmybot for this :) ^^
+rep "www.openbsd.org" "libertybsd.net" www/lynx/patches/patch-lynx_cfg
 
 apply
