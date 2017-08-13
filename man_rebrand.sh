@@ -17,19 +17,19 @@
 PATCH_DIR=/tmp/man_rebrand
 
 
-if [ -e $PATCH_DIR ]
+if [ -e "$PATCH_DIR" ]
 then
-	self_destruct_sequence $PATCH_DIR
-	mkdir $PATCH_DIR
+	self_destruct_sequence "$PATCH_DIR"
+	mkdir "$PATCH_DIR"
 else
-	mkdir $PATCH_DIR
+	mkdir "$PATCH_DIR"
 fi
 
-if test -z $1
+if test -z "$1"
 then
 	SRC_DIR=/usr/src
 else
-	SRC_DIR=$1
+	SRC_DIR="$1"
 fi
 
 
@@ -44,36 +44,37 @@ linedel "There are also mailing lists in place" share/man/man1/help.1
 
 
 ox_replace() {
-	for file in ${SRC_DIR}/$1/*
+	local file rfile
+
+	for file in "$SRC_DIR/$1"/*
 	do
-		if echo $file | grep "\.[123456789]$"
+		if echo "$file" | grep -q "\.[1-9]$"
 		then
-			rfile=$(echo $file | sed 's^'"$SRC_DIR"'^^' | sed 's^/^^')
-			echo $rfile
-			if grep ".Ox \." $file
+			rfile="${file#$SRC_DIR/}"
+			if grep -q ".Ox \." "$file"
 			then
 				rep ".Ox \." "LibertyBSD\." "$rfile"
 			fi
-			if grep ".Ox \," $file
+			if grep -q ".Ox \," "$file"
 			then
 				rep ".Ox \," "LibertyBSD\," "$rfile"
 			fi
-			if grep ".Ox \:" $file
+			if grep -q ".Ox \:" "$file"
 			then
 				rep ".Ox \:" "LibertyBSD\:" "$rfile"
 			fi
-			if grep ".Ox$" $file
+			if grep -q ".Ox$" "$file"
 			then
 				rep ".Ox$" "LibertyBSD" "$rfile"
 			fi
-			if grep "ftp.openbsd.org"
+			if grep -q "ftp.openbsd.org" "$file"
 			then
 				rep "ftp.openbsd.org" "ftp.libertybsd.net" "$rfile"
 			fi
-			if grep "http://openbsd.org"
+			if grep -q "http://openbsd.org" "$file"
 				rep "http://libertybsd.net" "$rfile"
 			fi
-			if grep "https://openbsd.org"
+			if grep -q "https://openbsd.org" "$file"
 				rep "https://libertybsd.net" "$rfile"
 			fi
 		fi
@@ -89,11 +90,11 @@ done
 bindirectories="bin sbin usr.bin usr.sbin"
 for bindir in $bindirectories
 do
-	for dir in ${SRC_DIR}/$bindir/*
+	for dir in "$SRC_DIR/$bindir"/*
 	do
-		if [ -d $dir ]
+		if [ -d "$dir" ]
 		then
-			fixdir="$(echo "$dir" | sed 's^'"${SRC_DIR}"'/^^')"
+			fixdir="${dir#$SRC_DIR/}"
 			ox_replace "$fixdir"
 		fi
 	done
@@ -104,10 +105,15 @@ filecp files/man/release.8 share/man/man8/release.8
 # Add Free Software-related man pages
 filecp files/man/fsdg.7 share/man/man7/fsdg.7
 filecp files/man/free-software.7 share/man/man7/free-software.7
-rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " "environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
-rep "library-specs.7 mailaddr.7" "hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" share/man/man7/Makefile
-lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/fsdg.7" distrib/sets/lists/man/mi
-lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/free-software.7" distrib/sets/lists/man/mi
+rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " \
+	"environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
+rep "library-specs.7 mailaddr.7" \
+	"hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" \
+	share/man/man7/Makefile
+lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/fsdg.7" \
+	distrib/sets/lists/man/mi
+lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/free-software.7" \
+	distrib/sets/lists/man/mi
 rep "eqn.7 " "eqn.7" distrib/sets/lists/man/mi
 rep "free-software.7 " "free-software.7" distrib/sets/lists/man/mi
 
