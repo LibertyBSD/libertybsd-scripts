@@ -188,7 +188,6 @@ mozilla-firefox
 mozilla-sync
 mozilla-thunderbird
 mpage
-mpc
 mpegaudio
 msctfonts
 msttcorefonts
@@ -231,7 +230,6 @@ p5-Data-ICal-TimeZone
 p5-Data-Password
 p5-Date-Tolkien-Shire
 p5-DateTime-Cron-Simple
-p5-Device-SerialPort
 p5-File-NCopy
 p5-File-Type
 p5-GPG
@@ -333,7 +331,6 @@ smlnj
 smurflog
 snes9x
 snipe2d
-solfege
 spiff
 spranq-ecofont-ttf
 squeezecenter
@@ -422,3 +419,5 @@ zmtx-zmrx
 zoo
 ElectricFence
 TclXML
+disc-cover
+p5-Finance-Currency-Convert-XE
