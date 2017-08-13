@@ -38,7 +38,7 @@ set -A fw_list acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm \
 for man_blob in "${fw_list[@]}"
 do
 	strdel "\<${man_blob}.4\>" share/man/man4/Makefile
-	linedel "${man_blob}.4" distrib/sets/lists/man/mi
+	linedel "\<${man_blob}.4\>" distrib/sets/lists/man/mi
 done
 
 linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
