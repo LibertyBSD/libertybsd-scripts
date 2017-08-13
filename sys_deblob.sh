@@ -18,17 +18,17 @@ PATCH_DIR=/tmp/sys_deblob
 
 if [ -e $PATCH_DIR ]
 then
-        self_destruct_sequence $PATCH_DIR
+	self_destruct_sequence $PATCH_DIR
 	mkdir $PATCH_DIR
 else
-        mkdir $PATCH_DIR
+	mkdir $PATCH_DIR
 fi
 
 if test -z $1
 then
-        SRC_DIR=/usr/src/sys
+	SRC_DIR=/usr/src/sys
 else
-        SRC_DIR=$1
+	SRC_DIR=$1
 fi
 
 

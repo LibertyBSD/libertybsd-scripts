@@ -18,16 +18,16 @@ PATCH_DIR=/tmp/src_rebrand
 
 if [ -e $PATCH_DIR ]
 then
-        self_destruct_sequence $PATCH_DIR
+	self_destruct_sequence $PATCH_DIR
 else
-        mkdir $PATCH_DIR
+	mkdir $PATCH_DIR
 fi
 
 if test -z $1
 then
-        SRC_DIR=/usr/src
+	SRC_DIR=/usr/src
 else
-        SRC_DIR=$1
+	SRC_DIR=$1
 fi
 
 
