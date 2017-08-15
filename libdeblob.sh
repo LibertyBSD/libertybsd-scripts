@@ -42,7 +42,7 @@ rep() {
 	then
 		sed 's^'"$1"'^'"$2"'^g' "$PATCH_DIR/$file_ft" > "$PATCH_DIR/$file_ft.tmp"
 		mv "$PATCH_DIR/$file_ft.tmp" "$PATCH_DIR/$file_ft"
-		diff "$SRC_DIR/$3 $PATCH_DIR/$file_ft" > "$PATCH_DIR/$file_ft.patch"
+		diff "$SRC_DIR/$3" $PATCH_DIR/$file_ft" > "$PATCH_DIR/$file_ft.patch"
 	else
 		sed 's^'"$1"'^'"$2"'^g' "$SRC_DIR/$3" > "$PATCH_DIR/$file_ft"
 		diff "$SRC_DIR/$3" "$PATCH_DIR/$file_ft" > "$PATCH_DIR/$file_ft.patch"
