@@ -88,7 +88,6 @@ rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c
 
 # Adding LBSD keys
-filecp files/keys/libertybsd-59.pub etc/signify/libertybsd-59.pub
 filecp files/keys/libertybsd-61-base.pub etc/signify/libertybsd-61-base.pub
 filecp files/keys/libertybsd-61-pkg.pub etc/signify/libertybsd-61-pkg.pub
 filecp files/keys/libertybsd-61-syspatch.pub etc/signify/libertybsd-61-syspatch.pub
