@@ -33,15 +33,6 @@ else
 fi
 
 
-# man1
-linedel "^Other$" share/man/man1/help.1
-linedel "references include the FAQ" share/man/man1/help.1
-linedel "https://openbsd.org/faq" share/man/man1/help.1
-linedel "which is mostly intended for administrators" share/man/man1/help.1
-linedel "a working knowledge of" share/man/man1/help.1
-linedel "\.Ux \." "man1/help.1" share/man/man1/help.1
-linedel "There are also mailing lists in place" share/man/man1/help.1
-
 
 ox_replace() {
 	local file rfile
@@ -101,6 +92,7 @@ do
 done
 
 filecp files/man/release.8 share/man/man8/release.8
+filecp files/man/help.1 share/man/man1/help.1
 
 # Add Free Software-related man pages
 filecp files/man/fsdg.7 share/man/man7/fsdg.7
