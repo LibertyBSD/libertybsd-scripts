@@ -63,9 +63,11 @@ ox_replace() {
 				rep "ftp.openbsd.org" "ftp.libertybsd.net" "$rfile"
 			fi
 			if grep -q "http://openbsd.org" "$file"
+			then
 				rep "http://libertybsd.net" "$rfile"
 			fi
 			if grep -q "https://openbsd.org" "$file"
+			then
 				rep "https://libertybsd.net" "$rfile"
 			fi
 		fi

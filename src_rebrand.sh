@@ -73,6 +73,7 @@ lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/mi
 rep "uname " "uname" distrib/sets/lists/base/mi
 rep "uname-obsd " "uname-obsd" distrib/sets/lists/base/mi
 rep "uname" "uname uname-obsd" usr.bin/Makefile
+lineadd "uname.1" "./usr/share/man/man1/uname-obsd.1" distrib/sets/lists/man/mi
 
 lineadd "openbsd) osname=openbsd" "$(space 15) libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
 lineadd "openbsd) osname=openbsd" "$(space 23) ;;" gnu/usr.bin/perl/Configure
