@@ -68,7 +68,14 @@ do
 	rep "UNAME_SYSTEM=\`(uname -s) 2>/dev/null\`" "UNAME_SYSTEM=\`(echo OpenBSD) 2>/dev/null\`" gnu/${dir}/config.guess
 done
 
-dircp files/uname-obsd usr.bin/uname-obsd
+mkdir "$PATCH_DIR/ADD_usr.bin^uname-obsd"
+cp "$SRC_DIR/usr.bin/uname/Makefile" "$PATCH_DIR/ADD_usr.bin^uname-obsd/Makefile"
+cp "$SRC_DIR/usr.bin/uname/uname.c" "$PATCH_DIR/ADD_usr.bin^uname-obsd/uname-obsd.c"
+cp "files/man/uname-obsd.1" "$PATCH_DIR/ADD_usr.bin^uname-obsd/uname-obsd.1"
+sed -i 's/fputs(u.sysname, stdout);/fputs("OpenBSD", stdout);/' "$PATCH_DIR/ADD_usr.bin^uname-obsd/uname-obsd.c"
+sed -i 's/uname/uname-obsd/' "$PATCH_DIR/ADD_usr.bin^uname-obsd/Makefile"
+
+
 lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/mi
 rep "uname " "uname" distrib/sets/lists/base/mi
 rep "uname-obsd " "uname-obsd" distrib/sets/lists/base/mi
@@ -96,12 +103,14 @@ filecp files/keys/libertybsd-62-base.pub etc/signify/libertybsd-62-base.pub
 filecp files/keys/libertybsd-62-pkg.pub etc/signify/libertybsd-62-pkg.pub
 filecp files/keys/libertybsd-62-syspatch.pub etc/signify/libertybsd-62-syspatch.pub
 
-rep "openbsd-" "libertybsd-" distrib/sets/lists/base/mi
-rep "-59-base.pub" "-59.pub" distrib/sets/lists/base/mi
 linedel "./etc/signify/openbsd-59-pkg.pub" distrib/sets/lists/base/mi
 linedel "./etc/signify/openbsd-60-base.pub" distrib/sets/lists/base/mi
 linedel "./etc/signify/openbsd-60-fw.pub" distrib/sets/lists/base/mi
 linedel "./etc/signify/openbsd-60-pkg.pub" distrib/sets/lists/base/mi
+
+rep "openbsd-" "libertybsd-" distrib/sets/lists/base/mi
+rep "-59-base.pub" "-59.pub" distrib/sets/lists/base/mi
+
 
 filecp files/motd etc/motd
 filecp files/root.mail etc/root/root.mail 

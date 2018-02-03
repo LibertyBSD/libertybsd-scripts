@@ -99,10 +99,10 @@ filecp files/man/help.1 share/man/man1/help.1
 # Add Free Software-related man pages
 filecp files/man/fsdg.7 share/man/man7/fsdg.7
 filecp files/man/free-software.7 share/man/man7/free-software.7
-rep "environ.7 glob.7 hier.7 hostname.7 intro.7 kgdb.7 " \
+rep "environ.7 glob.7 hier.7 hostname.7 intro.7" \
 	"environ.7 free-software.7 fsdg.7 glob.7 hier.7 " share/man/man7/Makefile
-rep "library-specs.7 mailaddr.7" \
-	"hostname.7 intro.7 kgdb.7 library-specs.7 mailaddr.7" \
+rep "library-specs.7" \
+	"hostname.7 intro.7 library-specs.7" \
 	share/man/man7/Makefile
 lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/fsdg.7" \
 	distrib/sets/lists/man/mi
