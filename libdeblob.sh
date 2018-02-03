@@ -82,10 +82,8 @@ linedel() {
 		mv "$PATCH_DIR/$file_ft.tmp" "$PATCH_DIR/$file_ft"
 		diff "$SRC_DIR/$2" "$PATCH_DIR/$file_ft" > "$PATCH_DIR/$file_ft.patch"
 	else
-		echo otherwise
 		grep -v "$1" "$SRC_DIR/$2" > "$PATCH_DIR/$file_ft"
 		diff "$SRC_DIR/$2" "$PATCH_DIR/$file_ft" > "$PATCH_DIR/$file_ft.patch"
-		echo otherhell
 	fi
 }
 
@@ -94,10 +92,8 @@ linedel() {
 dircp() {
 	if echo "$1" | grep -q "^files/"
 	then
-		echo "FILES"
 		cp -r "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	else
-		echo "NO FILES"
 		cp -r "$SRC_DIR/$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	fi
 }
@@ -107,10 +103,8 @@ dircp() {
 filecp() {
 	if echo "$1" | grep -q "^files/"
 	then
-		echo "FILES"
 		cp "$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	else
-		echo "FILES"
 		cp "$SRC_DIR/$1" "$PATCH_DIR/ADD_$(filetize "$2")"
 	fi
 }
