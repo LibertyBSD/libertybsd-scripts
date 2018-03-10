@@ -3035,7 +3035,7 @@ HTTP_DIR=
 HTTP_SEC=/tmp/i/httpsec
 HTTP_LIST=/tmp/i/httplist
 WLANLIST=/tmp/i/wlanlist
-PUB_KEY=/etc/signify/openbsd-${VERSION}-base.pub
+PUB_KEY=/etc/signify/libertybsd-${VERSION}-base.pub
 
 # Do not limit ourselves during installs or upgrades.
 for _opt in d f l m n p s; do
