@@ -63,7 +63,7 @@ lineadd "*:OpenBSD:*:*)" "*:LibertyBSD:*:*)" font/util/config.guess
 lineadd "*:OpenBSD:*:*)" "        exit ;;" font/util/config.guess
 lineadd "*:OpenBSD:*:*)" "        echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" font/util/config.guess
 lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" font/util/config.guess
-rep "sh " "build_alias=\${MACHINE_ARCH}-unknown-openbsd6.2  sh " app/xlockmore/Makefile.bsd-wrapper
-rep "exec sh " "build_alias=\${MACHINE_ARCH}-unknown-openbsd6.2  exec sh " share/mk/bsd.xorg.mk
+rep "sh " "build_alias=\${MACHINE_ARCH}-unknown-openbsd6.3  sh " app/xlockmore/Makefile.bsd-wrapper
+rep "exec sh " "build_alias=\${MACHINE_ARCH}-unknown-openbsd6.3  exec sh " share/mk/bsd.xorg.mk
 
 apply
