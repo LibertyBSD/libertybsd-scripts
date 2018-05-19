@@ -35,27 +35,15 @@ lineadd "\*:OpenBSD:\*:)" "exit;;" app/twm/config.guess
 lineadd "\*:OpenBSD:\*:)" "echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" app/twm/config.guess
 lineadd "\*:OpenBSD:\*:)" "UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" app/twm/config.guess
 
-filecp files/pixmaps/LibertyBSD_15bpp.xpm app/xdm/config/LibertyBSD_15bpp.xpm
-filecp files/pixmaps/LibertyBSD_1bpp.xpm app/xdm/config/LibertyBSD_1bpp.xpm
-filecp files/pixmaps/LibertyBSD_4bpp.xpm app/xdm/config/LibertyBSD_4bpp.xpm
-filecp files/pixmaps/LibertyBSD_8bpp.xpm app/xdm/config/LibertyBSD_8bpp.xpm
-
 filecp files/pixmaps/LibertyBSD_15bpp.xpm app/xenodm/config/LibertyBSD_15bpp.xpm
 filecp files/pixmaps/LibertyBSD_1bpp.xpm app/xenodm/config/LibertyBSD_1bpp.xpm
 filecp files/pixmaps/LibertyBSD_4bpp.xpm app/xenodm/config/LibertyBSD_4bpp.xpm
 filecp files/pixmaps/LibertyBSD_8bpp.xpm app/xenodm/config/LibertyBSD_8bpp.xpm
 
-rep "BITMAPDIR/\*\*//OpenBSD" "BITMAPDIR/**//LibertyBSD" app/xdm/config/Xresources.cpp
-rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
-rep "--with-bw-pixmap=OpenBSD" "--with-bw-pixmap=LibertyBSD" app/xdm/Makefile.bsd-wrapper
-rep "/config/OpenBSD_" "/config/LibertyBSD_" app/xdm/Makefile.bsd-wrapper
-
-rep "BITMAPDIR/\*\*//OpenBSD" "BITMAPDIR/**//LibertyBSD" app/xenodm/config/Xresources.cpp
-rep "--with-color-pixmap=OpenBSD" "--with-color-pixmap=LibertyBSD" app/xenodm/Makefile.bsd-wrapper
-rep "--with-bw-pixmap=OpenBSD" "--with-bw-pixmap=LibertyBSD" app/xenodm/Makefile.bsd-wrapper
-rep "/config/OpenBSD_" "/config/LibertyBSD_" app/xenodm/Makefile.bsd-wrapper
-rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Makefile.am
+rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Xresources.in
 rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Makefile.in
+rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Makefile.am
+rep "OpenBSD_" "LibertyBSD_" app/xenodm/Makefile.bsd-wrapper
 
 rep "pixmaps/OpenBSD" "pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
 

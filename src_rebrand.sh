@@ -102,14 +102,14 @@ filecp files/keys/libertybsd-61-syspatch.pub etc/signify/libertybsd-61-syspatch.
 filecp files/keys/libertybsd-62-base.pub etc/signify/libertybsd-62-base.pub
 filecp files/keys/libertybsd-62-pkg.pub etc/signify/libertybsd-62-pkg.pub
 filecp files/keys/libertybsd-62-syspatch.pub etc/signify/libertybsd-62-syspatch.pub
-
-linedel "./etc/signify/openbsd-59-pkg.pub" distrib/sets/lists/base/mi
-linedel "./etc/signify/openbsd-60-base.pub" distrib/sets/lists/base/mi
-linedel "./etc/signify/openbsd-60-fw.pub" distrib/sets/lists/base/mi
-linedel "./etc/signify/openbsd-60-pkg.pub" distrib/sets/lists/base/mi
+filecp files/keys/libertybsd-63-base.pub etc/signify/libertybsd-63-base.pub
+filecp files/keys/libertybsd-63-pkg.pub etc/signify/libertybsd-63-pkg.pub
+filecp files/keys/libertybsd-63-syspatch.pub etc/signify/libertybsd-63-syspatch.pub
+filecp files/keys/libertybsd-64-base.pub etc/signify/libertybsd-64-base.pub
+filecp files/keys/libertybsd-64-pkg.pub etc/signify/libertybsd-64-pkg.pub
+filecp files/keys/libertybsd-64-syspatch.pub etc/signify/libertybsd-64-syspatch.pub
 
 rep "openbsd-" "libertybsd-" distrib/sets/lists/base/mi
-rep "-59-base.pub" "-59.pub" distrib/sets/lists/base/mi
 
 
 filecp files/motd etc/motd
