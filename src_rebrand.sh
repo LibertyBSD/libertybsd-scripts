@@ -88,7 +88,6 @@ lineadd "openbsd) osname=openbsd" "$(space 23) osvers=\"\$3\"" gnu/usr.bin/perl/
 rep "osname=openbsd" "osname=libertybsd" gnu/usr.bin/perl/Configure
 rep "interix|dragonfly|bitrig" "libertybsd|interix|dragonfly|bitrig" gnu/usr.bin/perl/Configure
 rep "dragonfly\*|bitrig*" "libertybsd\*|dragonfly\*|bitrig\*" gnu/usr.bin/perl/Makefile.SH
-rep "-openbsd" "-libertybsd" gnu/usr.bin/perl/Makefile.bsd-wrapper
 filecp gnu/usr.bin/perl/hints/openbsd.sh gnu/usr.bin/perl/hints/libertybsd.sh
 
 
