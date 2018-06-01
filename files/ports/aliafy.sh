@@ -10,7 +10,8 @@ astrolist="gcal wcslib"
 archiverslist="libzip gcab gcpio gshar+gunshar gtar libarchive libmspack libtar lzo xz zziplib gcab lzop par2cmdline"
 
 audiolist="freealut akode twolame audacious pulseaudio jack libcue audacious-plugins ardour soundtouch gstreamer1/mm"
-audiolist="$audiolist easytag freealut gmpc-plugins gsound libbs2b libcannberra mikmod mpdscribble umurmur"
+audiolist="$audiolist easytag freealut gmpc-plugins gsound libbs2b libcannberra mikmod mpdscribble umurmur libao libogg"
+audiolist="$audiolist flac libvorbis libsndfile libsamplerate"
 
 cadlist="qucs"
 
@@ -28,13 +29,14 @@ devellist="$devellist autoconf/2.68 autoconf/2.69 automake/1.4 automake/1.8 auto
 devellist="$devellist automake/1.13 automake/1.14 automake/1.15 libtool libidn gmake llvm sdl2-image sdl2 apr apr-util t1lib"
 devellist="$devellist bison gettext gettext-tools libsigsegv ffcall gobject-introspection yasm sdl cppunit json-glib libsoup"
 devellist="$devellist libsigc++-2 glib2mm atk2mm libnotify npth check pangomm scons readline sdl-mixer libconfuse libconfig"
-devellist="$devellist libgdata autogen boehm-gc commoncpp ccrtp cflow cgdb cil"
+devellist="$devellist libgdata autogen boehm-gc commoncpp ccrtp cflow cgdb cil libffi pcre glib2 atk libuv harfbuzz pango libusb1"
+devellist="$devellist libdaemon libidn2 nspr mozjs17"
 
 editorslist="nano"
 
 gameslist="xscorch"
 
-graphicslist="cairo gd ImageMagick djvulibre"
+graphicslist="cairo gd ImageMagick djvulibre png jpeg tiff gdk-pixbuff2 lcms2 colord"
 
 geolist="spatialindex geoclue2"
 
@@ -48,19 +50,19 @@ misclist="findutils"
 
 multimedialist="xvidcore libmp4v2"
 
-netlist="openvpn librest quvi/scripts quvi/libquvi quvi uhttpmock telepathy/telepathy-glib"
+netlist="openvpn librest quvi/scripts quvi/libquvi quvi uhttpmock telepathy/telepathy-glib curl avahi"
 
-printlist="libpaper texlive/base texlive/texmf psutils lilypond"
+printlist="libpaper texlive/base texlive/texmf psutils lilypond cups"
 
-securitylist="cyrus-sasl2 libmcrypt libtasn1 p11-kit pinentry gpgme"
+securitylist="cyrus-sasl2 libmcrypt libtasn1 p11-kit pinentry gpgme libnettle"
 
 shellslist="bash"
 
-sysutilslist="e2fsprogs polkit consolekit freeipmi coreutils"
+sysutilslist="e2fsprogs polkit consolekit freeipmi coreutils polkit"
 
-textproclist="groff jq rapto raptorr"
+textproclist="groff jq rapto raptorr tre libxslt icu4c"
 
-wwwlist="lynx apache-httpd webkit"
+wwwlist="lynx apache-httpd webkit nghttpd2"
 
 x11list="gnome/at-spi2-core gnome/at-spi2-atk gnome/py-atspi gnome/libsecret gnome/gcr xkbcommon gtk2mm gnome/libgnomecanvasmm"
 

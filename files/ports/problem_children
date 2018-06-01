@@ -1,109 +1,15 @@
-# * lang/python 	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
-# * lang/tcl
-# * x11/tk
-# * devel/llvm
-# * security/gnutls # * lang/ruby   	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.  # * gobject-introspection
-# * lang/mono   	"configure: error: cannot run C compiled programs."	It configures just fine (using same args as used when configuring in ports) manually, but not using port.
-# * mozjs17	Need to figure out how to create a build_alias... the env var and config arg used in other ports doesn't work.
-# * multimedia/libvpx	"Toolchain unable to link executables"
-# * p5-Curses
-# * libproxy	ld issue
-# * x11/gtk\+3
-# * graphics/openjp2	ninja; ld issue
-# * devel/jdk/1.7
-# * audio/libsoxr	ninja; ...
-# * databases/mariadb
-# * multimedia/libv4l
-# * multimedia/x26[45] --host=${ARCH}-unknown-openbsd6.1
-# * graphics/ffmpeg	Unable to test cc.
-# * x11/qt4
-# * x11/qt5/qtbase
-# * x11/qt5/qtdeclarative
-# * x11/qt5/qttools
-# * gstreamer/plugins-base
-# * p5-Module-Build
-# * libmusicbrainz
-# * libmusicbrainz5
-# * bioperl
-# * lang/g77
-# * qtmultimedia
-# * qtdeclarative
-# * qtsvg
-# * audio/cantata
-# * audio/cmus
-# * www/webkitgtk4
-# * audio/gogglesmm
-# * audo/libsoxr
-# * hs-*
-# * audio/midish	ld
-# * audio/milkytracker	ninja ld
-# * mpd	Unalee C compiler
-# * net/snmp
-# * qtwebkit
-# * qtxmlpatterns
-# * archivers/zstd
-# * audio/mscore
-# * audio/openal
-# * p5-Tree-Simple
-# * graphics/ImageMagick
-# * audio/pacpl
-# * multimedia/gstreamer1/plugins-good
-# * multimedia/gstreamer1/plugins-libav
-# * math/cgal
-# * cad/xtrkcad
-# * lang/ruby* 
-# * www/webkit
-# * security/gpgme
-# * comms/fldigi
-# * audio/solfege
-# * comms/gammu
-# * comms/hylafax
-# * comms/jpilot
-# * comms/p5-Device-Gs
-# * comms/p5-Device-Moden
-# * comms/p5-Device-SerialPort
-# * comms/p5-SendPage
-# * comms/rtl-sdr
-# * audio/p5-Audio-MPD
-# * audio/p5-Audio-MPD-common
-# * comms/pilot-link
-# * converters/dos2unix
-# * lang/spidermonkey
-# * comms/xastir
-# * converters/p5-JSON*
-# * converters/p5-DateManip
-# * converters/p5-Calendar-Simple
-# * converters/p5-Net-IDN-Encode
-# * converters/p5-Unicode-Stringprep
-# * x11/gnome/gnome-online-accoun
-# * devel/hs-primitives
-# * devel/hs-random
-# * devel/hs-oldtime
-# * devel/hs-tf-random
-# * databases/hs-HDBC*
-# * devel/hs-QuickCheck
-# * databases/hs-hedis
-# * devel/hs-alex
-# * databases/hs-postgresql-libpq
-# * devel/hs-resource-pool
-# * devel/arm-none-eabi
-# * databses/mariadb
-# * graphics/p5-GD*
-# * databses/p5-DBD-Chart
-# * databases/p5-DBD-ldap
-# * devel/cabal-install
-# * databases/p5-DBD-*
-# * lang/rust
-# * devel/cargo*
-# * devel/cbmc
-# * databases/pgmodeler
-# * databases/pgtcl
-# * lang/ocaml
-# * databases/sqlports
-# * devel/cil
-
-# The recurring theme I'm noticing here is the 'cannot run C compiled programs' issue. If that's solved, everything else should be smooth
-# sailing....
-# Unfortunately some of the more important packages encounter this issue.
-
-# Note to self: gc*
+devel/autoconf/*
+lang/tcl
+lang/tk
+lang/python/*
+devel/libelf
+devel/jsoncpp
+devel/cmake
+graphics/graphite2
+graphics/jasper
+net/avahi
+devel/cmocka
+devel/mozjs17
+devel/json-glib
+net/libproxy
+gtk+3
