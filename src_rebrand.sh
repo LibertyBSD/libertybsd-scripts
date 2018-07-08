@@ -62,34 +62,6 @@ do
 	rep "You will not be able to boot OpenBSD from \${1}." "You will not be able to boot LibertyBSD from \${1}." distrib/$arch/common/install.md
 done
 
-dir_list="lib/libiberty lib/libobjc lib/libstdc++ share usr.bin/binutils usr.bin/binutils-2.17 usr.bin/gcc usr.bin/texinfo ../usr.sbin/bind ../usr.sbin/unbound"
-for dir in $dir_list
-do
-	rep "UNAME_SYSTEM=\`(uname -s) 2>/dev/null\`" "UNAME_SYSTEM=\`(echo OpenBSD) 2>/dev/null\`" gnu/${dir}/config.guess
-done
-
-mkdir "$PATCH_DIR/ADD_usr.bin^uname-obsd"
-cp "$SRC_DIR/usr.bin/uname/Makefile" "$PATCH_DIR/ADD_usr.bin^uname-obsd/Makefile"
-cp "$SRC_DIR/usr.bin/uname/uname.c" "$PATCH_DIR/ADD_usr.bin^uname-obsd/uname-obsd.c"
-cp "files/man/uname-obsd.1" "$PATCH_DIR/ADD_usr.bin^uname-obsd/uname-obsd.1"
-sed -i 's/fputs(u.sysname, stdout);/fputs("OpenBSD", stdout);/' "$PATCH_DIR/ADD_usr.bin^uname-obsd/uname-obsd.c"
-sed -i 's/uname/uname-obsd/' "$PATCH_DIR/ADD_usr.bin^uname-obsd/Makefile"
-
-
-lineadd "./usr/bin/uname" "./usr/bin/uname-obsd" distrib/sets/lists/base/mi
-rep "uname " "uname" distrib/sets/lists/base/mi
-rep "uname-obsd " "uname-obsd" distrib/sets/lists/base/mi
-rep "uname" "uname uname-obsd" usr.bin/Makefile
-lineadd "uname.1" "./usr/share/man/man1/uname-obsd.1" distrib/sets/lists/man/mi
-
-lineadd "openbsd) osname=openbsd" "$(space 15) libertybsd) osname=libertybsd" gnu/usr.bin/perl/Configure
-lineadd "openbsd) osname=openbsd" "$(space 23) ;;" gnu/usr.bin/perl/Configure
-lineadd "openbsd) osname=openbsd" "$(space 23) osvers=\"\$3\"" gnu/usr.bin/perl/Configure
-rep "osname=openbsd" "osname=libertybsd" gnu/usr.bin/perl/Configure
-rep "interix|dragonfly|bitrig" "libertybsd|interix|dragonfly|bitrig" gnu/usr.bin/perl/Configure
-rep "dragonfly\*|bitrig*" "libertybsd\*|dragonfly\*|bitrig\*" gnu/usr.bin/perl/Makefile.SH
-filecp gnu/usr.bin/perl/hints/openbsd.sh gnu/usr.bin/perl/hints/libertybsd.sh
-
 
 rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c
@@ -107,8 +79,6 @@ filecp files/keys/libertybsd-63-syspatch.pub etc/signify/libertybsd-63-syspatch.
 filecp files/keys/libertybsd-64-base.pub etc/signify/libertybsd-64-base.pub
 filecp files/keys/libertybsd-64-pkg.pub etc/signify/libertybsd-64-pkg.pub
 filecp files/keys/libertybsd-64-syspatch.pub etc/signify/libertybsd-64-syspatch.pub
-
-rep "openbsd-" "libertybsd-" distrib/sets/lists/base/mi
 
 
 filecp files/motd etc/motd

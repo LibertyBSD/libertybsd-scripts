@@ -38,7 +38,6 @@ do
 	rep "no OpenBSD" "no LibertyBSD" arch/${arch}/stand/libsa/biosdev.c
 done
 
-rep "ost=\"OpenBSD\"" "ost=\"LibertyBSD\"" conf/newvers.sh
 rep ">> OpenBSD/\" MACHINE" ">> LibertyBSD/\" MACHINE" stand/boot/boot.c
 
 apply

@@ -30,10 +30,6 @@ fi
 
 rep "OpenBSD __osrelease__" "LibertyBSD __osrelease__" app/fvwm/sample.fvwmrc/system.fvwmrc
 rep "Geometry 80x60" "Geometry 90x65" app/fvwm/sample.fvwmrc/system.fvwmrc
-lineadd "\*:OpenBSD:\*:)" "\*:LibertyBSD:\*:)" app/twm/config.guess
-lineadd "\*:OpenBSD:\*:)" "exit;;" app/twm/config.guess
-lineadd "\*:OpenBSD:\*:)" "echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" app/twm/config.guess
-lineadd "\*:OpenBSD:\*:)" "UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" app/twm/config.guess
 
 filecp files/pixmaps/LibertyBSD_15bpp.xpm app/xenodm/config/LibertyBSD_15bpp.xpm
 filecp files/pixmaps/LibertyBSD_1bpp.xpm app/xenodm/config/LibertyBSD_1bpp.xpm
@@ -46,12 +42,5 @@ rep "OpenBSD_" "LibertyBSD_" app/xenodm/config/Makefile.am
 rep "OpenBSD_" "LibertyBSD_" app/xenodm/Makefile.bsd-wrapper
 
 rep "pixmaps/OpenBSD" "pixmaps/LibertyBSD" distrib/sets/lists/xshare/mi
-
-lineadd "*:OpenBSD:*:*)" "*:LibertyBSD:*:*)" font/util/config.guess
-lineadd "*:OpenBSD:*:*)" "        exit ;;" font/util/config.guess
-lineadd "*:OpenBSD:*:*)" "        echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" font/util/config.guess
-lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/OpenBSD.//'\`" font/util/config.guess
-rep "sh " "build_alias=\${MACHINE_ARCH}-unknown-openbsd6.3  sh " app/xlockmore/Makefile.bsd-wrapper
-rep "exec sh " "build_alias=\${MACHINE_ARCH}-unknown-openbsd6.3  exec sh " share/mk/bsd.xorg.mk
 
 apply

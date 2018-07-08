@@ -3,7 +3,8 @@
 #########################
 # Name: ports_rebrand.sh
 # Main: jadedctrl
-# Lisc: ISC # Desc: Editing OBSD ports
+# Lisc: ISC
+# Desc: Editing OBSD ports
 #       tree for use with
 #       LBSD.
 #########################
