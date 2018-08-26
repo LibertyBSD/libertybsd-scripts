@@ -94,7 +94,6 @@ do
 done
 
 filecp files/man/release.8 share/man/man8/release.8
-filecp files/man/help.1 share/man/man1/help.1
 
 # Add Free Software-related man pages
 filecp files/man/fsdg.7 share/man/man7/fsdg.7
