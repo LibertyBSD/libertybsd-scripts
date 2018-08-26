@@ -14,4 +14,4 @@ source-code, like so:
 If you want liberated OpenBSD sources, but without the LibertyBSD rebranding,
 just skip the *_rebrand.sh scripts and everything should go fine.
 
-Cheers, good luck! :)
+Cheers, good luck. :)
