@@ -49,6 +49,7 @@ do
 	linedel "\${DESTDIR}/etc/firmware/ral-rt2573" distrib/${arch}/ramdisk_cd/list.local
 	linedel "\${DESTDIR}/etc/firmware/ral-rt2870" distrib/${arch}/ramdisk_cd/list.local
 	linedel "\${DESTDIR}/etc/firmware/ral-rt3071" distrib/${arch}/ramdisk_cd/list.local
+	linedel "\${DESTDIR}/etc/firmware/ral-rt3290" distrib/${arch}/ramdisk_cd/list.local
 	linedel "\${DESTDIR}/etc/firmware/rum-rt2573" distrib/${arch}/ramdisk_cd/list.local
 	linedel "\${DESTDIR}/etc/firmware/run-rt2870" distrib/${arch}/ramdisk_cd/list.local
 	linedel "\${DESTDIR}/etc/firmware/run-rt3071" distrib/${arch}/ramdisk_cd/list.local
@@ -70,9 +71,10 @@ do
 	linedel "./usr/sbin/fw_update" "distrib/sets/lists/base/md.${arch}"
 
 	linedel "./etc/firmware/4c9904" "distrib/sets/lists/base/md.${arch}"
+	linedel "./etc/firmware/3c990" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/3c990-license" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/atu-at76c503-i3863-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at77c503-i3863-int" "distrib/sets/lists/base/md.${arch}"
+	linedel "./etc/firmware/atu-at76c503-i3863-int" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/atu-at76c503-rfmd-acc-ext" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/atu-at76c503-rfmd-acc-int" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/atu-at76c505-rfmd-ext" "distrib/sets/lists/base/md.${arch}"
@@ -112,6 +114,7 @@ do
 	linedel "./etc/firmware/ral-rt2561s" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/ral-rt2661" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/ral-rt2860" "distrib/sets/lists/base/md.${arch}"
+	linedel "./etc/firmware/ral-rt3290" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/rum-license" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/rum-rt2573" "distrib/sets/lists/base/md.${arch}"
 	linedel "./etc/firmware/run-license" "distrib/sets/lists/base/md.${arch}"
