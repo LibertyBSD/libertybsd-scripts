@@ -62,9 +62,6 @@ do
 	rep "You will not be able to boot OpenBSD from \${1}." "You will not be able to boot LibertyBSD from \${1}." distrib/$arch/common/install.md
 done
 
-rep "mandoc_asprintf(&defbuf, \"%s %s\"," "mandoc_asprintf(&defbuf, \"LibertyBSD %s\"," usr.bin/man/mdoc_validate.c
-rep "utsname.sysname, utsname.release);" "utsname.release);" usr.bin/man/mdoc_validate.c
-
 
 rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c

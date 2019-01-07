@@ -110,4 +110,11 @@ lineadd "./usr/share/man/man7/eqn.7" "./usr/share/man/man7/free-software.7" \
 rep "eqn.7 " "eqn.7" distrib/sets/lists/man/mi
 rep "free-software.7 " "free-software.7" distrib/sets/lists/man/mi
 
+
+rep "mandoc_asprintf(&defbuf, \"%s %s\"," \
+	"mandoc_asprintf(&defbuf, \"LibertyBSD %s\"," \
+	usr.bin/mandoc/mdoc_validate.c
+rep "utsname.sysname, utsname.release);" "utsname.release);" \
+	usr.bin/mandoc/mdoc_validate.c   
+
 apply
