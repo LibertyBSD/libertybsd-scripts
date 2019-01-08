@@ -66,6 +66,10 @@ done
 rep "#define DMESG_START \"OpenBSD \"" "#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
 rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c
 
+rep	"sysctl -n kern.version | sed 1q >" \
+	"sysctl -n kern.version | sed 1q | sed 's/OpenBSD/LibertyBSD/' >" \
+	etc/rc
+
 # Adding LBSD keys
 filecp files/keys/libertybsd-61-base.pub etc/signify/libertybsd-61-base.pub
 filecp files/keys/libertybsd-61-pkg.pub etc/signify/libertybsd-61-pkg.pub
