@@ -70,6 +70,8 @@ rep	"sysctl -n kern.version | sed 1q >" \
 	"sysctl -n kern.version | sed 1q | sed 's/OpenBSD/LibertyBSD/' >" \
 	etc/rc
 
+rep "kerninfo.sysname" "\"LibertyBSD\"" libexec/getty/main.c
+
 # Adding LBSD keys
 filecp files/keys/libertybsd-61-base.pub etc/signify/libertybsd-61-base.pub
 filecp files/keys/libertybsd-61-pkg.pub etc/signify/libertybsd-61-pkg.pub
