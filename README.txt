@@ -33,5 +33,5 @@ Some improvements and contributions by Einhard Leichtfuß
 BORING STUFF
 ----------------------------------------
 License is ISC (COPYING.txt)
-Author is Jenga Phoenix <jadedctrl@teknik.io>
+Author is Jaidyn Levesque <jadedctrl@teknik.io>
 Source is at https://git.eunichx.us/libertybsd-scripts.git
