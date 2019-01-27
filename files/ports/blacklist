@@ -2,8 +2,10 @@
 9wm
 ADMsnmp
 AsteriskGuide
+ElectricFence
 JLS
 JVMS
+TclXML
 a2ps
 abuse
 addons3
@@ -65,12 +67,14 @@ decss
 deskzilla
 despoof
 dgen-sdl
+disc-cover
 documents
 doomdata
 duke3ddata
 dumb
 dungeon
 dungeon-crawl
+dxx-rebirth
 easyrpg
 ec2-api-tools
 eduke32
@@ -80,6 +84,7 @@ emiclock
 eterm
 evince
 evince,light
+exa
 extract_url
 faces
 farsi-bfonts-ttf
@@ -98,6 +103,7 @@ fpc
 freefonts
 freeze
 frodo
+fs2open
 fvwm95
 gargoyle
 gcap
@@ -130,6 +136,7 @@ ish
 iso12083
 ispell
 ja-funetfonts
+ja2-stracciatella
 jamvm
 japana
 javahelp
@@ -207,8 +214,10 @@ nssl
 nulib
 ocaml-camlimages
 octave
+od1000_firmware
 oletools
 onew
+open-ath9k-htc-firmware
 openfire
 openmsx
 opensonic
@@ -232,6 +241,7 @@ p5-Date-Tolkien-Shire
 p5-DateTime-Cron-Simple
 p5-File-NCopy
 p5-File-Type
+p5-Finance-Currency-Convert-XE
 p5-GPG
 p5-Getopt-ArgvFile
 p5-Getopt-Simple
@@ -277,6 +287,7 @@ p7zip
 pdflib
 pgp
 pgp5
+piglit
 pilot_makedoc
 pkfonts
 plan9port
@@ -291,6 +302,7 @@ progit
 pscal
 py-musicbrainzngs
 qcad
+qp
 qpage
 qstat
 radiusniff
@@ -302,6 +314,7 @@ ratmen
 rdp
 rftg
 riemann
+riscv-elf
 rman
 rsynth
 rt
@@ -373,7 +386,9 @@ vtags
 w3mir
 w9wm
 websocketd
+witchblast
 wmx
+x-pack
 xanim
 xaniroc
 xarchiver
@@ -417,14 +432,3 @@ zh-taipeifonts
 zipper
 zmtx-zmrx
 zoo
-ElectricFence
-TclXML
-disc-cover
-p5-Finance-Currency-Convert-XE
-open-ath9k-htc-firmware
-dxx-rebirth
-fs2open
-ja2-stracciatella
-witchblast
-piglit
-od1000_firmware
