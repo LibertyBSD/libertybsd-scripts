@@ -1,145 +1,81 @@
-#!/bin/ksh
-
-#########################
-# Name: src_deblob.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Delobbing OBSD base
-#       sources for use in
-#       LBSD.
-#########################
-
-# Usage: src_deblob.sh
+#!/bin/sh
+########################################
+# name: src_deblob.sh
+# main: jadedctrl
+# lisc: isc
+# desc: delobbing obsd base sources for
+#	use in lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z "$1"; then
+	echo "usage: src_deblob.sh source_dir"; 
+	exit 2
+else
+	SRC_DIR="$1"
+fi
+
 PATCH_DIR=/tmp/src_deblob/
+mkdir "$PATCH_DIR" 2> /dev/null
 
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
 
-if test -z $1
-then
-	SRC_DIR=/usr/src/
-	mkdir $SRC_DIR
-else
-	SRC_DIR=$1
-fi
-
-echo $SRC_DIR
+# --------------------------------------
 
 arch_list="amd64 i386"
 
-for arch in $arch_list # not all archs have ramdisk_cd... fix!
-do
-	linedel "\${DESTDIR}/etc/firmware/kue.*" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/bnx-b06" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/bnx-b09"  distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/bnx-rv2p" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/bnx-xi-rv2p" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/bnx-xi90-rv2p" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt2561" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt2561s" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt2661" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt2860" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt2573" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt2870" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt3071" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/ral-rt3290" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/rum-rt2573" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/run-rt2870" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/run-rt3071" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/tigon1" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/tigon2" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/zd1211" distrib/${arch}/ramdisk_cd/list.local
-	linedel "\${DESTDIR}/etc/firmware/zd1211b" distrib/${arch}/ramdisk_cd/list.local
+blobs="4c9904 3c990 3c990-license atu-at76c503-i3863-ext"
+blobs="$blobs atu-at76c503-i3863-int atu-at76c503-rfmd-acc-ext"
+blobs="$blobs atu-at76c503-rfmd-acc-int atu-at76c505-rfmd-ext"
+blobs="$blobs atu-at76c505-rfmd-int atu-intersil-ext atu-intersil-int"
+blobs="$blobs atu-license atu-rfmd-ext atu-rfmd-int atu-rfmd2958-ext"
+blobs="$blobs atu-rfmd2958-int atu-rfmd2958smc-ext atu-rfmd2958smc-int bnx-b06"
+blobs="$blobs bnx-b09 bnx-license bnx-rv2p bnx-xi-rv2p bnx-xi90-rv2p cs4280"
+blobs="$blobs cs4280-license fxp-d101a fxp-d101b0 fxp-d101ma fxp-d101s fxp-d102"
+blobs="$blobs fxp-d102c fxp-d102e fxp-license kue kue-license myx-eth_z8e"
+blobs="$blobs myx-ethp_z8e myx-license ral-license ral-rt2561 ral-rt2561s"
+blobs="$blobs ral-rt2661 ral-rt2860 ral-rt3290 rum-license rum-rt2573"
+blobs="$blobs run-license run-rt2870 run-rt3071 symbol-eprim symbol-esec"
+blobs="$blobs symbol-license tht tht-license tigon-license tigon1 tigon2"
+blobs="$blobs tusb3410 tusb3410-license udl_huffman yds yds-license zd1211"
+blobs="$blobs zd1211-license zd1211b"
+
+for arch in $arch_list; do
+	for blob in $blobs; do
+		linedel "\${DESTDIR}/etc/firmware/${firmware}" \
+			"distrib/${arch}/ramdisk_cd/list.local"
+		linedel "./etc/firmware/$blob" \
+			"distrib/sets/lists/base/md.${arch}"
+	done
+	echo
 done
 
+# --------------------------------------
+
+for arch in $arch_list
+do
+	linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" \
+		"distrib/sets/lists/base/md.${arch}"
+	linedel "./usr/sbin/fw_update" "distrib/sets/lists/base/md.${arch}"
+	echo
+done
+
+
+
+# --------------------------------------
+
+linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" distrib/sets/lists/base/mi
+linedel "./usr/sbin/fw_update" distrib/sets/lists/base/mi
 linedel "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 rep "pkg_add fw_update" "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 strdel "fw_update.1" usr.sbin/pkg_add/Makefile
 strdel "fw_update" usr.sbin/pkg_add/Makefile
 linedel "FwUpdate.pm" usr.sbin/pkg_add/Makefile
+echo
 
-for arch in $arch_list
-do
-	linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" "distrib/sets/lists/base/md.${arch}"
-	linedel "./usr/sbin/fw_update" "distrib/sets/lists/base/md.${arch}"
 
-	linedel "./etc/firmware/4c9904" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/3c990" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/3c990-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at76c503-i3863-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at76c503-i3863-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at76c503-rfmd-acc-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at76c503-rfmd-acc-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at76c505-rfmd-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-at76c505-rfmd-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-intersil-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-intersil-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-rfmd-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-rfmd-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-rfmd2958-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-rfmd2958-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-rfmd2958smc-ext" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/atu-rfmd2958smc-int" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/bnx-b06" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/bnx-b09" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/bnx-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/bnx-rv2p" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/bnx-xi-rv2p" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/bnx-xi90-rv2p" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/cs4280" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/cs4280-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d101a" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d101b0" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d101ma" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d101s" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d102" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d102c" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-d102e" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/fxp-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/kue" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/kue-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/myx-eth_z8e" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/myx-ethp_z8e" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/myx-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/ral-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/ral-rt2561" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/ral-rt2561s" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/ral-rt2661" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/ral-rt2860" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/ral-rt3290" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/rum-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/rum-rt2573" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/run-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/run-rt2870" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/run-rt3071" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/symbol-eprim" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/symbol-esec" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/symbol-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tht" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tht-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tigon-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tigon1" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tigon2" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tusb3410" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/tusb3410-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/udl_huffman" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/yds" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/yds-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/zd1211" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/zd1211-license" "distrib/sets/lists/base/md.${arch}"
-	linedel "./etc/firmware/zd1211b" "distrib/sets/lists/base/md.${arch}"
 
-done
+# --------------------------------------
 
-linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" distrib/sets/lists/base/mi
-linedel "./usr/sbin/fw_update" distrib/sets/lists/base/mi
-
+echo "Applying..."
 apply

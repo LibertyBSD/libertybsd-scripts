@@ -1,35 +1,26 @@
 #!/bin/sh
-
-#########################
-# Name: src_rebrand.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Rebranding OBSD base
-#       sources for use in
-#       LBSD.
-#########################
-
-# Usage: src_rebrand.sh $SRC_DIR
+########################################
+# name: src_rebrand.sh
+# main: jadedctrl
+# lisc: isc
+# desc: rebranding obsd base sources for
+#	use in lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z "$1"; then
+	echo "usage: src_rebrand.sh source_dir"
+	exit 2
+else
+	SRC_DIR="$1"
+fi
+
 PATCH_DIR=/tmp/src_rebrand
+mkdir "$PATCH_DIR" 2> /dev/null
 
 
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
-
-if test -z $1
-then
-	SRC_DIR=/usr/src
-else
-	SRC_DIR=$1
-fi
-
+# --------------------------------------
 
 arch_list="amd64 i386"
 

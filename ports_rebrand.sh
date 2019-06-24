@@ -1,134 +1,55 @@
-#!/bin/ksh
-
-#########################
-# Name: ports_rebrand.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Editing OBSD ports
-#       tree for use with
-#       LBSD.
-#########################
-
-# Usage: ports_deblob.sh
+#!/bin/sh
+########################################
+# name: ports_rebrand.sh
+# main: jadedctrl
+# lisc: isc
+# desc: editing obsd ports tree for use
+#       with lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z "$1"; then
+	echo "usage: ports_rebrand.sh ports_dir"
+else	
+	SRC_DIR="$1"
+fi
+
 PATCH_DIR=/tmp/ports_rebrand/
-
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-	mkdir $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
-
-if test -z $1
-then
-	SRC_DIR=/usr/ports/
-else
-	SRC_DIR=$1
-fi
+mkdir "$PATCH_DIR" 2> /dev/null
 
 
-portdirs="archivers astro audio biology books cad chinese comms converters databases devel"
-portdirs="$portdirs editors education emulators fonts games geo graphics inputmethods" 
-portdirs="$portdirs japanese java korean lang mail math meta misc multimedia net news plan9"
-portdirs="$portdirs print productivity security shells sysutils telephony textproc www x11"
+# --------------------------------------
 
+portdirs="archivers astro audio biology books cad chinese comms converters"
+portdirs="$portdirs databases devel editors education emulators fonts games geo" 
+portdirs="$portdirs graphics inputmethods japanese java korean lang mail math"
+portdirs="$portdirs meta misc multimedia net news plan9 print productivity"
+portdirs="$portdirs security shells sysutils telephony textproc www x11"
 
+# --------------------------------------
 
-# for GNU autoconf
-# -----------------
-for portdir in $portdirs
-do
-        for portpath in $SRC_DIR/$portdir/*
-        do
-		port=$(echo $portpath | sed 's^'"$SRC_DIR"'/^^')
-		if grep "=.*gnu" $portpath/Makefile > /dev/null 
-		then
-			lineadd ".include <bsd.port.mk>" "CONFIGURE_ENV +=	build_alias=\"\${ARCH}-unknown-openbsd6.3\"" $port/Makefile
-		fi
-	done	
-done
-
-for portdir in $portdirs
-do
-        for portpath in $SRC_DIR/$portdir/*
-        do
-                port=$(echo $portpath | sed 's^'"$SRC_DIR"'/^^')
-                if grep "CONFIGURE_STYLE=gnu" $portpath/Makefile > /dev/null
-                then
-                        lineadd ".include <bsd.port.mk>" "CONFIGURE_ENV +=      build_alias=\"\${ARCH}-unknown-openbsd6.3\"" $port/Makefile
-                fi
-        done
-done
-
-
-# for cmake
-# -----------------
-for portdir in $portdirs
-do
-        for portpath in $SRC_DIR/$portdir/*
-        do
-                port=$(echo $portpath | sed 's^'"$SRC_DIR"'/^^')
-                if grep "cmake" $portpath/Makefile > /dev/null
-                then
-                        lineadd ".include <bsd.port.mk>" "CONFIGURE_ARGS +=      -DCMAKE_SYSTEM_NAME=OpenBSD" $port/Makefile
-                fi
-        done
-done
-
-
-
-# Port-specific changes for build
-rep ".include <bsd.port.mk>" "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" lang/ghc/Makefile
-lineadd  "CONFIGURE_ENV +=        build_alias=\"\${ARCH}-unknown-openbsd\"" ".include <bsd.port.mk>" lang/ghc/Makefile
-lineadd "pre-configure:" "        @cp \${FILESDIR}/Platform/LibertyBSD.cmake \${WRKSRC}/Modules/Platform/LibertyBSD.cmake" devel/cmake/Makefile
-lineadd "\${WRKSRC}/config" "        @cp \${FILESDIR}/Makefile.openbsd ${WRKSRC}/config/Makefile.libertybsd" graphics/glew/Makefile
-dircp files/ports/files/cmake/Platform devel/cmake/files/Platform
-lineadd "pre-configure:" "        @cp \${FILESDIR}/platforms/LibertyBSD.cmake \${WRKSRC}/cmake/platforms/LibertyBSD.cmake" devel/llvm/Makefile
-dircp files/ports/files/llvm/ devel/llvm/files/
-rep "-no-ssse3 -no-sse3" "-no-ssse3 -no-sse3 -platform openbsd-g++" x11/qt5/qtbase/Makefile
-rep "--enable-shared" "--enable-shared --target-os=openbsd" graphics/ffmpeg/Makefile
-
-# *.mk edits
-rep "\${MACHINE-ARCH}-openbsd" "\${MACHINE-ARCH}-libertybsd" infrastructure/mk/perl.port.mk
-
-# Misc. infrastructure edits
-lineadd "*:OpenBSD:*:*)" "*:LibertyBSD:*:*)" infrastructure/db/config.guess
-lineadd "*:OpenBSD:*:*)" "        exit ;;" infrastructure/db/config.guess
-lineadd "*:OpenBSD:*:*)" "        echo \${UNAME_MACHINE_ARCH}-unknown-openbsd\${UNAME_RELEASE}" infrastructure/db/config.guess
-lineadd "*:OpenBSD:*:*)" "        UNAME_MACHINE_ARCH=\`arch | sed 's/^.*BSD\.//'\`" infrastructure/db/config.guess
-
-# Go through ports with additional patches for LBSD
-for category in files/ports/files/patches/*
-do
-	category_name="$(echo $category | sed 's^.*/^^')"
-	for port in $category
-	do
-		port_name="$(echo $port | sed 's^.*/^^')"
-		for patch in $port
-		do
-			patch_name="$(echo $patch | sed 's^.*/^^')"
-			filecp "files/ports/file/patches/$category_name/$port_name/$patch_name" "$category_name/$port_name/patches/$patch_name"
-		done
-	done
-done
-
-
-# Port-specific changes for rebranding
-rep "ftp.openbsd.org/pub/OpenBSD/snapshots/i386/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/i386/cd63.iso" emulators/qemu/pkg/README 
-rep "ftp.openbsd.org/pub/OpenBSD/snapshots/amd64/cd52.iso" "ftp.libertybsd.net/pub/LibertyBSD/snapshots/amd64/cd63.iso" emulators/qemu/pkg/README
-linedel "\$ ftp ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/sparc/cd52.iso" emulators/qemu/pkg/README
-rep "install52.fs" "install63.fs" emulators/qemu/pkg/README
-rep "install52.iso" "install63.iso" emulators/qemu/pkg/README
+rep	"ftp.openbsd.org/pub/OpenBSD/snapshots/i386/cd52.iso" \
+	"ftp.libertybsd.net/pub/LibertyBSD/snapshots/i386/cd64.iso" \
+	emulators/qemu/pkg/README 
+rep	"ftp.openbsd.org/pub/OpenBSD/snapshots/amd64/cd52.iso" \
+	"ftp.libertybsd.net/pub/LibertyBSD/snapshots/amd64/cd64.iso" \
+	emulators/qemu/pkg/README
+linedel "\$ ftp ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/sparc/cd52.iso" \
+	emulators/qemu/pkg/README
+rep "install52.fs" "install64.fs" emulators/qemu/pkg/README
+rep "install52.iso" "install64.iso" emulators/qemu/pkg/README
 rep "OpenBSD" "LibertyBSD" emulators/qemu/pkg/README
-rep "ftp.openbsd.org" "ftp.libertybsd.net" sysutils/ruby-puppet/4/patches/patch-lib_puppet_provider_package-openbsd_rb
-rep "on OpenBSD" "on LibertyBSD" sysutils/sysmon/pkg/README ; rep "openbsd.org" "libertybsd.net" sysutils/sysmon/pkg/README
+
+rep "ftp.openbsd.org" "ftp.libertybsd.net" \
+sysutils/ruby-puppet/4/patches/patch-lib_puppet_provider_package-openbsd_rb
+
+rep "on OpenBSD" "on LibertyBSD" sysutils/sysmon/pkg/README
+rep "openbsd.org" "libertybsd.net" sysutils/sysmon/pkg/README
+
 rep "=\"OpenBSD " "=\"LibertyBSD " multimedia/gstreamer-0.10/Makefile.inc
 rep "openbsd.org" "libertybsd.net" multimedia/gstreamer-0.10/Makefile.inc
-# @jimmybot for this :) ^^
+
 rep "www.openbsd.org" "libertybsd.net" www/lynx/patches/patch-lynx_cfg
 
 apply

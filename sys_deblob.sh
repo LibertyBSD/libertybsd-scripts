@@ -1,36 +1,25 @@
 #!/bin/sh
-
-#########################
-# Name: sys_deblob.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Delobbing OBSD kernel
-#       sources for use in
-#       LBSD.
-#########################
-
-# Usage: sys_deblob.sh $SRC_DIR
+########################################
+# name: sys_deblob.sh
+# main: jadedctrl
+# lisc: isc
+# desc: Delobbing obsd kernel sources
+#       for use in lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z "$1"; then
+	echo "usage: sys_deblob.sh kernel_sources"
+else
+	SRC_DIR="$1"
+fi
+
 PATCH_DIR=/tmp/sys_deblob
+mkdir "$PATCH_DIR" 2> /dev/null
 
 
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-	mkdir $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
-
-if test -z $1
-then
-	SRC_DIR=/usr/src/sys
-else
-	SRC_DIR=$1
-fi
-
+# --------------------------------------
 
 #arch_list="alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc miniroot octeon sgi socppc sparc sparc64 vax zaurus"
 arch_list="amd64 i386"
@@ -49,6 +38,7 @@ do
 	linedel "fxp" arch/${arch}/conf/GENERIC
 	linedel "myx" arch/${arch}/conf/GENERIC
 	linedel "bnx" arch/${arch}/conf/GENERIC
+	linedel "bnxt" arch/${arch}/conf/GENERIC
 	linedel "thtc" arch/${arch}/conf/GENERIC
 	linedel "ral\*" arch/${arch}/conf/GENERIC
 	linedel "yds" arch/${arch}/conf/GENERIC
@@ -63,6 +53,7 @@ do
 	linedel "adw\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "fxp\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "bnx\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "bnxt\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "ral\*" arch/${arch}/conf/RAMDISK_CD
 done
 

@@ -1,44 +1,36 @@
 #!/bin/sh
-
-#########################
-# Name: man_deblob.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Delobbing OBSD man
-#       pages for use in
-#       LBSD.
-#########################
-
-# Usage: man_deblob.sh $SRC_DIR
+########################################
+# name: man_deblob.sh
+# main: jadedctrl
+# lisc: isc
+# desc: delobbing obsd man pages for
+#	use in lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z $1; then
+	echo "usage: man_deblob.sh src_dir"
+	exit 2
+else
+	SRC_DIR="$1"
+fi
+
 PATCH_DIR=/tmp/man_deblob
+mkdir "$PATCH_DIR" 2> /dev/null
 
 
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-	mkdir $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
+# --------------------------------------
 
-if test -z $1
-then
-	SRC_DIR=/usr/src
-else
-	SRC_DIR=$1
-fi
+firmwares="acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm iwn kue"
+firmwares="$firmwares malo myx neo otus pgt ral radeondrm rsu rtwn rum siop"
+firmwares="$firmwares tht thtc ti uath udl ulpt upgt urtwn uvideo wpi yds zyd"
 
-# man4
-set -A fw_list acx adw adv athn bnx bwi drm fxp inteldrm ips ipw iwi iwm \
-       iwn kue malo myx neo otus pgt ral radeondrm rsu rtwn rum siop tht \
-       thtc ti uath udl ulpt upgt urtwn uvideo wpi yds zyd
-for man_blob in "${fw_list[@]}"
-do
+for firmware in $firmwares; do
 	strdel "\<${man_blob}.4\>" share/man/man4/Makefile
 	linedel "\<${man_blob}.4\>" distrib/sets/lists/man/mi
 done
+
+# --------------------------------------
 
 linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi

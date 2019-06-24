@@ -1,37 +1,33 @@
 #!/bin/sh
-
-#########################
-# Name: xenocara_rebrand.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Rebranding xenocara
-#       sources for use in
-#       LBSD.
-#########################
-
-PATCH_DIR=/tmp/xenocara_rebrand
-
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
-
-if test -z $1
-then
-	SRC_DIR=/usr/xenocara
-else
-	SRC_DIR=$1
-fi
+########################################
+# name: xenocara_rebrand.sh
+# main: jadedctrl
+# lisc: isc
+# desc: rebranding xenocara sources for
+#	use in lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z $1; then
+	echo "usage: xenocara_rebrand.sh xenocara_sources"
+	exit 2
+else
+	SRC_DIR="$1"
+fi
 
-rep "OpenBSD __osrelease__" "LibertyBSD __osrelease__" app/fvwm/sample.fvwmrc/system.fvwmrc
+PATCH_DIR=/tmp/xenocara_rebrand
+mkdir "$PATCH_DIR" 2> /dev/null
+
+
+# --------------------------------------
+
+rep "OpenBSD __osrelease__" "LibertyBSD __osrelease__" \
+	app/fvwm/sample.fvwmrc/system.fvwmrc
 rep "Geometry 80x60" "Geometry 90x65" app/fvwm/sample.fvwmrc/system.fvwmrc
 
-filecp files/pixmaps/LibertyBSD_15bpp.xpm app/xenodm/config/LibertyBSD_15bpp.xpm
+filecp files/pixmaps/LibertyBSD_15bpp.xpm \
+	app/xenodm/config/LibertyBSD_15bpp.xpm
 filecp files/pixmaps/LibertyBSD_1bpp.xpm app/xenodm/config/LibertyBSD_1bpp.xpm
 filecp files/pixmaps/LibertyBSD_4bpp.xpm app/xenodm/config/LibertyBSD_4bpp.xpm
 filecp files/pixmaps/LibertyBSD_8bpp.xpm app/xenodm/config/LibertyBSD_8bpp.xpm

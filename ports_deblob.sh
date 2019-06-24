@@ -1,93 +1,95 @@
-#!/bin/ksh
-
-#########################
-# Name: ports_deblob.sh
-# Main: jadedctrl
-# Lisc: ISC
-# Desc: Delobbing OBSD ports
-#       tree for use with
-#       LBSD.
-#########################
-
-# Usage: ports_deblob.sh
+#!/bin/sh
+########################################
+# name: ports_deblob.sh
+# main: jadedctrl
+# lisc: isc
+# desc: delobbing obsd ports tree for
+#	use with lbsd.
+########################################
 
 . ./libdeblob.sh
 
+if test -z "$1"; then
+	echo "usage: ports_deblob.sh ports_dir"
+	exit 2
+else
+	SRC_DIR="$1"
+fi
+
 PATCH_DIR=/tmp/ports_deblob/
+mkdir "$PATCH_DIR" 2>/dev/null
 
-if [ -e $PATCH_DIR ]
-then
-	self_destruct_sequence $PATCH_DIR
-	mkdir $PATCH_DIR
-else
-	mkdir $PATCH_DIR
-fi
 
-if test -z $1
-then
-	SRC_DIR=/usr/ports/
-else
-	SRC_DIR=$1
-fi
+# --------------------------------------
 
-portdirs="archivers astro audio biology books cad chinese comms converters databases devel"
-portdirs="$portdirs editors education emulators fonts games geo graphics inputmethods" 
-portdirs="$portdirs japanese java korean lang mail math meta misc multimedia net news plan9"
-portdirs="$portdirs print productivity security shells sysutils telephony textproc www x11"
+portdirs="archivers astro audio biology books cad chinese comms converters"
+portdirs="$portdirs databases devel editors education emulators fonts games"
+portdirs="$portdirs geo graphics inputmethods japanese java korean lang mail"
+portdirs="$portdirs math meta misc multimedia net news plan9 print productivity"
+portdirs="$portdirs productivity security shells sysutils telephony textproc"
+portdirs="$portdirs www x11"
 
-for portdir in $portdirs
-do
-	for portpath in $SRC_DIR/$portdir/*
-	do
-		port=$(echo $portpath | sed 's^.*/^^g')
-		echo $port
-		if grep "^$port$" files/ports/blacklist > /dev/null
-		then
-			echo "Non-free $port to be deleted!"
-			filedel "$portdir/$port"
-		elif grep "^$port$" files/ports/whitelist > /dev/null
-		then
-			echo "OK" > /dev/null
-		else
-			inputdone=0
-			nfinput=''
-			while [ $inputdone -eq 0 ]
-			do
-				grep -B1 "PERMIT_PACKAGE_CDROM" $SRC_DIR/$portdir/$port/Makefile
-				echo "Is $port free or nonfree? (f/n)"
-				read nfinput
-				case $nfinput in
-					f)
-						echo "$port" >> files/ports/whitelist
-						inputdone=1
-						;;
-					n)
-						echo "$port" >> files/ports/blacklist
-						inputdone=1
-						;;
-				esac
-			done
-		fi
+# --------------------------------------
+
+for portdir in $portdirs; do
+	echo "========"
+	echo "$portdir"
+	echo "========"
+
+	for portpath in $SRC_DIR/$portdir/*; do
+		local port=$(echo $portpath | sed 's^.*/^^g')
+		printf "."
+
+		case "$(libre_status "$portdir/$port")" in
+			"nonfree")
+				echo
+				echo "Non-free $port, flagged for deletion."
+
+				dirdel "$portdir/$port"
+				;;
+			"libre")
+				;;
+			*)
+				port_lisc_preview $portdir/$port
+				yn_prompt "Is $port (f)ree or (n)on-free?" \
+					'f' 'n'
+				local status="$?"
+				if test "$status" -eq 1; then
+					add_nonfree_port "$portdir/$port"
+
+					echo
+					echo "$port flagged for deletion."
+
+					dirdel "$portdir/$port"
+				elif test "$status" -eq 0; then
+					add_libre_port "$portdir/$port"
+				fi
+				;;
+		esac
 	done
+	echo
 done
 
-for port in $(cat files/ports/blacklist)
-do
-	linedel "/$port " INDEX
+# --------------------------------------
+# INDEX mucking
+
+# you'll notice that this is the only part of these scripts
+# (other than libdeblob, obviously) that actually directly
+# modifies both a file in SRC_DIR and PATCH_DIR.
+# that's just because INDEX is way too big to be parseable
+# through libdeblob functions.
+# this isn't cool...
+
+cp "$SRC_DIR/INDEX" "$PATCH_DIR/ADD_INDEX"
+rm "$SRC_DIR/INDEX"
+
+for port in $(cat files/ports/blacklist); do
+	grep -v "$port" "$PATCH_DIR/ADD_INDEX" > "$PATCH_DIR/ADD_INDEX.temp"
+	mv "$PATCH_DIR/ADD_INDEX.temp" "$PATCH_DIR/ADD_INDEX"
 done
 
-#for port in $(cat files/ports/whitelist)
-#do
-#	if grep "^$port-" $PATCH_DIR/INDEX || grep "/$port||" $PATCH_DIR/INDEX
-#	then
-#		echo "OK" > /dev/null
-#	else
-#		echo "$port" >> files/ports/blacklist
-#		linedel "/$port " INDEX
-#		echo "$port has a non-free depedency-- it has been added to the blacklist."
-#		echo "You'll have to re-run this script in order to apply this change."
-#		sleep 2
-#	fi
-#done
+rm "$PATCH_DIR/ADD_INDEX.temp"
+
+# --------------------------------------
 
 apply
