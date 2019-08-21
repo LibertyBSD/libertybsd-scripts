@@ -12,18 +12,25 @@
 # --------------------------------------
 # generic
 
+# STRING --> NIL
+# A more reliable & portable 'echo'.
+# GNU echo will print '\n' verbatim; but BSD might
+# print a newline. That's literally program-breaking...
+# This gets around that-- '\n' is always verbatim.
+function necho {
+	echo "\$string = \$ENV{'string'}; print \"\$string\\\n\";" \
+	| string="$1" perl
+}
+
+
+
 # NIL --> STRING
 # read from stdin until eof hit; return all input
 # good for writing functions that take piped info
 function reade {
-	read input
-        local stack="$input"
-
-        while read input; do
-                stack="$(printf '%s\n%s' "$stack" "$input")"
-        done
-
-        echo "$stack"
+	while IFS= read -r line; do
+		necho "$line";
+	done
 }
 
 # STRING NUMBER --> NIL
@@ -74,8 +81,8 @@ function space {
 
 # |STRING PATH NUMBER --> NIL
 # Send string to a patch-file, and make a patch for the change.
-# Pass the (source-dir) file path, and 0 or 1.
-# "0" as second argument means "append" to file, "1" to "overwrite"
+# Pass the (source-dir) file path, and 1 or 2.
+# "1" as second argument means "append" to file, "2" to "overwrite"
 # Pipe text to this function, and it'll go to the old patch-file,
 # or a new one will be created automatically.
 function ofile {
@@ -100,8 +107,8 @@ function ofile {
 	fi
 
 	case "$overwrite" in
-		"1")	echo "$text" >> "$target" ;;
-		"2")	echo "$text" > "$target" ;;
+		"1")	necho "$text" >> "$target" ;;
+		"2")	necho "$text" > "$target" ;;
 	esac
 
 	# we can't have patches for ADD_'ed files
@@ -195,8 +202,8 @@ function lineadd {
 
 	# ideally we could use `rep`, but that can't take newlines
 	ifile "$file" \
-	| sed 's/'"$oldline"'/'"${oldline}"'\
-'"${newline}"'/' \
+	| sed 's^'"$oldline"'^'"${oldline}"'\
+'"${newline}"'^' \
 	| ofile "$file" 2
 }
 

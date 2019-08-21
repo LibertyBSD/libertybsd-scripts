@@ -66,6 +66,7 @@ done
 
 linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" distrib/sets/lists/base/mi
 linedel "./usr/sbin/fw_update" distrib/sets/lists/base/mi
+
 linedel "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 rep "pkg_add fw_update" "pkg_add pkg_sign" usr.sbin/pkg_add/Makefile
 strdel "fw_update.1" usr.sbin/pkg_add/Makefile

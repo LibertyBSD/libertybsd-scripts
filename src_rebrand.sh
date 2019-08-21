@@ -24,9 +24,9 @@ mkdir "$PATCH_DIR" 2> /dev/null
 
 arch_list="amd64 i386"
 
-rep "export OBSD=\"OpenBSD/\$ARCH \$VNAME\"" \
-	"export OBSD=\"LibertyBSD/\$ARCH \$VNAME\"" \
-	distrib/miniroot/dot.profile
+rep "export OBSD=\"OpenBSD/\$ARCH \$VNAME\""    \
+    "export OBSD=\"LibertyBSD/\$ARCH \$VNAME\"" \
+    distrib/miniroot/dot.profile
 
 # --------------------------------------
 
@@ -35,17 +35,18 @@ iso_list="amd64 i386"
 
 for arch in $iso_list; do
 	rep "OpenBSD \${OSREV} ${arch} Install CD" \
-	"LibertyBSD \${OSREV} ${arch} Install CD" distrib/$arch/iso/Makefile
+	    "LibertyBSD \${OSREV} ${arch} Install" \
+	    distrib/$arch/iso/Makefile
 	rep "Copyright (c) `date +%Y` Theo de Raadt, The OpenBSD project" \
-	"Copyright (c) `date +%Y` OpenBSD and LibertyBSD projects" \
-	distrib/$arch/iso/Makefile
+	    "Copyright (c) `date +%Y` -OpenBSD- and LibertyBSD projects"  \
+	    distrib/$arch/iso/Makefile
 
 	rep "Theo de Raadt <deraadt@openbsd.org>" \
-	"Riley Baird <riley@openmailbox.org>" \
-	distrib/$arch/iso/Makefile
+	    "Jaidyn Ajn <jadedctrl@teknik.io>"    \
+	    distrib/$arch/iso/Makefile
 	rep "OpenBSD/\${MACHINE}   \${OSREV} Install CD" \
-	"LibertyBSD/\${MACHINE} \${OSREV} Install CD" \
-	distrib/$arch/iso/Makefile
+	    "LibertyBSD/\${MACHINE} \${OSREV} Install"   \
+	    distrib/$arch/iso/Makefile
 done
 
 # --------------------------------------
@@ -54,31 +55,32 @@ done
 cdfs_list="amd64 i386"
 for arch in $(echo $cdfs_list);	do
 	rep "OpenBSD \${OSREV} ${arch} bootonly CD" \
-	"LibertyBSD \${OSREV} ${arch} bootonly CD" distrib/$arch/cdfs/Makefile
+	    "LibertyBSD \${OSREV} ${arch} bootonly" \
+	    distrib/$arch/cdfs/Makefile
 	rep "Copyright (c) `date +%Y` Theo de Raadt, The OpenBSD project" \
-	"Copyright (c) `date +%Y` The *OpenBSD* and LibertyBSD projects" \
-	distrib/$arch/cdfs/Makefile
-	rep "Theo de Raadt <deraadt@openbsd.org>"\
-	"Riley Baird <riley@openmailbox.org>" distrib/$arch/cdfs/Makefile
+	    "Copyright (c) `date +%Y` -OpenBSD- and LibertyBSD projects"  \
+	    distrib/$arch/cdfs/Makefile
+	rep "Theo de Raadt <deraadt@openbsd.org>" \
+	    "Jaidyn Ajn <jadedctrl@teknik.io>"    \
+	    distrib/$arch/cdfs/Makefile
 	rep "OpenBSD/${arch}   \${OSREV} boot-only CD" \
-	"LibertyBSD/${arch} \${OSREV} boot CD" distrib/$arch/cdfs/Makefile
+	    "LibertyBSD/${arch} \${OSREV} boot-only"   \
+	    distrib/$arch/cdfs/Makefile
 done
-echo
 
 # --------------------------------------
 
 for arch in $(echo $arch_list); do
-#	rep "${arch}-openbsd" "${arch}-libertybsd" \
-#	distrib/sets/lists/base/md.$arch
 	rep "You will not be able to boot OpenBSD from \${1}." \
-	"You will not be able to boot LibertyBSD from \${1}." \
-	distrib/$arch/common/install.md
+	    "You will not be able to boot LibertyBSD from \${1}." \
+	    distrib/$arch/common/install.md
 done
 
 
 rep "#define DMESG_START \"OpenBSD \"" \
-	"#define DMESG_START \"LibertyBSD \"" usr.bin/sendbug/sendbug.c
-rep "bugs@openbsd.org" "bugs@libertybsd.net" usr.bin/sendbug/sendbug.c
+    "#define DMESG_START \"LibertyBSD \"" \
+    usr.bin/sendbug/sendbug.c
+rep "bugs@openbsd.org" "jadedctrl@teknik.io" usr.bin/sendbug/sendbug.c
 
 rep	"sysctl -n kern.version | sed 1q >" \
 	"sysctl -n kern.version | sed 1q | sed 's/OpenBSD/LibertyBSD/' >" \
