@@ -64,6 +64,21 @@ done
 
 # --------------------------------------
 
+rep "\^OpenBSD " "\^LibertyBSD " usr.sbin/syspatch/syspatch.sh
+rep "openbsd-" "libertybsd-" usr.sbin/syspatch/syspatch.sh
+rep "MIRROR=https://cdn.openbsd.org/pub/OpenBSD" \
+	"MIRROR=https://ftp.libertybsd.net/pub/LibertyBSD" \
+	usr.sbin/syspatch/syspatch.sh
+
+rep "\^OpenBSD " "\^LibertyBSD " usr.sbin/sysupgrade/sysupgrade.sh
+rep "openbsd-" "libertybsd-" usr.sbin/sysupgrade/sysupgrade.sh
+rep "MIRROR=https://cdn.openbsd.org/pub/OpenBSD" \
+	"MIRROR=https://ftp.libertybsd.net/pub/LibertyBSD" \
+	usr.sbin/sysupgrade/sysupgrade.sh
+
+
+# --------------------------------------
+
 linedel "./usr/libdata/perl5/OpenBSD/FwUpdate.pm" distrib/sets/lists/base/mi
 linedel "./usr/sbin/fw_update" distrib/sets/lists/base/mi
 

@@ -1,99 +1,70 @@
-2c2
-< #	$OpenBSD: install.sub,v 1.1113 2019/04/02 08:51:49 deraadt Exp $
----
-> #     $OpenBSD: install.sub,v 1.1066 2018/03/15 17:43:54 anton Exp $
 57c57
 < # OpenBSD install/upgrade script common subroutines and initialization code
 ---
 > # LibertyBSD install/upgrade script common subroutines and initialization code
-74,75c74,75
-< # Wait for the ftp(1) process started in start_cgiinfo() to end and extract
+75c75
 < # various informations from the ftplist.cgi output.
 ---
-> # Wait for the ftp process to finish, or be killed after the timeout and
-> # extract various informations from the ftplist.cgi output.
-80d79
-< 
-84c83
-< 	# Extract the list of mirror servers.
----
-> 	# Extract the list of mirror servers from the ftplist.cgi output.
-182,183c181
-< # Show a list of ordered arguments (read line by line from stdin) in column
-< # output using ls.
----
-> # Show a list (passed via ordered arguments) in column output using ls.
-268c266
+> # various informations from the mirror list output.
+268c268
 < 	dmesg | sed -n 'H;/^OpenBSD/h;${g;p;}'
 ---
 > 	dmesg | sed -n 'H;/^LibertyBSD/h;${g;p;}'
-1590c1588
+1597c1597
 < 			PUB_KEY=/mnt/etc/signify/openbsd-$((VERSION + 1))-base.pub
 ---
 > 			PUB_KEY=/mnt/etc/signify/libertybsd-$((VERSION + 1))-base.pub
-1715c1713
+1746c1746
 < 		echo "(Unable to get list from ftp.openbsd.org, but that is OK)"
 ---
 > 		echo "(Unable to get list from ftp.libertybsd.net, but that is OK)"
-1796c1794
+1827c1827
 < 		_d=pub/OpenBSD/$HTTP_SETDIR
 ---
 > 		_d=pub/LibertyBSD/$HTTP_SETDIR
-2435c2433,2434
+2467c2467,2468
 < 	add_hostent 129.128.5.191 ftp.openbsd.org
 ---
-> 	add_hostent 47,186,116,162 libertybsd.net
-> 	add_hostent 47,186,116,162 ftp.libertybsd.net
-2441c2440
+> 	add_hostent 47.186.116.162 libertybsd.net
+> 	add_hostent 47.186.116.162 ftp.libertybsd.net
+2473c2474
 < 			"$HTTP_PROTO://ftp.openbsd.org/cgi-bin/ftplist.cgi?dbversion=1" \
 ---
-> 			"$HTTP_PROTO://ftp.libertybsd.net/mirrors.txt" \
-2726c2725,2726
+> 			"$HTTP_PROTO://ftp.libertybsd.net/pub/mirrors.txt" \
+2758c2759
 < 		echo "${INSTALL_URL:-https://cdn.openbsd.org/pub/OpenBSD}" \
 ---
-> 		echo \
-> 		"${INSTALL_URL:-https://ftp.libertybsd.net/pub/LibertyBSD}" \
-2794,2814d2793
+> 		echo "${INSTALL_URL:-https://ftp.libertybsd.net/pub/LibertyBSD}" \
+2822c2823
+< 	# If a proxy was needed to fetch the sets, use it for fw_update and syspatch
+---
+> 	# If a proxy was needed to fetch the sets, use it for syspatch
+2826,2828d2826
 < 	# Ensure that fw_update is run on reboot.
 < 	echo "/usr/sbin/fw_update -v" >>/mnt/etc/rc.firsttime
 < 
-< 	# Run syspatch -c on reboot if the arch is supported and if it is a
-< 	# release system (not -stable or -current). List uninstalled syspatches
-< 	# on the console and in the rc.firsttime output mail.
-< 	isin "$ARCH" $_syspatch_archs && cat <<__EOT >>/mnt/etc/rc.firsttime
-< set -A _KERNV -- \$(sysctl -n kern.version |
-< 	sed 's/^OpenBSD \([0-9]\.[0-9]\)\([^ ]*\).*/\1 \2/;q')
-< if ((\${#_KERNV[*]} == 1)) && [[ -s /etc/installurl ]] &&
-< 	_CKPATCH=\$(mktemp /tmp/_ckpatch.XXXXXXXXXX); then
-< 	echo "Checking for available binary patches..."
-< 	syspatch -c > \$_CKPATCH
-< 	if [[ -s \$_CKPATCH ]]; then
-< 		echo "Run syspatch(8) to install:"
-< 		column -xc 80 \$_CKPATCH
-< 	fi
-< 	rm -f \$_CKPATCH
-< fi
-< __EOT
-< 
-2831c2810
+2863c2861
 < CONGRATULATIONS! Your OpenBSD $MODE has been successfully completed!
 ---
 > CONGRATULATIONS! Your LibertyBSD $MODE has been successfully completed!
-3044c3023
+3065,3066d3062
+< 	# If we managed to talk to the cgi server before, tell it what
+< 	# location we used... so it can perform magic next time.
+3073c3069
 < 			"$HTTP_PROTO://ftp.openbsd.org/cgi-bin/ftpinstall.cgi?dbversion=1&$_i" \
 ---
-> 			"$HTTP_PROTO://ftp.libertybsd.net/mirrors.txt" \
-3074,3075c3053,3054
+> 			"$HTTP_PROTO://ftp.libertybsd.net/pub/mirrors.txt" \
+3103,3104c3099,3100
 < 		# Remove the entry for ftp.openbsd.org
 < 		sed -i '/^129\.128\.5\.191 /d' /tmp/i/hosts
 ---
-> 		# Remove the entry for *.libertybsd.net
+> 		# Remove the entry for *libertybsd.net
 > 		sed -i '/^47\.186\.116\.162 /d' /tmp/i/hosts
-3284c3263
+3363c3359
 < PUB_KEY=/etc/signify/openbsd-${VERSION}-base.pub
 ---
 > PUB_KEY=/etc/signify/libertybsd-${VERSION}-base.pub
-3299c3278
+3378c3374
 < set -- $(scan_dmesg "/^OpenBSD $VNAME\([^ ]*\).*$/s//\1/p")
 ---
 > set -- $(scan_dmesg "/^LibertyBSD $VNAME\([^ ]*\).*$/s//\1/p")

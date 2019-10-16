@@ -42,7 +42,7 @@ for arch in $iso_list; do
 	    distrib/$arch/iso/Makefile
 
 	rep "Theo de Raadt <deraadt@openbsd.org>" \
-	    "Jaidyn Ajn <jadedctrl@teknik.io>"    \
+	    "Jaidyn Ann <jadedctrl@teknik.io>"    \
 	    distrib/$arch/iso/Makefile
 	rep "OpenBSD/\${MACHINE}   \${OSREV} Install CD" \
 	    "LibertyBSD/\${MACHINE} \${OSREV} Install"   \
@@ -61,7 +61,7 @@ for arch in $(echo $cdfs_list);	do
 	    "Copyright (c) `date +%Y` -OpenBSD- and LibertyBSD projects"  \
 	    distrib/$arch/cdfs/Makefile
 	rep "Theo de Raadt <deraadt@openbsd.org>" \
-	    "Jaidyn Ajn <jadedctrl@teknik.io>"    \
+	    "Jaidyn Ann <jadedctrl@teknik.io>"    \
 	    distrib/$arch/cdfs/Makefile
 	rep "OpenBSD/${arch}   \${OSREV} boot-only CD" \
 	    "LibertyBSD/${arch} \${OSREV} boot-only"   \
@@ -89,14 +89,6 @@ rep	"sysctl -n kern.version | sed 1q >" \
 rep "kerninfo.sysname" "\"LibertyBSD\"" libexec/getty/main.c
 
 # Adding LBSD keys
-filecp files/keys/libertybsd-61-base.pub etc/signify/libertybsd-61-base.pub
-filecp files/keys/libertybsd-61-pkg.pub etc/signify/libertybsd-61-pkg.pub
-filecp files/keys/libertybsd-61-syspatch.pub \
-	etc/signify/libertybsd-61-syspatch.pub
-filecp files/keys/libertybsd-62-base.pub etc/signify/libertybsd-62-base.pub
-filecp files/keys/libertybsd-62-pkg.pub etc/signify/libertybsd-62-pkg.pub
-filecp files/keys/libertybsd-62-syspatch.pub \
-	etc/signify/libertybsd-62-syspatch.pub
 filecp files/keys/libertybsd-63-base.pub etc/signify/libertybsd-63-base.pub
 filecp files/keys/libertybsd-63-pkg.pub etc/signify/libertybsd-63-pkg.pub
 filecp files/keys/libertybsd-63-syspatch.pub \
@@ -111,6 +103,14 @@ filecp files/keys/libertybsd-65-syspatch.pub \
 	etc/signify/libertybsd-65-syspatch.pub
 filecp files/keys/libertybsd-65-pkg.pub \
 	etc/signify/libertybsd-65-pkg.pub
+filecp files/keys/libertybsd-66-base.pub etc/signify/libertybsd-66-base.pub
+filecp files/keys/libertybsd-66-pkg.pub etc/signify/libertybsd-66-pkg.pub
+filecp files/keys/libertybsd-66-syspatch.pub \
+	etc/signify/libertybsd-66-syspatch.pub
+filecp files/keys/libertybsd-67-base.pub etc/signify/libertybsd-67-base.pub
+filecp files/keys/libertybsd-67-pkg.pub etc/signify/libertybsd-67-pkg.pub
+filecp files/keys/libertybsd-67-syspatch.pub \
+	etc/signify/libertybsd-67-syspatch.pub
 
 # --------------------------------------
 
