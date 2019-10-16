@@ -56,16 +56,16 @@ cdfs_list="amd64 i386"
 for arch in $(echo $cdfs_list);	do
 	rep "OpenBSD \${OSREV} ${arch} bootonly CD" \
 	    "LibertyBSD \${OSREV} ${arch} bootonly" \
-	    distrib/$arch/cdfs/Makefile
+	    distrib/$arch/ramdisk_cd/Makefile
 	rep "Copyright (c) `date +%Y` Theo de Raadt, The OpenBSD project" \
 	    "Copyright (c) `date +%Y` -OpenBSD- and LibertyBSD projects"  \
-	    distrib/$arch/cdfs/Makefile
+	    distrib/$arch/ramdisk_cd/Makefile
 	rep "Theo de Raadt <deraadt@openbsd.org>" \
 	    "Jaidyn Ann <jadedctrl@teknik.io>"    \
-	    distrib/$arch/cdfs/Makefile
+	    distrib/$arch/ramdisk_cd/Makefile
 	rep "OpenBSD/${arch}   \${OSREV} boot-only CD" \
 	    "LibertyBSD/${arch} \${OSREV} boot-only"   \
-	    distrib/$arch/cdfs/Makefile
+	    distrib/$arch/ramdisk_cd/Makefile
 done
 
 # --------------------------------------
@@ -97,12 +97,6 @@ filecp files/keys/libertybsd-64-base.pub etc/signify/libertybsd-64-base.pub
 filecp files/keys/libertybsd-64-pkg.pub etc/signify/libertybsd-64-pkg.pub
 filecp files/keys/libertybsd-64-syspatch.pub \
 	etc/signify/libertybsd-64-syspatch.pub
-filecp files/keys/libertybsd-65-base.pub \
-	etc/signify/libertybsd-65-base.pub
-filecp files/keys/libertybsd-65-syspatch.pub \
-	etc/signify/libertybsd-65-syspatch.pub
-filecp files/keys/libertybsd-65-pkg.pub \
-	etc/signify/libertybsd-65-pkg.pub
 filecp files/keys/libertybsd-66-base.pub etc/signify/libertybsd-66-base.pub
 filecp files/keys/libertybsd-66-pkg.pub etc/signify/libertybsd-66-pkg.pub
 filecp files/keys/libertybsd-66-syspatch.pub \

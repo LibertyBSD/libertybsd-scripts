@@ -42,8 +42,8 @@ blobs="$blobs zd1211-license zd1211b"
 
 for arch in $arch_list; do
 	for blob in $blobs; do
-		linedel "\${DESTDIR}/etc/firmware/${firmware}" \
-			"distrib/${arch}/ramdisk_cd/list.local"
+		linedel "/etc/firmware/${firmware}" \
+			"distrib/${arch}/ramdisk_cd/list"
 		linedel "./etc/firmware/$blob" \
 			"distrib/sets/lists/base/md.${arch}"
 	done
