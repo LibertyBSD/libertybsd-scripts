@@ -1,0 +1,91 @@
+18c18
+< .Nd building an OpenBSD release
+---
+> .Nd building a LibertyBSD release
+24c24
+< Update sources.
+---
+> Fetch sources.
+49,51d48
+< See
+< .Lk https://www.openbsd.org/faq/current.html
+< for any needed workarounds.
+64,82c61,65
+< .Ss 1. Update sources
+< A
+< .Nm
+< should use sources that were checked out using the same
+< .Xr cvs 1
+< tag.
+< There are two families of tags:
+< .Bl -tag -width OPENBSD_x_y_BASE
+< .It OPENBSD_x_y_BASE
+< The sources for the
+< .Ox x.y
+< release.
+< .It OPENBSD_x_y
+< The sources for the
+< .Ox x.y
+< stable branch.
+< It contains the patches described in
+< .Lk https://www.openbsd.org/stable.html .
+< .El
+---
+> .Ss 1. Fetch sources
+> You can fetch sources from
+> .Lk https://ftp.libertybsd.net/pub/LibertyBSD/x.y/ ,
+> .Lk ftp://ftp.libertybsd.net/pub/LibertyBSD/x.y/ ,
+> or from a mirror.
+84,86c67,68
+< See
+< .Lk https://www.openbsd.org/anoncvs.html
+< for instructions on fetching the sources for the first time.
+---
+> You can find a list of mirrors at
+> .Lk https://libertybsd.net/download.shtml .
+88,94c70,90
+< To update existing sources to the versions identified by one of the above
+< tags, use the commands:
+< .Bd -literal -offset indent
+< $ cd /usr/src && cvs up -r TAG -Pd
+< $ cd /usr/xenocara && cvs up -r TAG -Pd
+< $ cd /usr/ports && cvs up -r TAG -Pd
+< .Ed
+---
+> The files you'll need are
+> .Pa src.tar.gz ,
+> .Pa sys.tar.gz ,
+> and
+> .Pa xenocara.tar.gz .
+> .Pp 
+> As for dealing with these tarballs:
+> .Bl -compact -offset indent
+> .It
+> .Pa src.tar.gz
+> should be extracted to
+> .Pa /usr/src
+> .It
+> .Pa sys.tar.gz
+> should be extracted to
+> .Pa /usr/src/sys
+> .It
+> .Pa xenocara.tar.gz
+> should be extracted to
+> .Pa /usr/xenocara
+> .El
+96,102d91
+< .Sy Warning :
+< .Xr cvs 1
+< tags are
+< .Sq sticky .
+< See
+< .Xr cvs 1
+< for more information.
+180c169
+< .Ox
+---
+> LibertyBSD
+244c233
+< .Ox
+---
+> LibertyBSD

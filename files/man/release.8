@@ -1,4 +1,4 @@
-.\"	$OpenBSD: release.8,v 1.93 2018/02/15 19:01:39 tb Exp $
+.\"	$OpenBSD: release.8,v 1.94 2018/06/23 23:19:11 rob Exp $
 .\"
 .\"	Copyright (c) 2000 Marco S. Hyman
 .\"	Copyright (c) 2016 Theo Buehler <tb@openbsd.org>
@@ -10,12 +10,12 @@
 .\"	LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
 .\"	FOR A PARTICULAR PURPOSE.
 .\"
-.Dd $Mdocdate: February 15 2018 $
+.Dd $Mdocdate: June 23 2018 $
 .Dt RELEASE 8
 .Os
 .Sh NAME
 .Nm release
-.Nd building an LibertyBSD release
+.Nd building a LibertyBSD release
 .Sh DESCRIPTION
 There are several steps necessary to build a release:
 .Pp
@@ -38,6 +38,15 @@ Make the third party packages.
 Create boot and installation disk images.
 .El
 .Pp
+This manual describes the steps for the
+.Em release
+and
+.Em stable
+branches.
+To build a
+.Em current
+release, additional steps may be required.
+.Pp
 Commands to be run as a user are preceded by a dollar sign
 .Sq $ .
 Commands that must be run as the superuser are preceded by a hash mark
@@ -50,7 +59,7 @@ Most of the defaults can be overridden by setting
 the appropriate variables in
 .Xr mk.conf 5 .
 .Ss 1. Fetch sources
-You can fetch sources from 
+You can fetch sources from
 .Lk https://ftp.libertybsd.net/pub/LibertyBSD/x.y/ ,
 .Lk ftp://ftp.libertybsd.net/pub/LibertyBSD/x.y/ ,
 or from a mirror.
@@ -63,7 +72,7 @@ The files you'll need are
 .Pa sys.tar.gz ,
 and
 .Pa xenocara.tar.gz .
-.Pp
+.Pp 
 As for dealing with these tarballs:
 .Bl -compact -offset indent
 .It
@@ -130,7 +139,7 @@ and
 # cd /dev && ./MAKEDEV all
 .Ed
 .Pp
-At this point, the base system is up to date and running the code
+At this point, the base system is up to date with the code
 that will be made into a release.
 .Ss 4. Make and validate the base system release
 The base system release consists of at least one generic kernel,
@@ -157,7 +166,7 @@ On this filesystem, create a
 .Va DESTDIR
 directory.
 This will be the root of a complete
-.Ox
+LibertyBSD
 installation.
 .Pp
 .Sy Warning :
@@ -221,7 +230,7 @@ The steps to build and validate the Xenocara release are:
 .Ed
 .Pp
 At this point,
-.Ox
+LibertyBSD
 base system and X Window System tarballs are in
 .Va RELEASEDIR .
 .Ss 7. Make the third party packages
