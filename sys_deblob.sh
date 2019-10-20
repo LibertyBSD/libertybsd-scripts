@@ -48,6 +48,7 @@ do
 	linedel "kue\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "rum\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "zyd\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "myx" arch/${arch}/conf/RAMDISK_CD
 	linedel "ips\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "siop\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "adw\*" arch/${arch}/conf/RAMDISK_CD
@@ -57,30 +58,30 @@ do
 	linedel "ral\*" arch/${arch}/conf/RAMDISK_CD
 done
 
-filedel "dev/microcode/adw"
-filedel dev/microcode/afb
-filedel dev/microcode/atmel
-filedel dev/microcode/bnx
-filedel dev/microcode/bwi
-filedel dev/microcode/cirruslogic
-filedel dev/microcode/cyclades
-filedel dev/microcode/esa
-filedel dev/microcode/fxp
-filedel dev/microcode/ises
-filedel dev/microcode/kue
-filedel dev/microcode/myx
-filedel dev/microcode/neomagic
-filedel dev/microcode/ral
-filedel dev/microcode/rum
-filedel dev/microcode/siop
-filedel dev/microcode/symbol
-filedel dev/microcode/tht
-filedel dev/microcode/tigon
-filedel dev/microcode/tusb3410
-filedel dev/microcode/typhoon
-filedel dev/microcode/udl
-filedel dev/microcode/yds
-filedel dev/microcode/zydas
+dirdel dev/microcode/adw
+dirdel dev/microcode/afb
+dirdel dev/microcode/atmel
+dirdel dev/microcode/bnx
+dirdel dev/microcode/bwi
+dirdel dev/microcode/cirruslogic
+dirdel dev/microcode/cyclades
+dirdel dev/microcode/esa
+dirdel dev/microcode/fxp
+dirdel dev/microcode/ises
+dirdel dev/microcode/kue
+dirdel dev/microcode/myx
+dirdel dev/microcode/neomagic
+dirdel dev/microcode/ral
+dirdel dev/microcode/rum
+dirdel dev/microcode/siop
+dirdel dev/microcode/symbol
+dirdel dev/microcode/tht
+dirdel dev/microcode/tigon
+dirdel dev/microcode/tusb3410
+dirdel dev/microcode/typhoon
+dirdel dev/microcode/udl
+dirdel dev/microcode/yds
+dirdel dev/microcode/zydas
 
 linedel "SUBDIR=" dev/microcode/Makefile
 linedel "symbol tigon tht" dev/microcode/Makefile

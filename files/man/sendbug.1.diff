@@ -1,0 +1,30 @@
+11c11
+< .Nd report a bug in OpenBSD
+---
+> .Nd report a bug in LibertyBSD
+19c19
+< bugs database.
+---
+> bugs e-mail address.
+48c48
+< the report is mailed to the bugs database,
+---
+> the report is mailed to the bugs inbox,
+50,51c50,51
+< Any follow up mail to the PR
+< should keep the same mail subject.
+---
+> After which it will be added to the official bug tracker,
+> and any developments will be forwarded to you.
+53,57d52
+< The status of bug reports can be followed by checking the
+< .Mt bugs@openbsd.org
+< mailing list archive available at
+< .Lk http://marc.info/?l=openbsd-bugs .
+< .Pp
+117,121d111
+< .Sh CAVEATS
+< The content of the PR is not confidential; it is sent out to a public
+< mailing list.
+< Sensitive, security related issues should be sent via email to
+< .Aq Mt security@OpenBSD.org .

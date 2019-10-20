@@ -89,22 +89,29 @@ rep	"sysctl -n kern.version | sed 1q >" \
 rep "kerninfo.sysname" "\"LibertyBSD\"" libexec/getty/main.c
 
 # Adding LBSD keys
-filecp files/keys/libertybsd-63-base.pub etc/signify/libertybsd-63-base.pub
-filecp files/keys/libertybsd-63-pkg.pub etc/signify/libertybsd-63-pkg.pub
-filecp files/keys/libertybsd-63-syspatch.pub \
-	etc/signify/libertybsd-63-syspatch.pub
-filecp files/keys/libertybsd-64-base.pub etc/signify/libertybsd-64-base.pub
-filecp files/keys/libertybsd-64-pkg.pub etc/signify/libertybsd-64-pkg.pub
-filecp files/keys/libertybsd-64-syspatch.pub \
-	etc/signify/libertybsd-64-syspatch.pub
-filecp files/keys/libertybsd-66-base.pub etc/signify/libertybsd-66-base.pub
-filecp files/keys/libertybsd-66-pkg.pub etc/signify/libertybsd-66-pkg.pub
-filecp files/keys/libertybsd-66-syspatch.pub \
-	etc/signify/libertybsd-66-syspatch.pub
-filecp files/keys/libertybsd-67-base.pub etc/signify/libertybsd-67-base.pub
-filecp files/keys/libertybsd-67-pkg.pub etc/signify/libertybsd-67-pkg.pub
-filecp files/keys/libertybsd-67-syspatch.pub \
-	etc/signify/libertybsd-67-syspatch.pub
+versions="64 65 66 67"
+local_key="files/keys/libertybsd-"
+lbsd_key="etc/signify/libertybsd-"
+
+for ver in $versions; do
+	filecp  ${local_key}${ver}-base.pub
+		${lbsd_key}${ver}-base.pub
+	filecp  ${local_key}${ver}-pkg.pub
+		${lbsd_key}${ver}-pkg.pub
+	filecp  ${local_key}${ver}-syspatch.pub
+		${lbsd_key}${ver}-syspatch.pub
+	filedel etc/signify/openbsd-${ver}-fw.pub
+done
+
+lbsd_key="./etc/signify/libertybsd-"
+m_path="distrib/sets/lists/base/mi"
+for ver in $versions; do
+	lineadd "openbsd-${ver}-base.pub" "${lbsd_key}${ver}-base.pub" $m_path
+	lineadd "openbsd-${ver}-pkg.pub" "${lbsd_key}${ver}-pkg.pub" $m_path
+	lineadd "openbsd-${ver}-syspatch.pub" \
+		"${lbsd_key}${ver}-syspatch.pub" $m_path
+	linedel "openbsd-${ver}-fw.pub" $m_path
+done
 
 # --------------------------------------
 
