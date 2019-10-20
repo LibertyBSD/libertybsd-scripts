@@ -75,6 +75,7 @@ done
 
 echo
 filecp files/man/release.8 share/man/man8/release.8
+filecp files/man/sendbug.1 share/man/man1/sendbug.1
 
 # Add Free Software-related man pages
 echo
