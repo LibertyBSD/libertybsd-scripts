@@ -6,7 +6,6 @@ Scripts used to deblob and rebrand OpenBSD source-code, made for the
 LibertyBSD project.
 
 
-
 ----------------------------------------
 SCRIPTS
 ----------------------------------------
@@ -33,8 +32,8 @@ There're five scripts here, so here's what they do:
 USAGE
 ----------------------------------------
 Usage of these scripts is pretty simple-- to make freshly deblobbed OBSD
-sources, just run them each with $1 being the directory of the corresponding
-source-code, like so:
+sources, just run them each with the argument being the directory of the
+corresponding source-code, like so:
 
 	sh src_deblob.sh /usr/src
 	sh man_deblob.sh /usr/src
@@ -53,39 +52,45 @@ NOTES
 All of the scripts make use of "./libdeblob.sh", and all file-editing/etc
 operations are abstracted to its functions.
 
-This is because, instead of actually applying changes directly to the source
-code of the given directory, the deblob scripts create a set of patches for
-the given directory, and, after every patch is created, the patches are
-finally applied to the given directory.
+This is because instead of actually applying changes directly to OBSD
+sources, the deblob scripts create a set of patches for them, and *then*
+apply them.
 
-The making of patches, etc, are abstacted to the functions "ifile" and "ofile".
-"ifile" outputs to stdout the file-- be it the patch-file, the original,
-whatever is appropriate. "ofile" writes to the patch-file what is piped to it,
-and handles the bullocks.
+You might want to perform multiple operations on a given file, (I.E.,
+substitute text, then remove a line, etc.). After every operation, a new
+(modified) version of the file is created in the /tmp/ directory, along with
+a patch. So if you want to do multiple operations, you'll need to decide
+whether or not to use the original source-code, or a modified version from
+/tmp/...
+
+This has been abstracted away with the "ifile" and "ofile" functions.
+"ifile" outputs to stdout the contents of the file-- be it the patch-file, the
+original, whatever is appropriate. "ofile" writes to the patch-file what is
+piped to it, and handles the bullocks.
 
 Hence why "ifile | operation | ofile" is so common in libdeblob.sh
 
 Each script uses a very clearly-named /tmp/ directory...
-	script-name.*/
+	/tmp/script-name/
 
-... where * is a random string of numbers.
 
-This *is* more indirect and cumbersome, but it has some nice advantages:
-	o Forced Abstraction:
-	  When operations *need* to be abstracted, they tend to become more
-	  standardized. This leads to easily grokable function-names (rather
-	  than potentially obscure command calls)
-	o Easy Debugging:
-	  Since all patches and their effects are stored in /tmp/ before
-	  being applied, one can easily SIGUP and investigate for any
-	  problems before the given directory is tainted. Or even if it
-	  already has been, it's still easy enough to compare patches, etc.
-	o Patch Generation:
-	  I mean, yeah, it makes patches. We know that. So for sure, if we
-	  want to distribute patches, that's nice. And they'll be distributed,
-	  not that it's clear they'll be useful to anyone. Hey, if it's easy
-	  to provide for some weird, obscure, barely-hypothetical use-case,
-	  why not?
+While it is a *tad* bit weird do all of this indirect work on the sources, it
+has a few advantages I'd like to stick with:
+	* Abstraction.
+		Operations are all very general and unspecific; you don't need
+		to manually muck with `sed` for every individual patch.
+	* Easy debugging.
+		If there's a problem, you can stop the script before it patches
+		original sources, and look at the /tmp/ data. Compare the
+		.orig with the .patch with the modified, etc. Very useful.
+	* Patch generation.
+		With patches being integral to the entire process, it makes all
+		changes made to OBSD source code very transparent. Anyone could
+		take a look at a tarball of the patches and understand *exactly*
+		what changed. 
+		There're probably some other obscure use-cases for these
+		patches, anyway. And if it's easy to support a weird
+		hypothetical use-case, why not?
 
 ... in order of importance.
 
@@ -95,12 +100,12 @@ This *is* more indirect and cumbersome, but it has some nice advantages:
 BORING STUFF
 ----------------------------------------
 Send patches/issues to:
-	o <jadedctrl@teknik.io>
-	o <#libertybsd> (Freenode)
-	o </f/libertybsd> (raddle.me)
+</f/libertybsd> (raddle.me)
+<#libertybsd> (Freenode)
+<jadedctrl@teknik.io>
 
 License is ISC (COPYING.txt)
 Author is Jaidyn Levesque <jadedctrl@teknik.io>
 Some ports contributions by jmfgdef (Jimmybot),
-some improvements by Einhard Leichtfuß.
+Some improvements by Einhard Leichtfuß.
 Source is at https://git.eunichx.us/libertybsd-scripts.git
