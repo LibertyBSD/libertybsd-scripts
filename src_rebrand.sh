@@ -89,16 +89,16 @@ rep	"sysctl -n kern.version | sed 1q >" \
 rep "kerninfo.sysname" "\"LibertyBSD\"" libexec/getty/main.c
 
 # Adding LBSD keys
-versions="64 65 66 67"
+versions="64 66 67"
 local_key="files/keys/libertybsd-"
 lbsd_key="etc/signify/libertybsd-"
 
 for ver in $versions; do
-	filecp  ${local_key}${ver}-base.pub
+	filecp  ${local_key}${ver}-base.pub \
 		${lbsd_key}${ver}-base.pub
-	filecp  ${local_key}${ver}-pkg.pub
+	filecp  ${local_key}${ver}-pkg.pub \
 		${lbsd_key}${ver}-pkg.pub
-	filecp  ${local_key}${ver}-syspatch.pub
+	filecp  ${local_key}${ver}-syspatch.pub \
 		${lbsd_key}${ver}-syspatch.pub
 	filedel etc/signify/openbsd-${ver}-fw.pub
 done
