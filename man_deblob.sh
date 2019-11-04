@@ -27,10 +27,15 @@ firmwares="$firmwares malo myx neo otus pgt ral radeondrm rsu rtwn rum siop"
 firmwares="$firmwares tht thtc ti uath udl ulpt upgt urtwn uvideo wpi yds zyd"
 
 for firmware in $firmwares; do
-	strdel "\<${man_blob}.4\>" share/man/man4/Makefile
-	linedel "\<${man_blob}.4\>" distrib/sets/lists/man/mi
+	strdel "\<${firmare}.4\>" share/man/man4/Makefile
+	linedel "\<${firmware}.4\>" distrib/sets/lists/man/mi
+	filedel share/man/man4/${firmware}.4
 done
 
 # --------------------------------------
 
 linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
+
+echo
+echo "Applying..."
+apply
