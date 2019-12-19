@@ -36,6 +36,7 @@ do
 	linedel "siop\*" arch/${arch}/conf/GENERIC
 	linedel "adw" arch/${arch}/conf/GENERIC
 	linedel "fxp" arch/${arch}/conf/GENERIC
+	linedel "isp" arch/${arch}/conf/GENERIC
 	linedel "myx" arch/${arch}/conf/GENERIC
 	linedel "bnx" arch/${arch}/conf/GENERIC
 	linedel "bnxt" arch/${arch}/conf/GENERIC
@@ -52,6 +53,7 @@ do
 	linedel "ips\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "siop\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "adw\*" arch/${arch}/conf/RAMDISK_CD
+	linedel "isp\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "fxp\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "bnx\*" arch/${arch}/conf/RAMDISK_CD
 	linedel "bnxt\*" arch/${arch}/conf/RAMDISK_CD
@@ -115,5 +117,10 @@ linedel "# Broadcom BCM570[68] gigabit ethernet" dev/pci/files.pci
 linedel "bnx" dev/pci/files.pci
 linedel "# Ralink RT2500 PCI/Mini-PCI" dev/pci/files.pci
 linedel "ral_pci" dev/pci/files.pci
+
+# ProAudio Spectrum (pasreg non-free)
+linedel "pas" dev/isa/files.isa
+filedel dev/isa/pasreg.h
+filedel dev/isa/pas.c
 
 apply

@@ -34,6 +34,11 @@ done
 
 # --------------------------------------
 
+linedel "AudioSpectrum" share/man/man4/isa.4
+linedel "pas 4" share/man/man4/isa.4
+
+# --------------------------------------
+
 linedel "./usr/share/man/man1/fw_update.1" distrib/sets/lists/man/mi
 
 echo
