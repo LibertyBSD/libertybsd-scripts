@@ -68,6 +68,7 @@ dirdel dev/microcode/cyclades
 dirdel dev/microcode/esa
 dirdel dev/microcode/fxp
 dirdel dev/microcode/ises
+dirdel dev/microcode/isp
 dirdel dev/microcode/kue
 dirdel dev/microcode/myx
 dirdel dev/microcode/neomagic
