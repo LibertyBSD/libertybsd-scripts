@@ -27,7 +27,7 @@ firmwares="$firmwares malo myx neo otus pgt ral radeondrm rsu rtwn rum siop"
 firmwares="$firmwares tht thtc ti uath udl ulpt upgt urtwn uvideo wpi yds zyd"
 
 for firmware in $firmwares; do
-	strdel "\<${firmare}.4\>" share/man/man4/Makefile
+	strdel "\<${firmware}.4\>" share/man/man4/Makefile
 	linedel "\<${firmware}.4\>" distrib/sets/lists/man/mi
 	filedel share/man/man4/${firmware}.4
 done
