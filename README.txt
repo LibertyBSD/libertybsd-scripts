@@ -3,7 +3,9 @@ LIBERTYBSD-SCRIPTS                                       For deblobbing OpenBSD
 ===============================================================================
 
 Scripts used to deblob and rebrand OpenBSD source-code, made for the
-LibertyBSD project.
+LibertyBSD project. You can get OBSD sources from your local mirror
+at https://www.openbsd.org/ftp.html, as the 'src', 'xenocara', or 'sys'
+tarballs. CVS can be used, as well.
 
 
 ----------------------------------------
@@ -103,9 +105,10 @@ Send patches/issues to:
 </f/libertybsd> (raddle.me)
 <#libertybsd> (Freenode)
 <jadedctrl@teknik.io>
+<LibertyBSD/libertybsd-scripts> (NotABug)
 
 License is ISC (COPYING.txt)
-Author is Jaidyn Levesque <jadedctrl@teknik.io>
+Author is Jaidyn Ann <jadedctrl@teknik.io>
 Some ports contributions by jmfgdef (Jimmybot),
 Some improvements by Einhard Leichtfuß.
-Source is at https://git.eunichx.us/libertybsd-scripts.git
+Source is at https://notabug.org/LibertyBSD/libertybsd-scripts
