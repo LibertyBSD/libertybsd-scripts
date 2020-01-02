@@ -123,4 +123,7 @@ linedel "pas" dev/isa/files.isa
 filedel dev/isa/pasreg.h
 filedel dev/isa/pas.c
 
+# Header-only, no license
+filedel lib/libkern/arch/arm/divsi3.S
+
 apply
